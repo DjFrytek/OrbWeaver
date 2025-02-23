@@ -22,7 +22,10 @@ class Renderer {
   }
 
   drawAll() {
-    if(physicsEngine.finished) return;
+    if(physicsEngine.finished) {
+      this.showTimer();
+      return;
+    }
     this.zoom = lerp(this.zoom, this.desiredZoom, this.zoomSpeed);
     push();
     translate(canvas.width / 2 - player.pos.x * this.zoom, canvas.height / 2 - player.pos.y * this.zoom);

@@ -43,6 +43,8 @@ window.startLevel = function(levelName = currentLevel) {
     document.getElementById("game-canvas").classList.remove("blurred");
     document.getElementById("win-overlay").style.display = "none";
   }
+
+  fetchReplays().then(replays => displayReplays(replays));
 }
 
 function loadLevel(levelName) {
@@ -70,7 +72,8 @@ function showFPS() {
 function levelFinished(finishTime, isScoreLegit) {
   if(isScoreLegit) {
     console.log("LEVEL FINISHED! TIME: " + finishTime);
-    lastReplay = createReplayObject(currentLevel, physicsEngine.getFinishTime(), getCurrentNickname(), player.inputReplay);
+    lastReplay = createReplayObject(currentLevel, physicsEngine.getFinishTime(), player.inputReplay);
+    saveReplayToServer(lastReplay);
   }
   else console.log("REPLAY FINISHED! TIME: " + finishTime);
   canvas.elt.classList.add("blurred");
@@ -139,8 +142,8 @@ function watchLastReplay() {
 }
 
 function watchReplay(replayObject) {
-  playbackReplay = replayObject.inputReplay;
-  window.startLevel(replayObject.levelName);
+  playbackReplay = replayObject.replayData;
+  window.startLevel(replayObject.levelId);
 }
 
 function toggleReplayRace() {
@@ -148,10 +151,82 @@ function toggleReplayRace() {
   window.startLevel();
 }
 
-function createReplayObject(levelName, finishTime, nickname, inputReplay) {
-  return {levelName, finishTime, nickname, inputReplay};
+function createReplayObject(levelName, finishTime, inputReplay) {
+  return {id: 1, levelId: levelName, finishTime: Math.floor(finishTime), playerId: 1, replayData: inputReplay, date:getCurrentDate()};
+}
+
+async function saveReplayToServer(replayObject) {
+  const url = 'http://localhost:3001/api/save-score';
+
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(replayObject)
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.text();
+    console.log('Replay saved:', data);
+  } catch (error) {
+    console.error('Failed to save replay:', error);
+  }
 }
 
 function getCurrentNickname() {
   return "GUEST";
+}
+
+function getCurrentDate() {
+  return Date.now();
+}
+
+async function fetchReplays() {
+  const url = 'http://localhost:3001/api/get-highscores?levelId=' + currentLevel;
+
+  try {
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Failed to fetch replays:', error);
+    return [];
+  }
+}
+
+function displayReplays(replays) {
+  const replayListDiv = document.getElementById('replay-list');
+  replayListDiv.innerHTML = '';
+
+  if (replays.length === 0) {
+    replayListDiv.textContent = 'No replays found.';
+    return;
+  }
+
+  const ul = document.createElement('ul');
+  replays.forEach(replay => {
+    const li = document.createElement('li');
+    li.textContent = `Level: ${replay.levelId}, Time: ${(replay.finishTime / 1000).toFixed(2)}s`;
+
+    const button = document.createElement('button');
+    button.textContent = 'Watch Replay';
+    button.onclick = function() {
+      watchReplay(replay);
+    };
+
+    li.appendChild(button);
+    ul.appendChild(li);
+  });
+
+  replayListDiv.appendChild(ul);
 }
