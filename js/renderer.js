@@ -105,7 +105,6 @@ class Renderer {
     if (physicsEngine.started) {
       push();
       stroke(3, 211, 252);
-      //let direction = createVector(mouseX - canvas.width / 2, mouseY - canvas.height / 2);
       let direction = player.getInput();
       let distance = direction.mag();
       distance = min(distance, this.player.maxSteeringDist);

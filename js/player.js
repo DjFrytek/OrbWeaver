@@ -24,6 +24,7 @@ class Player {
       let inp = this.inputReplay[i];
       let dir = createVector(inp.x, inp.y); 
       if(advancePlayback) this.playbackIndex++;
+      console.log(dir);
       return dir;
     }
 
@@ -37,7 +38,7 @@ class Player {
       direction.mult(str);      
     }
 
-    this.inputReplay.push({x: direction.x, y: direction.y});
+    if(advancePlayback) this.inputReplay.push({x: direction.x, y: direction.y});
     return direction;
   }
 
