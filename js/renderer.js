@@ -8,6 +8,7 @@ class Renderer {
     this.player = mainPlayer;
 
     this.colors = {
+      playerBall: color(0, 255, 0),
       bg: color(50),
       deathwall: color(250),
       finish: color(0, 255, 0, 100),
@@ -64,7 +65,7 @@ class Renderer {
     if (player.isColliding) {
       fill(255, 0, 0);
     } else {
-      fill(0, 255, 0);
+      fill(this.colors.playerBall);
     }
     ellipse(player.pos.x, player.pos.y, player.visualRadius * 2);
     pop();
