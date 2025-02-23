@@ -1,6 +1,6 @@
 const levelData = {
   objects: [
-    { x: 300, y: 80, r: 50, type: "finish"},
+    { x: 300, y: 80, r: 60, type: "finish"},
 
 
     { x: 200, y: 200, r: 80, type: "wall", strength: 0.4 },

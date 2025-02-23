@@ -52,7 +52,7 @@ class Renderer {
       } else if(obj.type == "finish") {
         fill(this.colors.finish);
         noStroke();
-        ellipse(obj.x, obj.y, obj.r);
+        ellipse(obj.x, obj.y, obj.r-10);
       }
       
     });
