@@ -84,7 +84,7 @@ class Renderer {
   }
 
   drawSteeringLine(player) {
-    if (mouseIsPressed && physicsEngine.started && isMouseInsideCanvas()) {
+    if (mouseIsPressed && physicsEngine.started && mouseHeldInsideCanvas) {
       push();
       stroke(3, 211, 252);
       let direction = createVector(mouseX - canvas.width / 2, mouseY - canvas.height / 2);

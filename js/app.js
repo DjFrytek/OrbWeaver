@@ -5,6 +5,8 @@ let level;
 let renderer;
 let zoomPersist = 1;
 
+let mouseHeldInsideCanvas = false;
+
 
 function setup() {
   canvas = createCanvas(600, 600);
@@ -76,5 +78,10 @@ function isMouseInsideCanvas() {
 function mousePressed() {
   if(isMouseInsideCanvas()) {
     physicsEngine.start();
+    mouseHeldInsideCanvas = true;
   }
+}
+
+function mouseReleased() {
+  mouseHeldInsideCanvas = false;
 }

@@ -41,7 +41,7 @@ class PhysicsEngine {
 
   updatePlayer(player) {
 
-    if (mouseIsPressed && isMouseInsideCanvas()) {
+    if (mouseIsPressed && mouseHeldInsideCanvas) {
       let direction = player.getInput();
 
       let distance = direction.mag();
