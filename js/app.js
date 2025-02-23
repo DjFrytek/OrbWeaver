@@ -10,23 +10,29 @@ function setup() {
   canvas = createCanvas(600, 600);
   canvas.parent('game-canvas');
   frameRate(60);
-  level = getLevelData();
+  loadLevel("level1");
 
   window.startLevel();
 }
 
 window.startLevel = function() {
-  player = new Player(levelData.player.startPosition.x, levelData.player.startPosition.y, levelData.player);
-  renderer = new Renderer(canvas, levelData, zoomPersist, player);
-  physicsEngine = new PhysicsEngine(60, levelData, player);
+  player = new Player(level.player.startPosition.x, level.player.startPosition.y, level.player);
+  renderer = new Renderer(canvas, level, zoomPersist, player);
+  physicsEngine = new PhysicsEngine(60, level, player);
 
+}
+
+function loadLevel(levelName) {
+  console.log("loading: " + levelName);
+  level = getLevelData(levelName);
+  window.startLevel();
 }
 
 function draw() {
   if (physicsEngine.update()) {
     
   }
-  renderer.drawAll(player, levelData.objects);
+  renderer.drawAll(player, level.objects);
   showFPS();
 }
 

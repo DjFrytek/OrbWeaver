@@ -1,4 +1,9 @@
-const levelData = {
+function getLevelData(levelName) {
+  if(levelName == "level1") return levelData1;
+  if(levelName == "level2") return levelData2;
+}
+
+const levelData1 = {
   objects: [
     { x: 300, y: 80, r: 60, type: "finish"},
 
@@ -51,6 +56,27 @@ const levelData = {
   }
 };
 
-function getLevelData() {
-  return levelData;
-}
+
+const levelData2 = {
+  objects: [
+    { x: 300, y: 80, r: 60, type: "finish"},
+
+
+    { x: 200, y: 200, r: 80, type: "wall", strength: 0.4 },
+    { x: 180, y: 140, r: 100, type: "wall", strength: 0.4 },
+
+    { x: 20, y: 390, r: 75, type: "wall", strength: 0.8 },
+
+    { x: 265, y: 60, r: 40, type: "wall", strength: 0.96 },
+    { x: 280, y: 130, r: 50, type: "wall", strength: 0.96 },
+    { x: 270, y: 90, r: 50, type: "deathwall"},
+
+
+
+  ],
+  player: {
+    drag: 0.96,
+    startPosition: { x: 40, y: 200 },
+    bounds: { width: 400, height: 400 }
+  }
+};
