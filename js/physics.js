@@ -120,4 +120,8 @@ class PhysicsEngine {
   getDistToPlayer(x, y) {
     return dist(x, y, this.player.pos.x, this.player.pos.y);
   }
+
+  getFinishTime() {
+    return this.elapsedTime;
+  }
 }

@@ -8,7 +8,9 @@ let zoomPersist = 1;
 let mouseHeldInsideCanvas = false;
 let currentLevel;
 
-let testPlaybackReplay;
+let lastReplay;
+
+let playbackReplay; //Input data to play
 let raceGhost = false;
 let ghost;
 
@@ -27,11 +29,11 @@ window.startLevel = function(levelName = currentLevel) {
   currentLevel = levelName;
   loadLevel(levelName);
   if(!raceGhost) {
-    player = new Player(level.player.startPosition.x, level.player.startPosition.y, level.player, testPlaybackReplay);
+    player = new Player(level.player.startPosition.x, level.player.startPosition.y, level.player, playbackReplay);
     ghost = undefined;
   } else {
     player = new Player(level.player.startPosition.x, level.player.startPosition.y, level.player);
-    ghost = new Player(level.player.startPosition.x, level.player.startPosition.y, level.player, testPlaybackReplay, true);
+    ghost = new Player(level.player.startPosition.x, level.player.startPosition.y, level.player, playbackReplay, true);
   }
   renderer = new Renderer(canvas, level, zoomPersist, player, ghost);
   physicsEngine = new PhysicsEngine(60, level, player, ghost);
@@ -66,7 +68,10 @@ function showFPS() {
 }
 
 function levelFinished(finishTime, isScoreLegit) {
-  if(isScoreLegit) console.log("LEVEL FINISHED! TIME: " + finishTime);
+  if(isScoreLegit) {
+    console.log("LEVEL FINISHED! TIME: " + finishTime);
+    lastReplay = createReplayObject(currentLevel, physicsEngine.getFinishTime(), getCurrentNickname(), player.inputReplay);
+  }
   else console.log("REPLAY FINISHED! TIME: " + finishTime);
   canvas.elt.classList.add("blurred");
   document.getElementById("game-canvas").classList.add("blurred");
@@ -93,12 +98,12 @@ function keyPressed() {
   }
 
   if (key === 'g' || key === 'G') {
-    if(testPlaybackReplay) toggleReplayRace();
+    if(playbackReplay) toggleReplayRace();
   }
 
   if (keyCode === ESCAPE) {
-    if(testPlaybackReplay) {
-      testPlaybackReplay = undefined;
+    if(playbackReplay) {
+      playbackReplay = undefined;
       raceGhost = false;
       window.startLevel();
     }
@@ -130,11 +135,23 @@ function resizeCanvasIfNeeded() {
 
 function watchLastReplay() {
   console.log("Watch last replay");
-  testPlaybackReplay = player.inputReplay;
-  window.startLevel();
+  watchReplay(lastReplay);
+}
+
+function watchReplay(replayObject) {
+  playbackReplay = replayObject.inputReplay;
+  window.startLevel(replayObject.levelName);
 }
 
 function toggleReplayRace() {
   raceGhost = !raceGhost;
   window.startLevel();
+}
+
+function createReplayObject(levelName, finishTime, nickname, inputReplay) {
+  return {levelName, finishTime, nickname, inputReplay};
+}
+
+function getCurrentNickname() {
+  return "GUEST";
 }
