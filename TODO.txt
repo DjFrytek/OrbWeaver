@@ -1,0 +1,16 @@
+DZIURY
+CHECKPOINTY
+Menu pauzy
+Poradnik
+Menu poziomow
+Ekran koncowy poziomu
+Medale
+Efekty dzwiekowe
+Personal rekord
+Logowanie
+Rankingi
+REPLAYE
+Custom kolorki
+Duszek replaya
+Particle za graczem
+Level editor
