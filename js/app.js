@@ -21,6 +21,7 @@ window.startLevel = function(levelName = currentLevel) {
   if (canvas && canvas.elt) {
     canvas.elt.classList.remove("blurred");
     document.getElementById("game-canvas").classList.remove("blurred");
+    document.getElementById("win-overlay").style.display = "none";
   }
   currentLevel = levelName;
   loadLevel(levelName);
@@ -56,7 +57,8 @@ function levelFinished(finishTime) {
   console.log("LEVEL FINISHED! TIME: " + finishTime);
   canvas.elt.classList.add("blurred");
   document.getElementById("game-canvas").classList.add("blurred");
-
+  document.getElementById("win-overlay").innerHTML = "Time:<br>" + (physicsEngine.elapsedTime / 1000).toFixed(2);
+  document.getElementById("win-overlay").style.display = "block";
 }
 
 function mouseWheel(event) {

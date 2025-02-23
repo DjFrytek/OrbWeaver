@@ -64,3 +64,15 @@ canvas.blurred {
     filter: blur(5px);
     transition: filter 0.3s ease-in;
 }
+
+#win-overlay {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 5em;
+    color: white;
+    z-index: 3;
+    user-select: none;
+}
