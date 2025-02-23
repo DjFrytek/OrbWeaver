@@ -1,5 +1,4 @@
 DZIURY
-CHECKPOINTY
 Menu pauzy
 Poradnik
 Menu poziomow

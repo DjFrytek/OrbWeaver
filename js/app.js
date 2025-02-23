@@ -14,10 +14,14 @@ function setup() {
   canvas.parent('game-canvas');
   frameRate(60);
 
-  window.startLevel("level2");
+  window.startLevel("level1");
 }
 
 window.startLevel = function(levelName = currentLevel) {
+  if (canvas && canvas.elt) {
+    canvas.elt.classList.remove("blurred");
+    document.getElementById("game-canvas").classList.remove("blurred");
+  }
   currentLevel = levelName;
   loadLevel(levelName);
   player = new Player(level.player.startPosition.x, level.player.startPosition.y, level.player);
@@ -50,7 +54,9 @@ function showFPS() {
 
 function levelFinished(finishTime) {
   console.log("LEVEL FINISHED! TIME: " + finishTime);
-  
+  canvas.elt.classList.add("blurred");
+  document.getElementById("game-canvas").classList.add("blurred");
+
 }
 
 function mouseWheel(event) {

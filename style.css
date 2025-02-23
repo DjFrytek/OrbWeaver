@@ -29,11 +29,38 @@ header {
 }
 
 #game-canvas {
+    position: relative;
     flex-grow: 1;
     width: 100%;
     height: 100%;
-    background-color: black;
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: black;
+}
+
+canvas {
+    z-index: 1;
+}
+
+#overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0); /* Przezroczysta czarna nakładka */
+    z-index: 2;
+    display: block; 
+    pointer-events: none; /* Nakładka nie blokuje interakcji z canvasem */
+}
+
+#game-canvas.blurred #overlay {
+    transition: background-color 0.5s ease-in; /* Płynne przyciemnienie */
+    background-color: rgba(0, 0, 0, 0.7); /* Przezroczysta czarna nakładka */
+}
+
+canvas.blurred {
+    filter: blur(5px);
+    transition: filter 0.3s ease-in;
 }
