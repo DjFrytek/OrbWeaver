@@ -6,18 +6,20 @@ let renderer;
 let zoomPersist = 1;
 
 let mouseHeldInsideCanvas = false;
+let currentLevel;
 
 
 function setup() {
   canvas = createCanvas(600, 600);
   canvas.parent('game-canvas');
   frameRate(60);
-  loadLevel("level1");
 
-  window.startLevel();
+  window.startLevel("level2");
 }
 
-window.startLevel = function() {
+window.startLevel = function(levelName = currentLevel) {
+  currentLevel = levelName;
+  loadLevel(levelName);
   player = new Player(level.player.startPosition.x, level.player.startPosition.y, level.player);
   renderer = new Renderer(canvas, level, zoomPersist, player);
   physicsEngine = new PhysicsEngine(60, level, player);
@@ -26,8 +28,7 @@ window.startLevel = function() {
 
 function loadLevel(levelName) {
   console.log("loading: " + levelName);
-  level = getLevelData(levelName);
-  window.startLevel();
+  level = JSON.parse(JSON.stringify(getLevelData(levelName)));
 }
 
 function draw() {

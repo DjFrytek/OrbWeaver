@@ -61,6 +61,10 @@ const levelData2 = {
   objects: [
     { x: 300, y: 80, r: 60, type: "finish"},
 
+    { x: 300, y: 200, r: 60, type: "checkpoint"},
+    { x: 300, y: 300, r: 60, type: "checkpoint"},
+    { x: 100, y: 300, r: 60, type: "checkpoint"},
+
 
     { x: 200, y: 200, r: 80, type: "wall", strength: 0.4 },
     { x: 180, y: 140, r: 100, type: "wall", strength: 0.4 },
@@ -78,5 +82,8 @@ const levelData2 = {
     drag: 0.96,
     startPosition: { x: 40, y: 200 },
     bounds: { width: 400, height: 400 }
+  },
+  settings: {
+    forceCheckpointOrder: true, 
   }
 };

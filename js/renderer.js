@@ -12,6 +12,7 @@ class Renderer {
       bg: color(50),
       deathwall: color(250),
       finish: color(0, 255, 0, 100),
+      checkpoint: color(183, 0, 255, 100),
     }
   }
 
@@ -22,7 +23,7 @@ class Renderer {
     scale(this.zoom);
     background(this.colors.bg);
 
-    this.drawLevel(this.level.objects);
+    this.drawLevel(this.level);
     this.drawLevelBounds(this.level);
     this.drawPlayerTrail(this.player);
     this.drawPlayer(this.player);
@@ -31,8 +32,19 @@ class Renderer {
     this.showTimer();
   }
 
-  drawLevel(levelObjects) {
+  drawLevel(level) {
+    let levelObjects = level.objects;
     push();
+
+    let nextCheckpoint;
+    for(let i = levelObjects.length-1; i >= 0; i--) {
+      let obj = levelObjects[i];
+      if(obj.type == "checkpoint" && !obj.collected) {
+        nextCheckpoint = obj;
+        break;
+      }
+    }
+
     // Draw level objects
     levelObjects.forEach(obj => {
       if(obj.type == "wall") {
@@ -48,6 +60,11 @@ class Renderer {
       } else if(obj.type == "hole") {
         
       } else if(obj.type == "checkpoint") {
+        if(!obj.collected && (!level.settings.forceCheckpointOrder || nextCheckpoint == obj)){
+          fill(this.colors.checkpoint);
+          noStroke();
+          ellipse(obj.x, obj.y, obj.r-10);
+          }
         
       } else if(obj.type == "finish") {
         fill(this.colors.finish);

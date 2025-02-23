@@ -68,8 +68,14 @@ class PhysicsEngine {
 
   checkWallCollisions(player) {
     let collision = {isColliding: false, slowdownFactor: 1}
+
+    let nextCheckpoint;
     for(let i = this.level.objects.length-1; i >= 0; i--) {
       let obj = this.level.objects[i];
+
+      if(obj.type == "checkpoint") {
+        if(!nextCheckpoint && !obj.collected) nextCheckpoint = obj;
+      }
 
       let distance = dist(player.pos.x, player.pos.y, obj.x, obj.y);
       if (distance < obj.r/2) {
@@ -81,11 +87,26 @@ class PhysicsEngine {
           player.die();
           break;
         } else if(obj.type == "finish") {
-          this.finished = true;
-          levelFinished(this.elapsedTime);
+          if(this.isCheckpointsCollected()) {
+            this.finished = true;
+            levelFinished(this.elapsedTime);
+          }
+        } else if(obj.type == "checkpoint") {
+          if(!this.level.settings.forceCheckpointOrder || nextCheckpoint == obj) obj.collected = true;
+
         }
       }
     }
     return collision;
+  }
+
+  isCheckpointsCollected() {
+    let objects = this.level.objects;
+    for(let obj of objects) {
+      if(obj.type == "checkpoint") {
+        if(!obj.collected) return false;
+      }
+    }
+    return true;
   }
 }
