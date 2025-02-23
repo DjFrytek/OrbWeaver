@@ -28,6 +28,7 @@ window.startLevel = function(levelName = currentLevel) {
   loadLevel(levelName);
   if(!raceGhost) {
     player = new Player(level.player.startPosition.x, level.player.startPosition.y, level.player, testPlaybackReplay);
+    ghost = undefined;
   } else {
     player = new Player(level.player.startPosition.x, level.player.startPosition.y, level.player);
     ghost = new Player(level.player.startPosition.x, level.player.startPosition.y, level.player, testPlaybackReplay, true);
@@ -69,7 +70,7 @@ function levelFinished(finishTime, isScoreLegit) {
   else console.log("REPLAY FINISHED! TIME: " + finishTime);
   canvas.elt.classList.add("blurred");
   document.getElementById("game-canvas").classList.add("blurred");
-  document.getElementById("win-overlay").innerHTML = "Time:<br>" + (physicsEngine.elapsedTime / 1000).toFixed(2);
+  document.getElementById("win-time").innerHTML = "Time: " + (physicsEngine.elapsedTime / 1000).toFixed(2);
   document.getElementById("win-overlay").style.display = "block";
 }
 
@@ -89,6 +90,18 @@ function mouseWheel(event) {
 function keyPressed() {
   if (key === 'r' || key === 'R') {
     window.startLevel();
+  }
+
+  if (key === 'g' || key === 'G') {
+    if(testPlaybackReplay) toggleReplayRace();
+  }
+
+  if (keyCode === ESCAPE) {
+    if(testPlaybackReplay) {
+      testPlaybackReplay = undefined;
+      raceGhost = false;
+      window.startLevel();
+    }
   }
 }
 
@@ -113,4 +126,15 @@ function resizeCanvasIfNeeded() {
   let canvasHeight = gameCanvas.offsetHeight;
   console.log("Resizing canvas to: " + canvasWidth + "x" + canvasHeight);
   resizeCanvas(canvasWidth, canvasHeight);
+}
+
+function watchLastReplay() {
+  console.log("Watch last replay");
+  testPlaybackReplay = player.inputReplay;
+  window.startLevel();
+}
+
+function toggleReplayRace() {
+  raceGhost = !raceGhost;
+  window.startLevel();
 }
