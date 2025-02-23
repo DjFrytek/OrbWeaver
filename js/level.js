@@ -1,9 +1,23 @@
+let cachedLevels = {};
+
 function getLevelData(levelName) {
+  if(cachedLevels[levelName]) return cachedLevels[levelName];
+  else {
+    let fetchedLevel = fetchLevel(levelName);
+    cachedLevels[levelName] = fetchedLevel;
+    return fetchedLevel;
+  }
+}
+
+//TODO Connect fetching levels to database
+function fetchLevel(levelName) {
+  console.log("fetching " + levelName);
   if(levelName == "level1") return levelData1;
   if(levelName == "level2") return levelData2;
 }
 
 const levelData1 = {
+  name: "level1",
   objects: [
     { x: 300, y: 80, r: 60, type: "finish"},
 
@@ -59,6 +73,7 @@ const levelData1 = {
 
 
 const levelData2 = {
+  name: "level2",
   objects: [
     { x: 300, y: 80, r: 60, type: "finish"},
 
