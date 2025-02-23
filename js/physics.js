@@ -40,17 +40,14 @@ class PhysicsEngine {
   }
 
   updatePlayer(player) {
+    let direction = player.getInput(true);
 
-    if (mouseIsPressed && mouseHeldInsideCanvas) {
-      let direction = player.getInput();
+    let str = direction.mag();
+    str = min(str, 1);
+    direction.normalize();
+    direction.mult(str * player.steeringForce);
 
-      let distance = direction.mag();
-      let limitedDistance = min(distance, player.maxSteeringDist);
-      direction.normalize();
-      direction.mult(limitedDistance * player.steeringForce);
-
-      player.velocity.add(direction);
-    }
+    player.velocity.add(direction);
 
     let collision = this.checkWallCollisions(player);
     player.isColliding = collision.isColliding;

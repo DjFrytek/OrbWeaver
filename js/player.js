@@ -1,5 +1,5 @@
 class Player {
-  constructor(x, y, physics) {
+  constructor(x, y, physics, replay) {
     this.pos = createVector(x, y);
     this.visualRadius = 5;
     this.drag = physics.drag;
@@ -10,16 +10,34 @@ class Player {
 
     this.pastPositions = [];
     this.maxPastPositions = 30;
+
+    this.recordInput = replay == undefined; //Whether to record the input
+    this.isPlayback = replay != undefined; //Whether is controlled by player or the replay
+    this.inputReplay = []; //If controlled by player record the input here, if playback get the input from here
+    if(this.isPlayback) this.inputReplay = replay;
+    this.playbackIndex = 0; //Which input should be read next
   }
 
-  getInput() {
-    let direction = createVector(mouseX - canvas.width / 2, mouseY - canvas.height / 2);
-    let mag = direction.mag();
-    let str = map(mag, 0, this.maxSteeringDist, 0, 1);
-    str = min(str, 1);
-    direction.normalize();
-    direction.mult(str);
-    
+  getInput(advancePlayback = false) {
+    if(this.isPlayback) {
+      let i = min(this.playbackIndex, this.inputReplay.length-1);
+      let inp = this.inputReplay[i];
+      let dir = createVector(inp.x, inp.y); 
+      if(advancePlayback) this.playbackIndex++;
+      return dir;
+    }
+
+    let direction = createVector(0, 0);
+    if (mouseIsPressed && mouseHeldInsideCanvas) {
+      direction = createVector(mouseX - canvas.width / 2, mouseY - canvas.height / 2);
+      let mag = direction.mag();
+      let str = map(mag, 0, this.maxSteeringDist, 0, 1);
+      str = min(str, 1);
+      direction.normalize();
+      direction.mult(str);      
+    }
+
+    this.inputReplay.push({x: direction.x, y: direction.y});
     return direction;
   }
 

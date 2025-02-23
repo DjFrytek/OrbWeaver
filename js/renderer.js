@@ -102,14 +102,16 @@ class Renderer {
   }
 
   drawSteeringLine(player) {
-    if (mouseIsPressed && physicsEngine.started && mouseHeldInsideCanvas) {
+    if (physicsEngine.started) {
       push();
       stroke(3, 211, 252);
-      let direction = createVector(mouseX - canvas.width / 2, mouseY - canvas.height / 2);
+      //let direction = createVector(mouseX - canvas.width / 2, mouseY - canvas.height / 2);
+      let direction = player.getInput();
       let distance = direction.mag();
-      let limitedDistance = min(distance, this.player.maxSteeringDist);
+      distance = min(distance, this.player.maxSteeringDist);
       direction.normalize();
-      direction.mult(limitedDistance);
+      direction.mult(distance);
+      direction.mult(player.maxSteeringDist);
 
       line(canvas.width/2, canvas.height/2, canvas.width/2 + direction.x, canvas.height/2 + direction.y);
       pop();

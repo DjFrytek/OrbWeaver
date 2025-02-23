@@ -8,7 +8,7 @@ let zoomPersist = 1;
 let mouseHeldInsideCanvas = false;
 let currentLevel;
 
-
+let testPlaybackReplay;
 
 
 function setup() {
@@ -24,7 +24,8 @@ function setup() {
 window.startLevel = function(levelName = currentLevel) {
   currentLevel = levelName;
   loadLevel(levelName);
-  player = new Player(level.player.startPosition.x, level.player.startPosition.y, level.player);
+//  player = new Player(level.player.startPosition.x, level.player.startPosition.y, level.player);
+  player = new Player(level.player.startPosition.x, level.player.startPosition.y, level.player, testPlaybackReplay);
   renderer = new Renderer(canvas, level, zoomPersist, player);
   physicsEngine = new PhysicsEngine(60, level, player);
 
