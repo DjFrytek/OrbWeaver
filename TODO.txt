@@ -1,5 +1,7 @@
 DZIURY
 Menu pauzy
+REPLAYE
+Duszek replaya
 Poradnik
 Menu poziomow
 Ekran koncowy poziomu
@@ -8,7 +10,6 @@ Efekty dzwiekowe
 Personal rekord
 Logowanie
 Rankingi
-REPLAYE
 Custom kolorki
 Duszek replaya
 Particle za graczem

@@ -22,17 +22,17 @@ function setup() {
 }
 
 window.startLevel = function(levelName = currentLevel) {
-  if (canvas && canvas.elt) {
-    canvas.elt.classList.remove("blurred");
-    document.getElementById("game-canvas").classList.remove("blurred");
-    document.getElementById("win-overlay").style.display = "none";
-  }
   currentLevel = levelName;
   loadLevel(levelName);
   player = new Player(level.player.startPosition.x, level.player.startPosition.y, level.player);
   renderer = new Renderer(canvas, level, zoomPersist, player);
   physicsEngine = new PhysicsEngine(60, level, player);
 
+  if (canvas && canvas.elt) {
+    canvas.elt.classList.remove("blurred");
+    document.getElementById("game-canvas").classList.remove("blurred");
+    document.getElementById("win-overlay").style.display = "none";
+  }
 }
 
 function loadLevel(levelName) {
