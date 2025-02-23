@@ -1,5 +1,5 @@
 class PhysicsEngine {
-  constructor(fps, levelData, mainPlayer) {
+  constructor(fps, levelData, mainPlayer, ghostPlayer) {
     this.fps = fps;
     this.deltaTime = 1000 / fps;
     this.updateCount = 0;
@@ -11,6 +11,7 @@ class PhysicsEngine {
     this.level = levelData;
 
     this.player = mainPlayer;
+    this.ghostPlayer = ghostPlayer;
   }
 
   start() {
@@ -35,6 +36,9 @@ class PhysicsEngine {
       this.updateCount++;
     }
     this.updatePlayer(this.player);
+    if(this.ghostPlayer) {
+      this.updatePlayer(this.ghostPlayer, true);
+    }
 
     return true;
   }
@@ -58,12 +62,14 @@ class PhysicsEngine {
     player.pos.add(slowedVelocity);
     player.update();
     
+    if(player.isGhost) return;
     if (player.pos.x < 0 || player.pos.x > this.level.player.bounds.width || player.pos.y < 0 || player.pos.y > this.level.player.bounds.height) {
       player.die();
     }
   }
 
   checkWallCollisions(player) {
+    let isPhysical = !player.isGhost; //Can collect checkpoints, finish line etc.
     let collision = {isColliding: false, slowdownFactor: 1}
 
     let nextCheckpoint;
@@ -81,15 +87,19 @@ class PhysicsEngine {
           collision.slowdownFactor = 1 - obj.strength;
           break;
         } else if(obj.type == "deathwall") {
-          player.die();
+          if(isPhysical) player.die();
           break;
         } else if(obj.type == "finish") {
           if(this.isCheckpointsCollected()) {
-            this.finished = true;
-            levelFinished(this.elapsedTime);
+            if(isPhysical) {
+              levelFinished(this.elapsedTime, !player.isPlayback);
+              this.finished = true;
+            } else {
+              player.freeze();
+            }
           }
         } else if(obj.type == "checkpoint") {
-          if(!this.level.settings.forceCheckpointOrder || nextCheckpoint == obj) obj.collected = true;
+          if(isPhysical && !this.level.settings.forceCheckpointOrder || nextCheckpoint == obj) obj.collected = true;
 
         }
       }
@@ -105,5 +115,9 @@ class PhysicsEngine {
       }
     }
     return true;
+  }
+
+  getDistToPlayer(x, y) {
+    return dist(x, y, this.player.pos.x, this.player.pos.y);
   }
 }

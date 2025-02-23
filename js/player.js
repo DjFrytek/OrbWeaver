@@ -1,5 +1,5 @@
 class Player {
-  constructor(x, y, physics, replay) {
+  constructor(x, y, physics, replay, isGhost = false) {
     this.pos = createVector(x, y);
     this.visualRadius = 5;
     this.drag = physics.drag;
@@ -10,6 +10,8 @@ class Player {
 
     this.pastPositions = [];
     this.maxPastPositions = 30;
+
+    this.isGhost = isGhost;
 
     this.recordInput = replay == undefined; //Whether to record the input
     this.isPlayback = replay != undefined; //Whether is controlled by player or the replay
@@ -24,7 +26,6 @@ class Player {
       let inp = this.inputReplay[i];
       let dir = createVector(inp.x, inp.y); 
       if(advancePlayback) this.playbackIndex++;
-      console.log(dir);
       return dir;
     }
 
@@ -40,6 +41,10 @@ class Player {
 
     if(advancePlayback) this.inputReplay.push({x: direction.x, y: direction.y});
     return direction;
+  }
+
+  freeze() {
+    this.velocity.mult(0);
   }
 
   die() {

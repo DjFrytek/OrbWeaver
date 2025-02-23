@@ -9,6 +9,8 @@ let mouseHeldInsideCanvas = false;
 let currentLevel;
 
 let testPlaybackReplay;
+let raceGhost = false;
+let ghost;
 
 
 function setup() {
@@ -24,10 +26,14 @@ function setup() {
 window.startLevel = function(levelName = currentLevel) {
   currentLevel = levelName;
   loadLevel(levelName);
-//  player = new Player(level.player.startPosition.x, level.player.startPosition.y, level.player);
-  player = new Player(level.player.startPosition.x, level.player.startPosition.y, level.player, testPlaybackReplay);
-  renderer = new Renderer(canvas, level, zoomPersist, player);
-  physicsEngine = new PhysicsEngine(60, level, player);
+  if(!raceGhost) {
+    player = new Player(level.player.startPosition.x, level.player.startPosition.y, level.player, testPlaybackReplay);
+  } else {
+    player = new Player(level.player.startPosition.x, level.player.startPosition.y, level.player);
+    ghost = new Player(level.player.startPosition.x, level.player.startPosition.y, level.player, testPlaybackReplay, true);
+  }
+  renderer = new Renderer(canvas, level, zoomPersist, player, ghost);
+  physicsEngine = new PhysicsEngine(60, level, player, ghost);
 
   if (canvas && canvas.elt) {
     canvas.elt.classList.remove("blurred");
@@ -58,8 +64,9 @@ function showFPS() {
   pop();
 }
 
-function levelFinished(finishTime) {
-  console.log("LEVEL FINISHED! TIME: " + finishTime);
+function levelFinished(finishTime, isScoreLegit) {
+  if(isScoreLegit) console.log("LEVEL FINISHED! TIME: " + finishTime);
+  else console.log("REPLAY FINISHED! TIME: " + finishTime);
   canvas.elt.classList.add("blurred");
   document.getElementById("game-canvas").classList.add("blurred");
   document.getElementById("win-overlay").innerHTML = "Time:<br>" + (physicsEngine.elapsedTime / 1000).toFixed(2);

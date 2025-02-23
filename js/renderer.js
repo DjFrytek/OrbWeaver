@@ -1,14 +1,18 @@
 class Renderer {
-  constructor(canvas, level, zoom, mainPlayer) {
+  constructor(canvas, level, zoom, mainPlayer, ghostPlayer) {
     this.canvas = canvas;
     this.zoom = zoom;
     this.desiredZoom = zoom;
     this.zoomSpeed = 0.05;
     this.level = level;
     this.player = mainPlayer;
+    this.ghostPlayer = ghostPlayer;
 
     this.colors = {
       playerBall: color(0, 255, 0),
+      ghostBall: color(26, 216, 237),
+      playerTrail: color(0, 242, 255),
+      ghostTrail: color(0, 242, 255),
       bg: color(50),
       deathwall: color(250),
       finish: color(0, 255, 0, 100),
@@ -26,7 +30,9 @@ class Renderer {
 
     this.drawLevel(this.level);
     this.drawLevelBounds(this.level);
+    if(this.ghostPlayer) this.drawPlayerTrail(this.ghostPlayer);
     this.drawPlayerTrail(this.player);
+    if(this.ghostPlayer) this.drawPlayer(this.ghostPlayer);
     this.drawPlayer(this.player);
     pop();
     this.drawSteeringLine(this.player);
@@ -80,10 +86,20 @@ class Renderer {
   drawPlayer(player) {
     push();
     noStroke();
+    let a = 255;
+    let c = this.colors.playerBall;
+    let distToPlayer = 0;
+    if(player.isGhost) {
+      distToPlayer = physicsEngine.getDistToPlayer(player.pos.x, player.pos.y);
+      a = map(distToPlayer, 0, 50, 0, 255);
+      c = this.colors.ghostBall;
+      c = color(c.levels[0], c.levels[1], c.levels[2], a);
+    }
+
     if (player.isColliding) {
-      fill(255, 0, 0);
+      fill(255, 0, 0, a);
     } else {
-      fill(this.colors.playerBall);
+      fill(c);
     }
     ellipse(player.pos.x, player.pos.y, player.visualRadius * 2);
     pop();
@@ -94,8 +110,11 @@ class Renderer {
     push();
     strokeWeight(2);
       for (let i = 1; i < trail.length; i++) {
+        let c = player.isGhost ? this.colors.ghostTrail : this.colors.playerTrail;
+        
         let opacity = map(i, 1, trail.length, 0, 255);
-        stroke(0, 242, 255, opacity);
+        if(player.isGhost) opacity *= 0.2;
+        stroke(red(c), green(c), blue(c), opacity);
         if(trail.length > 3) line(trail[i - 1].x, trail[i - 1].y, trail[i].x, trail[i].y);
       }
     pop();
