@@ -9,6 +9,7 @@ class Renderer {
     this.ghostPlayer = ghostPlayer;
 
     this.colors = {
+      steeringLine: color(3, 211, 252),
       playerBall: color(0, 255, 0),
       ghostBall: color(26, 216, 237),
       playerTrail: color(0, 242, 255),
@@ -123,7 +124,7 @@ class Renderer {
   drawSteeringLine(player) {
     if (physicsEngine.started) {
       push();
-      stroke(3, 211, 252);
+      stroke(this.colors.steeringLine);
       let direction = player.getInput();
       let distance = direction.mag();
       distance = min(distance, this.player.maxSteeringDist);
