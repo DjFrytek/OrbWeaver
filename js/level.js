@@ -51,6 +51,7 @@ const levelData1 = {
   ],
   player: {
     drag: 0.96,
+    steeringForce: 0.2,
     startPosition: { x: 40, y: 200 },
     bounds: { width: 400, height: 400 }
   }
@@ -80,6 +81,7 @@ const levelData2 = {
   ],
   player: {
     drag: 0.96,
+    steeringForce: 0.2,
     startPosition: { x: 40, y: 200 },
     bounds: { width: 400, height: 400 }
   },

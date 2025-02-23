@@ -9,12 +9,16 @@ let mouseHeldInsideCanvas = false;
 let currentLevel;
 
 
+
+
 function setup() {
   canvas = createCanvas(600, 600);
   canvas.parent('game-canvas');
   frameRate(60);
 
   window.startLevel("level1");
+  resizeCanvasIfNeeded();
+  window.addEventListener('resize', resizeCanvasIfNeeded);
 }
 
 window.startLevel = function(levelName = currentLevel) {
@@ -93,4 +97,12 @@ function mousePressed() {
 
 function mouseReleased() {
   mouseHeldInsideCanvas = false;
+}
+
+function resizeCanvasIfNeeded() {
+  let gameCanvas = document.getElementById('game-canvas');
+  let canvasWidth = gameCanvas.offsetWidth;
+  let canvasHeight = gameCanvas.offsetHeight;
+  console.log("Resizing canvas to: " + canvasWidth + "x" + canvasHeight);
+  resizeCanvas(canvasWidth, canvasHeight);
 }

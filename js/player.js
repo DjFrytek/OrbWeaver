@@ -3,8 +3,8 @@ class Player {
     this.pos = createVector(x, y);
     this.visualRadius = 5;
     this.drag = physics.drag;
-    this.steeringForce = 0.002;
-    this.maxSteeringDist = 100;
+    this.steeringForce = physics.steeringForce;
+    this.maxSteeringDist = min(width, height) / 4;
     this.velocity = createVector(0, 0);
     this.isColliding = false;
 
@@ -14,6 +14,12 @@ class Player {
 
   getInput() {
     let direction = createVector(mouseX - canvas.width / 2, mouseY - canvas.height / 2);
+    let mag = direction.mag();
+    let str = map(mag, 0, this.maxSteeringDist, 0, 1);
+    str = min(str, 1);
+    direction.normalize();
+    direction.mult(str);
+    
     return direction;
   }
 
