@@ -1,0 +1,39 @@
+body {
+    margin: 0;
+    font-family: sans-serif;
+    background-color: #f0f0f0;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+.left-panel,
+.right-panel {
+    width: 200px; /* Adjust as needed */
+    background-color: #ddd;
+    padding: 20px;
+}
+
+.game-area {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    background-color: #eee;
+    padding: 10px;
+    text-align: center;
+}
+
+#game-canvas {
+    flex-grow: 1;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
