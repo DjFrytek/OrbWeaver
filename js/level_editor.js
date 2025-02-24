@@ -381,8 +381,8 @@ function mouseDragged() {
             let dx = selectedObstacle.sizeHandleX - selectedObstacle.x;
             let dy = selectedObstacle.sizeHandleY - selectedObstacle.y;
 
-            selectedObstacle.x = mousePos.x - handleOffset.x;
-            selectedObstacle.y = mousePos.y - handleOffset.y;
+            selectedObstacle.x = mousePos.x;
+            selectedObstacle.y = mousePos.y;
 
             selectedObstacle.sizeHandleX = selectedObstacle.x + dx;
             selectedObstacle.sizeHandleY = selectedObstacle.y + dy;
