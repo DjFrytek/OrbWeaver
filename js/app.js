@@ -202,10 +202,6 @@ async function saveReplayToServer(replayObject) {
   }
 }
 
-function getCurrentNickname() {
-  return "GUEST";
-}
-
 function getCurrentDate() {
   return Date.now();
 }
