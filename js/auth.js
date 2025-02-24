@@ -103,6 +103,8 @@ async function updateNickname() {
       console.error('Error updating nickname:', error);
     }
   }
+
+  needRefreshReplays = true;
 }
 
 function showLoginPanel() {
