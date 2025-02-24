@@ -20,6 +20,7 @@ async function signUp() {
       console.log('Sign up success:', data);
       localStorage.setItem('supabase.auth.token', data.session.access_token);
       showLogoutButton();
+      messageDiv.textContent = '';
     }
   } catch (error) {
     console.error('Sign up error:', error);
