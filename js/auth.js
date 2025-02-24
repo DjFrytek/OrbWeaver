@@ -112,6 +112,7 @@ function showLoginPanel() {
   document.getElementById('signInButton').style.display = 'inline-block';
   document.getElementById('email').style.display = 'inline-block';
   document.getElementById('password').style.display = 'inline-block';
+  document.getElementById('nickname').style.display = 'none';
   document.getElementById('logoutButton').style.display = 'none';
 }
 
