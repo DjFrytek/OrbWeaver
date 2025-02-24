@@ -237,9 +237,9 @@ async function displayReplays(replays) {
   }
 
   const ul = document.createElement('ul');
-  replays.forEach(replay => {
+  replays.forEach((replay, index) => {
     const li = document.createElement('li');
-    li.textContent = `${(replay.finishTime / 1000).toFixed(2)}s | ${replay.users.nickname}  `;
+    li.textContent = `#${index + 1} | ${(replay.finishTime / 1000).toFixed(2)}s | ${replay.users.nickname}  `;
 
     const button = document.createElement('button');
     button.textContent = 'Watch Replay';
@@ -252,8 +252,4 @@ async function displayReplays(replays) {
   });
 
   replayListDiv.appendChild(ul);
-}
-
-function isCanvasFocused() {
-  return canvasWasClickedLast;
 }
