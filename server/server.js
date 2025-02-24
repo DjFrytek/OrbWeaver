@@ -1,17 +1,20 @@
 const express = require('express');
 const cors = require('cors');
 const { createClient } = require('@supabase/supabase-js');
+const path = require('path');
 
 const app = express();
 const port = process.env.PORT || 3001;
 
 app.use(cors());
+app.use(express.json());
+
+// Serve static files from the root directory
+app.use(express.static(path.join(__dirname, '..')));
 
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
-
-app.use(express.json());
 
 app.post('/api/save-score', async (req, res) => {
   const { levelId, finishTime, playerId, replayData } = req.body;
