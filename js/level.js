@@ -14,6 +14,8 @@ function fetchLevel(levelName) {
   console.log("fetching " + levelName);
   if(levelName == "level1") return levelData1;
   if(levelName == "level2") return levelData2;
+  
+  return levelData1;
 }
 
 const levelData1 = {

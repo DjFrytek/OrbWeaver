@@ -6,7 +6,6 @@ let renderer;
 let zoomPersist = 1;
 
 let mouseHeldInsideCanvas = false;
-let currentLevel;
 
 let lastReplay;
 
@@ -26,9 +25,9 @@ function setup() {
   window.addEventListener('resize', resizeCanvasIfNeeded);
 }
 
-window.startLevel = function(levelName = currentLevel) {
-  currentLevel = levelName;
+window.startLevel = function(levelName = level.name) {
   loadLevel(levelName);
+  let currentLevel = level.name;
   if(!raceGhost) {
     player = new Player(level.player.startPosition.x, level.player.startPosition.y, level.player, playbackReplay);
     ghost = undefined;
@@ -78,7 +77,7 @@ async function levelFinished(finishTime, isScoreLegit) {
 
   if(isScoreLegit) {
     console.log("LEVEL FINISHED! TIME: " + finishTime);
-    lastReplay = await createReplayObject(currentLevel, physicsEngine.getFinishTime(), player.inputReplay);
+    lastReplay = await createReplayObject(level.name, physicsEngine.getFinishTime(), player.inputReplay);
 
     saveReplayToServer(lastReplay);
   }
@@ -198,7 +197,7 @@ function getCurrentDate() {
 }
 
 async function fetchReplays() {
-  const url = `${apiUrl}/api/get-highscores?levelId=` + currentLevel;
+  const url = `${apiUrl}/api/get-highscores?levelId=` + level.name;
 
   try {
     const response = await fetch(url);
