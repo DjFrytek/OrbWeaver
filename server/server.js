@@ -97,26 +97,27 @@ app.post('/api/save-score', async (req, res) => {
 
   try {
     // Check if a replay already exists for this player and level
-    const { data: existingReplay, error: existingReplayError } = await supabase
+    const { data: existingReplays, error: existingReplayError } = await supabase
       .from('replays')
       .select('id, finishTime')
       .eq('playerId', userId)
-      .eq('levelId', levelId)
-      .single();
+      .eq('levelId', levelId);
 
     if (existingReplayError) {
       console.error('Error checking for existing replay:', existingReplayError);
       return res.status(500).send('Error saving replay');
     }
 
-    if (existingReplay) {
+    if (existingReplays && existingReplays.length > 0) {
+      const existingReplay = existingReplays[0];
       // If a replay exists, check if the new time is faster
       if (finishTime < existingReplay.finishTime) {
         // If the new time is faster, update the existing replay
         const { data: updateData, error: updateError } = await supabase
           .from('replays')
           .update({ levelId: levelId, finishTime: finishTime, replayData: replayData })
-          .eq('id', existingReplay.id);
+          .eq('id', existingReplay.id)
+          .select();
 
         if (updateError) {
           console.error('Error updating replay:', updateError);
@@ -127,7 +128,7 @@ app.post('/api/save-score', async (req, res) => {
       } else {
         // If the new time is not faster, do not save the replay
         console.log('New replay is not faster than existing replay');
-        return res.send('Replay not saved: New replay is not faster than existing replay');
+        return res.status(200).send('Replay not saved: New replay is not faster than existing replay');
       }
     } else {
       // If no replay exists, insert the new replay
@@ -142,7 +143,7 @@ app.post('/api/save-score', async (req, res) => {
         return res.status(500).send('Error saving replay');
       }
 
-      res.send('Replay saved successfully');
+      res.status(201).send('Replay saved successfully');
     }
   } catch (error) {
     console.error('Error saving replay:', error);
