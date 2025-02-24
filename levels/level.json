@@ -1,0 +1,66 @@
+{
+  "name": "placeholder",
+  "objects": [
+    {
+      "x": 376.5,
+      "y": 287,
+      "r": 20,
+      "type": "wall",
+      "strength": 0.35
+    },
+    {
+      "x": 376.5,
+      "y": 287,
+      "r": 20,
+      "type": "wall",
+      "strength": 0.2
+    },
+    {
+      "x": 376.5,
+      "y": 287,
+      "r": 20,
+      "type": "wall",
+      "strength": 0.65
+    },
+    {
+      "x": 376.5,
+      "y": 287,
+      "r": 20,
+      "type": "wall",
+      "strength": 0.9
+    },
+    {
+      "x": 242.5,
+      "y": 436,
+      "r": 20,
+      "type": "checkpoint"
+    },
+    {
+      "x": 119.5,
+      "y": 428,
+      "r": 20,
+      "type": "finish"
+    },
+    {
+      "x": 205.5,
+      "y": 361,
+      "r": 20,
+      "type": "checkpoint"
+    }
+  ],
+  "player": {
+    "drag": 0.96,
+    "steeringForce": 0.2,
+    "startPosition": {
+      "x": 100,
+      "y": 100
+    },
+    "bounds": {
+      "width": 800,
+      "height": 600
+    }
+  },
+  "settings": {
+    "forceCheckpointOrder": false
+  }
+}

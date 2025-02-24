@@ -58,7 +58,11 @@ function setup() {
         };
 
         for (let obstacle of obstacles) {
-            let type = obstacle.force === 1 ? "deathwall" : "wall";
+            let type;
+            if(obstacle.type == "wall") type = obstacle.force === 1 ? "deathwall" : "wall";
+            else {
+                type = obstacle.type;
+            }
             levelData.objects.push({
                 x: obstacle.x,
                 y: obstacle.y,
@@ -83,8 +87,13 @@ function setup() {
                     let levelData = JSON.parse(contents);
                     obstacles = [];
                     for (let obj of levelData.objects) {
-                        let obstacle = new Obstacle(obj.x, obj.y, obj.r, obj.strength);
-                        obstacles.push(obstacle);
+                        if(obj.type == "wall" || obj.type == "deathwall") {
+                            let obstacle = new Obstacle(obj.x, obj.y, obj.r, "wall", obj.strength);
+                            obstacles.push(obstacle);
+                        } else {
+                            let obstacle = new Obstacle(obj.x, obj.y, obj.r, obj.type);
+                            obstacles.push(obstacle);
+                        }
                     }
                     levelBound.width = levelData.player.bounds.width;
                     levelBound.height = levelData.player.bounds.height;
@@ -179,6 +188,12 @@ function keyPressed() {
             }
         }
     }
+    if (keyCode === 70) { // F
+        addFinish();
+    }
+    if (keyCode === 67) { // C
+        addCheckpoint();
+    }
 }
 
 function draw() {
@@ -245,7 +260,19 @@ function drawBounds() {
 
 function addObstacle(str) {
     let mousePos = getMousePosition();
-    let obstacle = new Obstacle(mousePos.x, mousePos.y, 20, str);
+    let obstacle = new Obstacle(mousePos.x, mousePos.y, 20, "wall", str);
+    obstacles.push(obstacle);
+}
+
+function addFinish() {
+    let mousePos = getMousePosition();
+    let obstacle = new Obstacle(mousePos.x, mousePos.y, 20, "finish");
+    obstacles.push(obstacle);
+}
+
+function addCheckpoint() {
+    let mousePos = getMousePosition();
+    let obstacle = new Obstacle(mousePos.x, mousePos.y, 20, "checkpoint");
     obstacles.push(obstacle);
 }
 
@@ -254,7 +281,7 @@ function getCameraSpeed() {
 }
 
 class Obstacle {
-    constructor(x, y, size, force) {
+    constructor(x, y, size, type, force) {
         this.x = x;
         this.y = y;
         this.size = size;
@@ -262,16 +289,26 @@ class Obstacle {
         this.handleSize = 10;
         this.sizeHandleX = this.x + this.size / 2;
         this.sizeHandleY = this.y;
+
+        this.type = type;
     }
 
     draw() {
         push();
         noStroke();
-        let slowdownFactor = 1 - this.force;
-        let x = pow(slowdownFactor, 0.5)
-        let c = map(x, 1, 0, 50, 200);
-        fill(c);
-        if(this.force == 1) fill(255);
+        if(this.type == "wall") {
+            let slowdownFactor = 1 - this.force;
+            let x = pow(slowdownFactor, 0.5)
+            let c = map(x, 1, 0, 50, 200);
+            fill(c);
+            if(this.force == 1) fill(255);
+        } else if(this.type == "finish") {
+            let c = color(0, 255, 0, 100);
+            fill(c);
+        } else if(this.type == "checkpoint") {
+            let c = color(158, 49, 222, 100);
+            fill(c);
+        }
         ellipse(this.x, this.y, this.size);
         pop();
     }
