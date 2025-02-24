@@ -7,6 +7,8 @@ let cameraX = 0;
 let cameraY = 0;
 let zoom = 1;
 
+let snapGridSize = 5;
+
 let obstacles = [];
 let selectedObstacle = null;
 let selectedHandle = null; // null, 'position', or 'size'
@@ -279,6 +281,11 @@ function drawDebugInfo() {
 function getMousePosition() {
     let x = (mouseX - cameraX) / zoom;
     let y = (mouseY - cameraY) / zoom;
+
+    if(keyIsDown(16)) { //SHIFT
+        x -= x % snapGridSize;
+        y -= y % snapGridSize;
+    }
     return { x, y };
 }
 
