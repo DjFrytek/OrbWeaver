@@ -13,6 +13,8 @@ let playbackReplay; //Input data to play
 let raceGhost = false;
 let ghost;
 
+let canvasWasClickedLast = false;
+
 const apiUrl = window.location.hostname === 'localhost' ? 'http://localhost:3001' : 'https://orbweaver.onrender.com';
 
 function setup() {
@@ -53,6 +55,7 @@ function loadLevel(levelName) {
 }
 
 function draw() {
+  console.log(isCanvasFocused() ? "Focused" : "Not focused");
   if (physicsEngine.update()) {
     
   }
@@ -86,6 +89,7 @@ async function levelFinished(finishTime, isScoreLegit) {
 }
 
 function mouseWheel(event) {
+  if(!isCanvasFocused()) return;
   let zoomFactor = 1.1;
   if (event.delta > 0) {
     renderer.desiredZoom /= zoomFactor;
@@ -99,6 +103,7 @@ function mouseWheel(event) {
 }
 
 function keyPressed() {
+  if(!isCanvasFocused()) return;
   if (key === 'r' || key === 'R') {
     window.startLevel();
   }
@@ -122,9 +127,11 @@ function isMouseInsideCanvas() {
 
 function mousePressed() {
   if(isMouseInsideCanvas()) {
+    canvasWasClickedLast = true;
     physicsEngine.start();
     mouseHeldInsideCanvas = true;
   }
+  else canvasWasClickedLast = false;
 }
 
 function mouseReleased() {
@@ -239,4 +246,8 @@ function displayReplays(replays) {
   });
 
   replayListDiv.appendChild(ul);
+}
+
+function isCanvasFocused() {
+  return canvasWasClickedLast;
 }
