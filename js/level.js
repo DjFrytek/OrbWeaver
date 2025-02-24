@@ -14,6 +14,7 @@ function fetchLevel(levelName) {
   console.log("fetching " + levelName);
   if(levelName == "level1") return levelData1;
   if(levelName == "level2") return levelData2;
+  if(levelName == "level3") return levelData3;
   
   return levelData1;
 }
@@ -131,3 +132,35 @@ const levelData2 = {
     bounds: { width: 400, height: 400 }
   }
 };
+
+const levelData3 = {
+  "name": "level3",
+  "objects": [
+    {
+      "x": 297.5,
+      "y": 224,
+      "r": 78.40918313565064,
+      "type": "wall",
+      "strength": 0.5
+    },
+    {
+      "x": 336.5,
+      "y": 255,
+      "r": 63.24555320336759,
+      "type": "deathwall",
+      "strength": 1
+    }
+  ],
+  "player": {
+    "drag": 0.96,
+    "steeringForce": 0.2,
+    "startPosition": {
+      "x": 192,
+      "y": 84
+    },
+    "bounds": {
+      "width": 800,
+      "height": 600
+    }
+  }
+}

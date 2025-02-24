@@ -35,6 +35,34 @@ function setup() {
         }
     });
 
+    let saveButton = document.getElementById('saveButton');
+    saveButton.addEventListener('click', function() {
+        let levelData = {
+            name: "placeholder",
+            objects: [],
+            player: {
+                drag: 0.96,
+                steeringForce: 0.2,
+                startPosition: { x: 192, y: 84 },
+                bounds: { width: levelBound.width, height: levelBound.height }
+            }
+        };
+
+        for (let obstacle of obstacles) {
+            let type = obstacle.force === 1 ? "deathwall" : "wall";
+            levelData.objects.push({
+                x: obstacle.x,
+                y: obstacle.y,
+                r: obstacle.size,
+                type: type,
+                strength: obstacle.force
+            });
+        }
+
+        let json = JSON.stringify(levelData, null, 2);
+        saveJSON(levelData, 'level.json');
+    });
+
     let levelWidthInput = document.getElementById('levelWidth');
     let levelHeightInput = document.getElementById('levelHeight');
 
