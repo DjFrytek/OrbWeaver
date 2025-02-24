@@ -1,3 +1,10 @@
+Edytor:
+Spacja ma klonowac wlacznie z wartstwa
+Shift niech usuwa zamiast tego
+Klikniecie numeru 1-9 respi o preset str
+Klikniecie numeru 1-9 podczas trzymania ustawia na preset str
+Mozliwosc wczytania mapy z pliku
+
 DZIURY
 Menu pauzy
 Poradnik
