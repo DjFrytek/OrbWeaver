@@ -132,3 +132,19 @@ canvas.blurred {
     transform: translate(-50%, -50%);
     text-align: center;
 }
+
+
+.level-buttons button {
+    background-color: #444;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    margin: 5px;
+}
+
+.level-buttons button:hover {
+    background-color: #666;
+}

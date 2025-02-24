@@ -55,6 +55,7 @@ async function signIn() {
     console.error('Sign in error:', error);
     messageDiv.textContent = 'Sign in failed: ' + error.message;
   }
+  messageDiv.textContent = '';
 }
 
 async function showLogoutButton() {
