@@ -29,6 +29,8 @@ async function signUp() {
 }
 
 async function signIn() {
+  needRefreshReplays = true;
+
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
   const messageDiv = document.getElementById('auth-message');
@@ -56,6 +58,9 @@ async function signIn() {
     console.error('Sign in error:', error);
     messageDiv.textContent = 'Sign in failed: ' + error.message;
   }
+
+  window.startLevel();
+
 }
 
 async function showLogoutButton() {
@@ -115,8 +120,10 @@ function showLoginPanel() {
 
 
 function logout() {
+  needRefreshReplays = true;
   localStorage.removeItem('supabase.auth.token');
   showLoginPanel();
+  window.startLevel();
 }
 
 document.addEventListener('DOMContentLoaded', function() {

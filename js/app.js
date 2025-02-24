@@ -229,11 +229,44 @@ async function displayReplays(replays) {
   const replayListDiv = document.getElementById('replay-list');
   replayListDiv.innerHTML = '';
   const userReplayInfoDiv = document.getElementById('user-replay-info');
+  const userReplayHeader = userReplayInfoDiv.parentElement.querySelector('h3');
   userReplayInfoDiv.innerHTML = '';
 
   if (replays.length === 0) {
     replayListDiv.textContent = 'No replays found.';
     return;
+  }
+
+  const token = localStorage.getItem('supabase.auth.token');
+  
+  if (token) {
+    try {
+      const response = await fetch(`/api/get-my-ranking-on-level?levelId=${currentLevel.name}`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      const data = await response.json();
+      if (data.replay) {
+        userReplayInfoDiv.textContent = `#${data.rank} | ${(data.replay.finishTime / 1000).toFixed(2)}s | ${data.replay.users.nickname}  `;
+        const button = document.createElement('button');
+        button.textContent = 'Watch Replay';
+        button.onclick = function() {
+          watchReplay(data.replay);
+        };
+        userReplayInfoDiv.appendChild(button);
+        userReplayHeader.style.display = 'block';
+        userReplayInfoDiv.style.display = 'block';
+      } else {
+        userReplayInfoDiv.textContent = "No replay found for you on this level.";
+      }
+    } catch (error) {
+      console.error('Error fetching user ranking:', error);
+    }
+  } else {
+    userReplayHeader.style.display = 'none';
+    userReplayInfoDiv.style.display = 'none';
   }
 
   const ul = document.createElement('ul');
@@ -252,4 +285,8 @@ async function displayReplays(replays) {
   });
 
   replayListDiv.appendChild(ul);
+}
+
+function isCanvasFocused() {
+  return canvasWasClickedLast;
 }

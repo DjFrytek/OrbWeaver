@@ -186,6 +186,59 @@ app.get('/api/get-nickname', async (req, res) => {
   }
 });
 
+app.get('/api/get-my-ranking-on-level', async (req, res) => {
+  const { levelId } = req.query;
+  const token = req.headers.authorization?.split(' ')[1];
+
+  if (!token) {
+    return res.status(401).json({ error: 'No token provided' });
+  }
+
+  const userId = await getUserIdFromToken(token);
+
+  if (!userId) {
+    return res.status(401).json({ error: 'Invalid token' });
+  }
+
+  try {
+    // 1. Pobierz replay gracza dla danego levelu
+    const { data: replay, error: replayError } = await supabase
+      .from('replays')
+      .select('*, users(nickname)')
+      .eq('levelId', levelId)
+      .eq('playerId', userId)
+      .single(); // Bo każdy gracz ma tylko 1 replay na level
+
+    if (replayError || !replay) {
+      return res.status(404).json({ error: "Replay not found" });
+    }
+
+    // 3. Oblicz ranking gracza na danej mapie
+    const { count, error: rankError } = await supabase
+      .from('replays')
+      .select('*', { count: 'exact' })
+      .eq('levelId', levelId)
+      .lt('finishTime', replay.finishTime); // Liczymy ile osób ma lepszy czas
+
+    if (rankError) {
+      console.error("Ranking error:", rankError);
+      return res.status(500).json({ error: "Failed to calculate ranking" });
+    }
+
+    const playerRank = count + 1; // Ranking zaczyna się od 1, a nie 0
+
+    // 4. Zwróć replay z rankingiem
+    res.json({
+      replay,
+      rank: playerRank
+    });
+
+  } catch (error) {
+    console.error("Server error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 app.post('/api/update-nickname', async (req, res) => {
   const token = req.headers.authorization?.split(' ')[1];
   const { nickname } = req.body;
