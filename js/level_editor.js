@@ -132,17 +132,36 @@ function keyPressed() {
         } else {
             addObstacle(0.5);
         }
+    } else if (keyCode >= 48 && keyCode <= 57) { // Numbers 1-9
+        let strength = 0;
+        switch (keyCode) {
+            case 48: strength = 1; break;
+            case 49: strength = 0; break;
+            case 50: strength = 0.1; break;
+            case 51: strength = 0.2; break;
+            case 52: strength = 0.35; break;
+            case 53: strength = 0.65; break;
+            case 54: strength = 0.8; break;
+            case 55: strength = 0.9; break;
+            case 56: strength = 0.95; break;
+            case 57: strength = 0.98; break;
+        }
+        if (selectedObstacle) {
+            selectedObstacle.force = strength;
+        } else {
+            addObstacle(strength);
+        }
     }
 
     if (selectedObstacle) {
-        if(keyCode === 46) { //DELETE
+        if (keyCode === 46) { //DELETE
             let index = obstacles.indexOf(selectedObstacle);
             if (index > -1) {
                 obstacles.splice(index, 1);
                 selectedObstacle = null;
                 lastSelectedObstacle = null;
             }
-        }    
+        }
 
         let index = obstacles.indexOf(selectedObstacle);
         if (keyCode === 81) { // Q
