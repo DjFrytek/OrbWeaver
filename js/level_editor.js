@@ -12,14 +12,26 @@ let selectedObstacle = null;
 let selectedHandle = null; // null, 'position', or 'size'
 let handleOffset = { x: 0, y: 0 };
 let lastSelectedObstacle = null;
+let strengthSlider;
+let strengthValueInput;
 
 function setup() {
     createCanvas(800, 800);
 
-    let strengthSlider = document.getElementById('strength');
+    strengthSlider = document.getElementById('strength');
+    strengthValueInput = document.getElementById('strengthValue');
+
     strengthSlider.addEventListener('input', function() {
         if (lastSelectedObstacle) {
             lastSelectedObstacle.force = parseFloat(strengthSlider.value);
+            strengthValueInput.value = strengthSlider.value;
+        }
+    });
+
+    strengthValueInput.addEventListener('input', function() {
+        if (lastSelectedObstacle) {
+            lastSelectedObstacle.force = parseFloat(strengthValueInput.value);
+            strengthSlider.value = strengthValueInput.value;
         }
     });
 
@@ -43,7 +55,7 @@ function setup() {
 
 function keyPressed() {
     if (keyCode === 32) { // Spacebar
-        addObstacle(random(0.1, 0.9));
+        addObstacle(0.5);
     }
 
     if (selectedObstacle) {
@@ -184,6 +196,8 @@ function mousePressed() {
             handleOffset.x = mousePos.x - obstacle.x;
             handleOffset.y = mousePos.y - obstacle.y;
             lastSelectedObstacle = obstacle;
+            strengthSlider.value = obstacle.force;
+            strengthValueInput.value = obstacle.force;
             return;
         } else if (distanceToSizeHandle < obstacle.handleSize / 2) {
             selectedObstacle = obstacle;
@@ -191,6 +205,8 @@ function mousePressed() {
             handleOffset.x = mousePos.x - obstacle.x;
             handleOffset.y = mousePos.y - obstacle.y;
             lastSelectedObstacle = obstacle;
+            strengthSlider.value = obstacle.force;
+            strengthValueInput.value = obstacle.force;
             return;
         }
     }
