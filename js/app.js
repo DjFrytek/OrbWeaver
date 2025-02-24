@@ -156,7 +156,8 @@ function createReplayObject(levelName, finishTime, inputReplay) {
 }
 
 async function saveReplayToServer(replayObject) {
-  const url = 'http://localhost:3001/api/save-score';
+  const port = process.env.PORT || 3001;
+  const url = `http://localhost:${port}/api/save-score`;
 
   try {
     const response = await fetch(url, {
@@ -187,7 +188,8 @@ function getCurrentDate() {
 }
 
 async function fetchReplays() {
-  const url = 'http://localhost:3001/api/get-highscores?levelId=' + currentLevel;
+  const port = process.env.PORT || 3001;
+  const url = `http://localhost:${port}/api/get-highscores?levelId=` + currentLevel;
 
   try {
     const response = await fetch(url);
