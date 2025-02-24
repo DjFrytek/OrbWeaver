@@ -35,7 +35,25 @@ function setup() {
 
 function keyPressed() {
     if (keyCode === 32) { // Spacebar
-        addObstacle();
+        addObstacle(random(0.1, 0.9));
+    }
+
+    if (selectedObstacle) {
+        let index = obstacles.indexOf(selectedObstacle);
+        if (keyCode === 81) { // Q
+            if (index > 0) {
+                let temp = obstacles[index];
+                obstacles[index] = obstacles[index - 1];
+                obstacles[index - 1] = temp;
+            }
+        }
+        if (keyCode === 69) { // E
+            if (index < obstacles.length - 1) {
+                let temp = obstacles[index];
+                obstacles[index] = obstacles[index + 1];
+                obstacles[index + 1] = temp;
+            }
+        }
     }
 }
 
@@ -66,20 +84,28 @@ function drawLevel() {
 
     // put drawing code here
     noFill();
+    push();
     strokeWeight(4);
     stroke(255, 0, 0);
     rect(0, 0, levelBound.width, levelBound.height);
-
+    pop();
+    
+    // Draw circles
     for (let obstacle of obstacles) {
         obstacle.draw();
+    }
+
+    // Draw handles
+    for (let obstacle of obstacles) {
+        obstacle.drawHandles();
     }
 
     pop();
 }
 
-function addObstacle() {
+function addObstacle(str) {
     let mousePos = getMousePosition();
-    let obstacle = new Obstacle(mousePos.x, mousePos.y, 20, 0.8);
+    let obstacle = new Obstacle(mousePos.x, mousePos.y, 20, str);
     obstacles.push(obstacle);
 }
 
@@ -104,12 +130,17 @@ class Obstacle {
         let c = map(this.force, 0, 1, 50, 250);
         fill(c);
         ellipse(this.x, this.y, this.size);
+        pop();
+    }
+
+    drawHandles() {
+        push();
         fill(0, 0, 255);
         ellipse(this.sizeHandleX, this.sizeHandleY, this.handleSize);
         fill(255, 0, 0);
         ellipse(this.x, this.y, this.handleSize);
         pop();
-}
+    }
 }
 
 function drawDebugInfo() {
@@ -135,17 +166,17 @@ function mousePressed() {
         let distanceToPositionHandle = dist(mousePos.x, mousePos.y, obstacle.x, obstacle.y);
         let distanceToSizeHandle = dist(mousePos.x, mousePos.y, obstacle.sizeHandleX, obstacle.sizeHandleY);
 
-        if (distanceToPositionHandle < obstacle.handleSize) {
+        if (distanceToPositionHandle < obstacle.handleSize / 2) {
             selectedObstacle = obstacle;
             selectedHandle = 'position';
             handleOffset.x = mousePos.x - obstacle.x;
             handleOffset.y = mousePos.y - obstacle.y;
             return;
-        } else if (distanceToSizeHandle < obstacle.handleSize) {
+        } else if (distanceToSizeHandle < obstacle.handleSize / 2) {
             selectedObstacle = obstacle;
             selectedHandle = 'size';
-            handleOffset.x = mousePos.x - obstacle.sizeHandleX;
-            handleOffset.y = mousePos.y - obstacle.sizeHandleY;
+            handleOffset.x = mousePos.x - obstacle.x;
+            handleOffset.y = mousePos.y - obstacle.y;
             return;
         }
     }
@@ -155,15 +186,18 @@ function mouseDragged() {
     if (selectedObstacle) {
         let mousePos = getMousePosition();
         if (selectedHandle === 'position') {
+            let dx = selectedObstacle.sizeHandleX - selectedObstacle.x;
+            let dy = selectedObstacle.sizeHandleY - selectedObstacle.y;
+
             selectedObstacle.x = mousePos.x - handleOffset.x;
             selectedObstacle.y = mousePos.y - handleOffset.y;
-            selectedObstacle.sizeHandleX = selectedObstacle.x + selectedObstacle.size / 2;
-            selectedObstacle.sizeHandleY = selectedObstacle.y;
+
+            selectedObstacle.sizeHandleX = selectedObstacle.x + dx;
+            selectedObstacle.sizeHandleY = selectedObstacle.y + dy;
         } else if (selectedHandle === 'size') {
-            let newSize = dist(selectedObstacle.x, selectedObstacle.y, mousePos.x, mousePos.y) * 2;
-            selectedObstacle.size = newSize;
-            selectedObstacle.sizeHandleX = selectedObstacle.x + selectedObstacle.size / 2;
-            selectedObstacle.sizeHandleY = selectedObstacle.y;
+            selectedObstacle.sizeHandleX = mousePos.x;
+            selectedObstacle.sizeHandleY = mousePos.y;
+            selectedObstacle.size = dist(selectedObstacle.x, selectedObstacle.y, selectedObstacle.sizeHandleX, selectedObstacle.sizeHandleY) * 2;
         }
     }
 }
