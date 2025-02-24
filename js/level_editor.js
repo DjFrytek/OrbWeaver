@@ -35,17 +35,18 @@ function setup() {
         }
     });
 
-    let saveButton = document.getElementById('saveButton');
-    saveButton.addEventListener('click', function() {
-        let levelData = {
-            name: "placeholder",
-            objects: [],
-            player: {
-                drag: 0.96,
-                steeringForce: 0.2,
-                startPosition: { x: 192, y: 84 },
-                bounds: { width: levelBound.width, height: levelBound.height }
-            }
+        let saveButton = document.getElementById('saveButton');
+        saveButton.addEventListener('click', function() {
+            let levelName = document.getElementById('levelName').value;
+            let levelData = {
+                name: levelName,
+                objects: [],
+                player: {
+                    drag: 0.96,
+                    steeringForce: 0.2,
+                    startPosition: { x: 192, y: 84 },
+                    bounds: { width: levelBound.width, height: levelBound.height }
+                }
         };
 
         for (let obstacle of obstacles) {
@@ -83,6 +84,7 @@ function setup() {
                     strengthValueInput.value = 0.5;
                     document.getElementById('levelWidth').value = levelBound.width;
                     document.getElementById('levelHeight').value = levelBound.height;
+                    document.getElementById('levelName').value = levelData.name;
                 } catch (error) {
                     console.error("Error parsing JSON:", error);
                     alert("Failed to load level: Invalid JSON format.");
