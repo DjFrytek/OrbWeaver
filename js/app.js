@@ -36,8 +36,10 @@ function draw() {
 }
 
 window.startLevel = function(levelName = level.name) {
+  let sameLevel = levelName == level?.name;
+  let shouldFetchReplays = !sameLevel;
+
   loadLevel(levelName);
-  let currentLevel = level.name;
   if(!raceGhost) {
     player = new Player(level.player.startPosition.x, level.player.startPosition.y, level.player, playbackReplay);
     ghost = undefined;
@@ -54,7 +56,7 @@ window.startLevel = function(levelName = level.name) {
     document.getElementById("win-overlay").style.display = "none";
   }
 
-  fetchReplays().then(replays => displayReplays(replays));
+  if(shouldFetchReplays) fetchReplays().then(replays => displayReplays(replays));
 }
 
 function loadLevel(levelName) {
@@ -203,6 +205,7 @@ function getCurrentDate() {
 }
 
 async function fetchReplays() {
+  console.log("fetching replays for " + level.name);
   const url = `${apiUrl}/api/get-highscores?levelId=` + level.name;
 
   try {
