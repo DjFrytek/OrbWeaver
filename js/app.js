@@ -305,7 +305,7 @@ function populateReplayTable(replays) {
 
     const replayCell = row.insertCell();
     const button = document.createElement('button');
-    button.textContent = 'Watch Replay';
+    button.innerHTML = 'Watch<br>Replay';
     button.onclick = function() {
       watchReplay(replay);
     };
