@@ -38,6 +38,9 @@ function draw() {
 
 window.startLevel = function(levelName = currentLevel.name) {
   let sameLevel = levelName == currentLevel?.name;
+  if(!sameLevel) {
+    playbackReplay = undefined;
+  }
   let shouldFetchReplays = !sameLevel || needRefreshReplays;
   needRefreshReplays=false;
 
