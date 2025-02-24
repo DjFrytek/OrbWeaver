@@ -126,18 +126,22 @@ function setup() {
 function keyPressed() {
     if (keyCode === 32) { // Spacebar
         if (selectedObstacle) {
-            let index = obstacles.indexOf(selectedObstacle);
-            if (index > -1) {
-                obstacles.splice(index, 1);
-                selectedObstacle = null;
-                lastSelectedObstacle = null;
-            }
+            //COPY
         } else {
             addObstacle(0.5);
         }
     }
 
     if (selectedObstacle) {
+        if(keyCode === 46) { //DELETE
+            let index = obstacles.indexOf(selectedObstacle);
+            if (index > -1) {
+                obstacles.splice(index, 1);
+                selectedObstacle = null;
+                lastSelectedObstacle = null;
+            }
+        }    
+
         let index = obstacles.indexOf(selectedObstacle);
         if (keyCode === 81) { // Q
             if (index > 0) {
