@@ -14,7 +14,7 @@ let playbackReplay; //Input data to play
 let raceGhost = false;
 let ghost;
 
-const apiUrl = window.location.hostname === 'localhost' ? 'http://localhost:3001' : 'https://orbweaver.onrender.com:10000';
+const apiUrl = window.location.hostname === 'localhost' ? 'http://localhost:3001' : 'https://orbweaver.onrender.com';
 
 function setup() {
   canvas = createCanvas(600, 600);
@@ -157,7 +157,7 @@ function createReplayObject(levelName, finishTime, inputReplay) {
 }
 
 async function saveReplayToServer(replayObject) {
-  const url = apiUrl + '/api/save-score';
+  const url = `${apiUrl}/api/save-score`;
 
   try {
     const response = await fetch(url, {
