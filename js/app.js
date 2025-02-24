@@ -14,6 +14,7 @@ let raceGhost = false;
 let ghost;
 
 let canvasWasClickedLast = false;
+let needRefreshReplays = false;
 
 const apiUrl = window.location.hostname === 'localhost' ? 'http://localhost:3001' : 'https://orbweaver.onrender.com';
 
@@ -37,7 +38,8 @@ function draw() {
 
 window.startLevel = function(levelName = currentLevel.name) {
   let sameLevel = levelName == currentLevel?.name;
-  let shouldFetchReplays = !sameLevel;
+  let shouldFetchReplays = !sameLevel || needRefreshReplays;
+  needRefreshReplays=false;
 
   loadLevel(levelName);
   if(!raceGhost) {
@@ -187,6 +189,10 @@ async function saveReplayToServer(replayObject) {
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    if (response.status === 200 || response.status === 201) {
+      needRefreshReplays = true;
     }
 
     const data = await response.text();
