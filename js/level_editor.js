@@ -38,13 +38,15 @@ function setup() {
         let saveButton = document.getElementById('saveButton');
         saveButton.addEventListener('click', function() {
             let levelName = document.getElementById('levelName').value;
+            let startX = parseFloat(document.getElementById('startX').value);
+            let startY = parseFloat(document.getElementById('startY').value);
             let levelData = {
                 name: levelName,
                 objects: [],
                 player: {
                     drag: 0.96,
                     steeringForce: 0.2,
-                    startPosition: { x: 192, y: 84 },
+                    startPosition: { x: startX, y: startY },
                     bounds: { width: levelBound.width, height: levelBound.height }
                 }
         };
@@ -85,6 +87,8 @@ function setup() {
                     document.getElementById('levelWidth').value = levelBound.width;
                     document.getElementById('levelHeight').value = levelBound.height;
                     document.getElementById('levelName').value = levelData.name;
+                    document.getElementById('startX').value = levelData.player.startPosition.x;
+                    document.getElementById('startY').value = levelData.player.startPosition.y;
                 } catch (error) {
                     console.error("Error parsing JSON:", error);
                     alert("Failed to load level: Invalid JSON format.");
@@ -181,7 +185,19 @@ function drawLevel() {
     }
 
     drawBounds();
+    drawStartPosition();
 
+    pop();
+}
+
+function drawStartPosition() {
+    push();
+    fill(0, 0, 255);
+    strokeWeight(2);
+    stroke(0, 255, 0);
+    let startX = parseFloat(document.getElementById('startX').value);
+    let startY = parseFloat(document.getElementById('startY').value);
+    ellipse(startX, startY, 5);
     pop();
 }
 
