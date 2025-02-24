@@ -92,7 +92,7 @@ async function levelFinished(finishTime, isScoreLegit) {
 }
 
 function mouseWheel(event) {
-  if(!isCanvasFocused()) return;
+  if(!isCanvasFocused() || !isMouseInsideCanvas()) return;
   let zoomFactor = 1.1;
   if (event.delta > 0) {
     renderer.desiredZoom /= zoomFactor;
