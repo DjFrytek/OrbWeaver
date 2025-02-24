@@ -27,6 +27,14 @@ function setup() {
   window.addEventListener('resize', resizeCanvasIfNeeded);
 }
 
+function draw() {
+  if (physicsEngine.update()) {
+    
+  }
+  renderer.drawAll(player, level.objects);
+  showFPS();
+}
+
 window.startLevel = function(levelName = level.name) {
   loadLevel(levelName);
   let currentLevel = level.name;
@@ -52,15 +60,6 @@ window.startLevel = function(levelName = level.name) {
 function loadLevel(levelName) {
   console.log("loading: " + levelName);
   level = JSON.parse(JSON.stringify(getLevelData(levelName)));
-}
-
-function draw() {
-  console.log(isCanvasFocused() ? "Focused" : "Not focused");
-  if (physicsEngine.update()) {
-    
-  }
-  renderer.drawAll(player, level.objects);
-  showFPS();
 }
 
 function showFPS() {
