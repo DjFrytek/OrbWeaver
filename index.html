@@ -12,6 +12,7 @@
             <!-- Rankings, Login, Profile Info -->
              <h2>Tymczasowy poradnik:</h2>
              <ul>
+                <li>Zaloguj sie, aby zapisywac swoje wyniki w rankingu!</li>
                 <li>Steruje sie myszka</li>
                 <li>Kolkiem myszy zoom</li>
                 <li>R - restart poziomu</li>
@@ -21,12 +22,17 @@
                 <li>Po zalogowaniu mozna zmienic nick wpisujac go i naciskajac ENTER</li>
              </ul>
              <h2>Login</h2>
-             <input type="email" id="email" placeholder="Email"><br>
-             <input type="password" id="password" placeholder="Password"><br>
-             <label for="nickname">Set Nickname:</label><br>
-             <input type="text" id="nickname" placeholder="Nickname" style="display:none;"><br>
-             <button id="signInButton">Login</button>
-             <button id="signUpButton">Register</button>
+             <div id="login-container">
+                <input type="email" id="email" placeholder="Email"><br>
+                <input type="password" id="password" placeholder="Password"><br>
+                <button id="signInButton">Login</button>
+                <button id="signUpButton">Register</button>
+             </div>
+             <div id="nickname-container" style="display:none;">
+                <label for="nickname">Set Nickname:</label><br>
+                <input type="text" id="nickname" placeholder="Nickname">
+                <button id="setNicknameButton">Set Nickname</button><br>
+             </div>
              <button id="logoutButton" style="display:none;">Logout</button>
              <div id="auth-message"></div>
         </aside>

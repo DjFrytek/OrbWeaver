@@ -19,7 +19,6 @@ async function signUp() {
     } else {
       console.log('Sign up success:', data);
       localStorage.setItem('supabase.auth.token', data.session.access_token);
-      messageDiv.textContent = 'Sign up successful!';
       showLogoutButton();
     }
   } catch (error) {
@@ -58,11 +57,8 @@ async function signIn() {
 }
 
 async function showLogoutButton() {
-  document.getElementById('signUpButton').style.display = 'none';
-  document.getElementById('signInButton').style.display = 'none';
-  document.getElementById('email').style.display = 'none';
-  document.getElementById('password').style.display = 'none';
-  document.getElementById('nickname').style.display = 'block';
+  document.getElementById('login-container').style.display = 'none';
+  document.getElementById('nickname-container').style.display = 'block';
   document.getElementById('logoutButton').style.display = 'block';
 
   // Fetch and display nickname
@@ -108,11 +104,8 @@ async function updateNickname() {
 }
 
 function showLoginPanel() {
-  document.getElementById('signUpButton').style.display = 'inline-block';
-  document.getElementById('signInButton').style.display = 'inline-block';
-  document.getElementById('email').style.display = 'inline-block';
-  document.getElementById('password').style.display = 'inline-block';
-  document.getElementById('nickname').style.display = 'none';
+  document.getElementById('login-container').style.display = 'block';
+  document.getElementById('nickname-container').style.display = 'none';
   document.getElementById('logoutButton').style.display = 'none';
 }
 
@@ -126,6 +119,7 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('signUpButton').addEventListener('click', signUp);
   document.getElementById('signInButton').addEventListener('click', signIn);
   document.getElementById('logoutButton').addEventListener('click', logout);
+  document.getElementById('setNicknameButton').addEventListener('click', updateNickname);
   document.getElementById('nickname').addEventListener('keydown', function(event) {
     if (event.key === 'Enter') {
       updateNickname();
