@@ -1,13 +1,10 @@
 DZIURY
 Menu pauzy
-REPLAYE
 Poradnik
 Menu poziomow
-Ekran koncowy poziomu
 Medale
 Efekty dzwiekowe
 Personal rekord
-Logowanie
 Rankingi
 Custom kolorki
 Particle za graczem

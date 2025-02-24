@@ -83,7 +83,7 @@ class PhysicsEngine {
       let distance = dist(player.pos.x, player.pos.y, obj.x, obj.y);
       if (distance < obj.r/2) {
         if(obj.type == "wall") {
-          collision.isColliding = true;
+          if(obj.strength != 0) collision.isColliding = true;
           collision.slowdownFactor = 1 - obj.strength;
           break;
         } else if(obj.type == "deathwall") {

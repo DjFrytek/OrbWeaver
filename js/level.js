@@ -82,6 +82,10 @@ const levelData2 = {
   objects: [
     { x: 292, y: 179, r: 50, type: "finish"},
 
+    { x: 48, y: 37, r: 64, type: "wall", strength: 0.95 },
+
+    { x: 88, y: 77, r: 99, type: "wall", strength: 0 },
+
     { x: 196, y: 200, r: 167, type: "wall", strength: 0.4 },
     { x: 265, y: 110, r: 124, type: "wall", strength: 0.4 },
     { x: 233, y: 21, r: 80, type: "wall", strength: 0.4 },

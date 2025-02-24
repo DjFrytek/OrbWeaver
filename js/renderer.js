@@ -14,7 +14,7 @@ class Renderer {
       ghostBall: color(26, 216, 237),
       playerTrail: color(0, 242, 255),
       ghostTrail: color(0, 242, 255),
-      bg: color(50),
+      bg: color(50, 50, 50),
       deathwall: color(250),
       finish: color(0, 255, 0, 100),
       checkpoint: color(183, 0, 255, 100),
@@ -60,7 +60,7 @@ class Renderer {
     levelObjects.forEach(obj => {
       if(obj.type == "wall") {
         let slowdownFactor = 1 - obj.strength;
-        let color = map(pow(slowdownFactor, 0.5), 0, 1, 200, 60);
+        let color = map(pow(slowdownFactor, 0.5), 0, 1, 200, red(this.colors.bg));
         fill(color);
         noStroke();
         ellipse(obj.x, obj.y, obj.r);
