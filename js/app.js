@@ -225,9 +225,11 @@ async function fetchReplays() {
   }
 }
 
-function displayReplays(replays) {
+async function displayReplays(replays) {
   const replayListDiv = document.getElementById('replay-list');
   replayListDiv.innerHTML = '';
+  const userReplayInfoDiv = document.getElementById('user-replay-info');
+  userReplayInfoDiv.innerHTML = '';
 
   if (replays.length === 0) {
     replayListDiv.textContent = 'No replays found.';
