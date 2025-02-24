@@ -112,19 +112,30 @@ app.post('/api/save-score', async (req, res) => {
       const existingReplay = existingReplays[0];
       // If a replay exists, check if the new time is faster
       if (finishTime < existingReplay.finishTime) {
-        // If the new time is faster, update the existing replay
-        const { data: updateData, error: updateError } = await supabase
+        // Delete the existing replay
+        const { data: deleteData, error: deleteError } = await supabase
           .from('replays')
-          .update({ levelId: levelId, finishTime: finishTime, replayData: replayData })
-          .eq('id', existingReplay.id)
-          .select();
+          .delete()
+          .eq('id', existingReplay.id);
 
-        if (updateError) {
-          console.error('Error updating replay:', updateError);
+        if (deleteError) {
+          console.error('Error deleting replay:', deleteError);
           return res.status(500).send('Error saving replay');
         }
 
-        res.send('Replay updated successfully');
+        // Insert the new replay
+        const { data, error } = await supabase
+          .from('replays')
+          .insert([
+            { levelId: levelId, finishTime: finishTime, replayData: replayData, playerId: userId },
+          ]);
+
+        if (error) {
+          console.error('Error saving replay:', error);
+          return res.status(500).send('Error saving replay');
+        }
+
+        res.status(201).send('Replay saved successfully');
       } else {
         // If the new time is not faster, do not save the replay
         return res.status(200).send('Replay not saved: New replay is not faster than existing replay');
