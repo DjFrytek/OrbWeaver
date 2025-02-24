@@ -35,6 +35,7 @@ body {
 }
 
 .left-panel button {
+    background-color: #555;
     color: white;
     padding: 10px 15px;
     border: none;
