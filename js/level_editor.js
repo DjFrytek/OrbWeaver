@@ -40,6 +40,7 @@ function setup() {
             let levelName = document.getElementById('levelName').value;
             let startX = parseFloat(document.getElementById('startX').value);
             let startY = parseFloat(document.getElementById('startY').value);
+            let forceCheckpointOrder = document.getElementById('forceCheckpointOrder').checked;
             let levelData = {
                 name: levelName,
                 objects: [],
@@ -48,6 +49,9 @@ function setup() {
                     steeringForce: 0.2,
                     startPosition: { x: startX, y: startY },
                     bounds: { width: levelBound.width, height: levelBound.height }
+                },
+                settings: {
+                    forceCheckpointOrder: forceCheckpointOrder
                 }
         };
 
@@ -89,6 +93,9 @@ function setup() {
                     document.getElementById('levelName').value = levelData.name;
                     document.getElementById('startX').value = levelData.player.startPosition.x;
                     document.getElementById('startY').value = levelData.player.startPosition.y;
+                    if (levelData.settings) {
+                        document.getElementById('forceCheckpointOrder').checked = levelData.settings.forceCheckpointOrder;
+                    }
                 } catch (error) {
                     console.error("Error parsing JSON:", error);
                     alert("Failed to load level: Invalid JSON format.");

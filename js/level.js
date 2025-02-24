@@ -130,6 +130,9 @@ const levelData2 = {
     steeringForce: 0.2,
     startPosition: { x: 192, y: 84 },
     bounds: { width: 400, height: 400 }
+  },
+  settings: {
+    forceCheckpointOrder: false,
   }
 };
 
