@@ -11,6 +11,7 @@ let obstacles = [];
 let selectedObstacle = null;
 let selectedHandle = null; // null, 'position', or 'size'
 let handleOffset = { x: 0, y: 0 };
+let lastSelectedObstacle = null;
 
 function setup() {
     createCanvas(800, 800);
@@ -82,14 +83,6 @@ function drawLevel() {
     translate(cameraX, cameraY);
     scale(zoom);
 
-    // put drawing code here
-    noFill();
-    push();
-    strokeWeight(4);
-    stroke(255, 0, 0);
-    rect(0, 0, levelBound.width, levelBound.height);
-    pop();
-    
     // Draw circles
     for (let obstacle of obstacles) {
         obstacle.draw();
@@ -100,7 +93,19 @@ function drawLevel() {
         obstacle.drawHandles();
     }
 
+    drawBounds();
+
     pop();
+}
+
+function drawBounds() {
+    push();
+    noFill();
+    strokeWeight(4);
+    stroke(255, 0, 0);
+    rect(0, 0, levelBound.width, levelBound.height);
+    pop();
+
 }
 
 function addObstacle(str) {
@@ -171,12 +176,14 @@ function mousePressed() {
             selectedHandle = 'position';
             handleOffset.x = mousePos.x - obstacle.x;
             handleOffset.y = mousePos.y - obstacle.y;
+            lastSelectedObstacle = obstacle;
             return;
         } else if (distanceToSizeHandle < obstacle.handleSize / 2) {
             selectedObstacle = obstacle;
             selectedHandle = 'size';
             handleOffset.x = mousePos.x - obstacle.x;
             handleOffset.y = mousePos.y - obstacle.y;
+            lastSelectedObstacle = obstacle;
             return;
         }
     }
