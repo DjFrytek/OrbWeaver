@@ -41,6 +41,7 @@ class Renderer {
     pop();
     this.drawSteeringLine(this.player);
     this.showTimer();
+    this.showVariousInfo();
   }
 
   drawLevel(level) {
@@ -148,6 +149,17 @@ class Renderer {
     textSize(32);
     textAlign(CENTER, CENTER);
     text((physicsEngine.elapsedTime / 1000).toFixed(2), width/2, 25);
+    pop();
+  }
+
+  showVariousInfo() {
+    push();
+    stroke(0);
+    strokeWeight(3);
+    fill(255);
+    textSize(32);
+    textAlign(CENTER, CENTER);
+    if(isPlayingReplay()) text("PLAYING REPLAY", width/2, 55);
     pop();
   }
 

@@ -316,3 +316,7 @@ function populateReplayTable(replays) {
 function isCanvasFocused() {
   return canvasWasClickedLast;
 }
+
+function isPlayingReplay() {
+  return player.isPlayback;
+}
