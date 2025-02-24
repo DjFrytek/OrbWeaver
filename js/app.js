@@ -70,17 +70,20 @@ function showFPS() {
   pop();
 }
 
-function levelFinished(finishTime, isScoreLegit) {
-  if(isScoreLegit) {
-    console.log("LEVEL FINISHED! TIME: " + finishTime);
-    lastReplay = createReplayObject(currentLevel, physicsEngine.getFinishTime(), player.inputReplay);
-    saveReplayToServer(lastReplay);
-  }
-  else console.log("REPLAY FINISHED! TIME: " + finishTime);
+async function levelFinished(finishTime, isScoreLegit) {
   canvas.elt.classList.add("blurred");
   document.getElementById("game-canvas").classList.add("blurred");
   document.getElementById("win-time").innerHTML = "Time: " + (physicsEngine.elapsedTime / 1000).toFixed(2);
   document.getElementById("win-overlay").style.display = "block";
+
+  if(isScoreLegit) {
+    console.log("LEVEL FINISHED! TIME: " + finishTime);
+    lastReplay = await createReplayObject(currentLevel, physicsEngine.getFinishTime(), player.inputReplay);
+
+    saveReplayToServer(lastReplay);
+  }
+  else console.log("REPLAY FINISHED! TIME: " + finishTime);
+
 }
 
 function mouseWheel(event) {
@@ -152,18 +155,25 @@ function toggleReplayRace() {
   window.startLevel();
 }
 
-function createReplayObject(levelName, finishTime, inputReplay) {
-  return {id: 1, levelId: levelName, finishTime: Math.floor(finishTime), playerId: 1, replayData: inputReplay, date:getCurrentDate()};
+async function createReplayObject(levelName, finishTime, inputReplay) {
+  const token = getItem('supabase.auth.token');
+  return { levelId: levelName, finishTime: Math.floor(finishTime), token, replayData: inputReplay, date:getCurrentDate()};
 }
 
 async function saveReplayToServer(replayObject) {
-  const url = `${apiUrl}/api/save-score`;
+  const url = apiUrl + '/api/save-score';
+  const token = replayObject.token;
+  if(!token) {
+    console.log("Not logged in, replay wont be saved");
+    return;
+  }
 
   try {
     const response = await fetch(url, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
       },
       body: JSON.stringify(replayObject)
     });
@@ -217,7 +227,7 @@ function displayReplays(replays) {
   const ul = document.createElement('ul');
   replays.forEach(replay => {
     const li = document.createElement('li');
-    li.textContent = `Level: ${replay.levelId}, Time: ${(replay.finishTime / 1000).toFixed(2)}s`;
+    li.textContent = `${(replay.finishTime / 1000).toFixed(2)}s | ${replay.users.nickname}`;
 
     const button = document.createElement('button');
     button.textContent = 'Watch Replay';
