@@ -83,7 +83,16 @@ function setup() {
 
 function keyPressed() {
     if (keyCode === 32) { // Spacebar
-        addObstacle(0.5);
+        if (selectedObstacle) {
+            let index = obstacles.indexOf(selectedObstacle);
+            if (index > -1) {
+                obstacles.splice(index, 1);
+                selectedObstacle = null;
+                lastSelectedObstacle = null;
+            }
+        } else {
+            addObstacle(0.5);
+        }
     }
 
     if (selectedObstacle) {
@@ -179,7 +188,7 @@ class Obstacle {
     draw() {
         push();
         noStroke();
-        let c = map(this.force, 0, 1, 50, 250);
+        let c = map(this.force, 0, 1, 50, 200);
         fill(c);
         ellipse(this.x, this.y, this.size);
         pop();
@@ -214,7 +223,8 @@ function getMousePosition() {
 
 function mousePressed() {
     let mousePos = getMousePosition();
-    for (let obstacle of obstacles) {
+    for (let i = obstacles.length - 1; i >= 0; i--) {
+        let obstacle = obstacles[i];
         let distanceToPositionHandle = dist(mousePos.x, mousePos.y, obstacle.x, obstacle.y);
         let distanceToSizeHandle = dist(mousePos.x, mousePos.y, obstacle.sizeHandleX, obstacle.sizeHandleY);
 
