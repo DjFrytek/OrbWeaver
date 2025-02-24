@@ -63,6 +63,35 @@ function setup() {
         saveJSON(levelData, 'level.json');
     });
 
+    let loadInput = document.getElementById('loadInput');
+    loadInput.addEventListener('change', function(event) {
+        let file = event.target.files[0];
+        if (file) {
+            let reader = new FileReader();
+            reader.onload = function(e) {
+                let contents = e.target.result;
+                try {
+                    let levelData = JSON.parse(contents);
+                    obstacles = [];
+                    for (let obj of levelData.objects) {
+                        let obstacle = new Obstacle(obj.x, obj.y, obj.r, obj.strength);
+                        obstacles.push(obstacle);
+                    }
+                    levelBound.width = levelData.player.bounds.width;
+                    levelBound.height = levelData.player.bounds.height;
+                    strengthSlider.value = 0.5;
+                    strengthValueInput.value = 0.5;
+                    document.getElementById('levelWidth').value = levelBound.width;
+                    document.getElementById('levelHeight').value = levelBound.height;
+                } catch (error) {
+                    console.error("Error parsing JSON:", error);
+                    alert("Failed to load level: Invalid JSON format.");
+                }
+            }
+            reader.readAsText(file);
+        }
+    });
+
     let levelWidthInput = document.getElementById('levelWidth');
     let levelHeightInput = document.getElementById('levelHeight');
 
@@ -188,8 +217,11 @@ class Obstacle {
     draw() {
         push();
         noStroke();
-        let c = map(this.force, 0, 1, 50, 200);
+        let slowdownFactor = 1 - this.force;
+        let x = pow(slowdownFactor, 0.5)
+        let c = map(x, 1, 0, 50, 200);
         fill(c);
+        if(this.force == 1) fill(255);
         ellipse(this.x, this.y, this.size);
         pop();
     }
