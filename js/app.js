@@ -14,7 +14,7 @@ let playbackReplay; //Input data to play
 let raceGhost = false;
 let ghost;
 
-const apiUrl = window.location.hostname === 'localhost' ? 'http://localhost:3001' : 'https://orbweaver.onrender.com';
+const apiUrl = window.location.hostname === 'localhost' ? 'http://localhost:3001' : 'https://orbweaver.onrender.com:10000';
 
 function setup() {
   canvas = createCanvas(600, 600);
