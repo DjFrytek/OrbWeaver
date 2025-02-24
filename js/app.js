@@ -241,18 +241,37 @@ async function displayReplays(replays) {
         }
       });
       const data = await response.json();
+      const userReplayTable = document.getElementById('user-replay-table').getElementsByTagName('tbody')[0];
+      userReplayTable.innerHTML = '';
+
       if (data.replay) {
-        userReplayInfoDiv.textContent = `#${data.rank} | ${(data.replay.finishTime / 1000).toFixed(2)}s | ${data.replay.users.nickname}  `;
+        const row = userReplayTable.insertRow();
+
+        const rankCell = row.insertCell();
+        rankCell.textContent = "#" + data.rank;
+
+        const timeCell = row.insertCell();
+        timeCell.textContent = (data.replay.finishTime / 1000).toFixed(2);
+
+        const nicknameCell = row.insertCell();
+        nicknameCell.textContent = data.replay.users.nickname;
+
+        const replayCell = row.insertCell();
         const button = document.createElement('button');
         button.textContent = 'Watch Replay';
         button.onclick = function() {
           watchReplay(data.replay);
         };
-        userReplayInfoDiv.appendChild(button);
+        replayCell.appendChild(button);
         userReplayHeader.style.display = 'block';
-        userReplayInfoDiv.style.display = 'block';
+        userReplayInfoDiv.style.display = 'none';
       } else {
-        userReplayInfoDiv.textContent = "No replay found for you on this level.";
+        const row = userReplayTable.insertRow();
+        const cell = row.insertCell();
+        cell.textContent = "No replay found for you on this level.";
+        cell.colSpan = 4;
+        userReplayHeader.style.display = 'none';
+        userReplayInfoDiv.style.display = 'none';
       }
     } catch (error) {
       console.error('Error fetching user ranking:', error);

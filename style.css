@@ -207,3 +207,44 @@ canvas.blurred {
 #replay-table button:hover {
     background-color: #777;
 }
+
+#user-replay-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+#user-replay-table th,
+#user-replay-table td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #333;
+    font-size: calc(8px + (14 - 8) * ((20vw - 100px) / (300 - 100)));
+}
+
+#user-replay-table th {
+    background-color: #333;
+    color: white;
+}
+
+#user-replay-table tbody tr:nth-child(odd) {
+    background-color: #282828;
+}
+
+#user-replay-table tbody tr:nth-child(even) {
+    background-color: #202020;
+}
+
+#user-replay-table button {
+    background-color: #555;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: calc(10px + (12 - 10) * ((20vw - 100px) / (300 - 100)));
+}
+
+#user-replay-table button:hover {
+    background-color: #777;
+}
