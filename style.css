@@ -15,6 +15,48 @@ body {
     background-color: #202020;
     padding: 20px;
     color: white;
+    position: relative;
+}
+
+.left-panel h2 {
+    margin-bottom: 15px;
+    font-size: 20px;
+}
+
+.left-panel input {
+    margin-bottom: 10px;
+    padding: 8px;
+    border: 1px solid #444;
+    border-radius: 5px;
+    background-color: #333;
+    color: white;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.left-panel button {
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 5px;
+    width: 100%;
+}
+
+#logoutButton {
+    background-color: #8B0000; /* Dark Red */
+    width: 80%;
+    margin: 0 auto;
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+}
+
+.left-panel button:hover {
+    background-color: #777;
 }
 
 .game-area {

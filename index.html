@@ -18,12 +18,17 @@
                 <li>Po przejsciu mozna obejrzec Replay</li>
                 <li>G - Zmiana trybu scigania / ogladania replaya podczas powtorki</li>
                 <li>ESCAPE - Wyjscie z replaya</li>
+                <li>Po zalogowaniu mozna zmienic nick wpisujac go i naciskajac ENTER</li>
              </ul>
              <h2>Login</h2>
              <input type="email" id="email" placeholder="Email"><br>
              <input type="password" id="password" placeholder="Password"><br>
-             <button id="signUpButton">Sign Up</button>
-             <button id="signInButton">Sign In</button>
+             <label for="nickname">Set Nickname:</label><br>
+             <input type="text" id="nickname" placeholder="Nickname" style="display:none;"><br>
+             <button id="signInButton">Login</button>
+             <button id="signUpButton">Register</button>
+             <button id="logoutButton" style="display:none;">Logout</button>
+             <div id="auth-message"></div>
         </aside>
 
         <main class="game-area">

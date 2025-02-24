@@ -8,13 +8,13 @@ const port = process.env.PORT || 3001;
 
 const jwt = require('jsonwebtoken');
 
+const supabaseUrl = process.env.SUPABASE_URL;
+
 app.use(cors());
 app.use(express.json());
 
 // Serve static files from the root directory
 app.use(express.static(path.join(__dirname, '..')));
-
-const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
@@ -83,7 +83,6 @@ app.post('/api/signin', async (req, res) => {
 app.post('/api/save-score', async (req, res) => {
   const { levelId, finishTime, token, replayData } = req.body;
 
-
   if (!token) {
     console.log("brak tokena");
     return res.status(401).json({ error: 'Brak tokena' });
@@ -97,21 +96,125 @@ app.post('/api/save-score', async (req, res) => {
   }
 
   try {
-    const { data, error } = await supabase
+    // Check if a replay already exists for this player and level
+    const { data: existingReplay, error: existingReplayError } = await supabase
       .from('replays')
-      .insert([
-        { levelId: levelId, finishTime: finishTime, replayData: replayData, playerId: userId },
-      ]);
+      .select('id, finishTime')
+      .eq('playerId', userId)
+      .eq('levelId', levelId)
+      .single();
 
-    if (error) {
-      console.error('Error saving replay:', error);
+    if (existingReplayError) {
+      console.error('Error checking for existing replay:', existingReplayError);
       return res.status(500).send('Error saving replay');
     }
 
-    res.send('Replay saved successfully');
+    if (existingReplay) {
+      // If a replay exists, check if the new time is faster
+      if (finishTime < existingReplay.finishTime) {
+        // If the new time is faster, update the existing replay
+        const { data: updateData, error: updateError } = await supabase
+          .from('replays')
+          .update({ levelId: levelId, finishTime: finishTime, replayData: replayData })
+          .eq('id', existingReplay.id);
+
+        if (updateError) {
+          console.error('Error updating replay:', updateError);
+          return res.status(500).send('Error saving replay');
+        }
+
+        res.send('Replay updated successfully');
+      } else {
+        // If the new time is not faster, do not save the replay
+        console.log('New replay is not faster than existing replay');
+        return res.send('Replay not saved: New replay is not faster than existing replay');
+      }
+    } else {
+      // If no replay exists, insert the new replay
+      const { data, error } = await supabase
+        .from('replays')
+        .insert([
+          { levelId: levelId, finishTime: finishTime, replayData: replayData, playerId: userId },
+        ]);
+
+      if (error) {
+        console.error('Error saving replay:', error);
+        return res.status(500).send('Error saving replay');
+      }
+
+      res.send('Replay saved successfully');
+    }
   } catch (error) {
     console.error('Error saving replay:', error);
     res.status(500).send('Error saving replay');
+  }
+});
+
+app.get('/api/get-nickname', async (req, res) => {
+  const token = req.headers.authorization?.split(' ')[1];
+
+  if (!token) {
+    return res.status(401).json({ error: 'No token provided' });
+  }
+
+  const userId = await getUserIdFromToken(token);
+
+  if (!userId) {
+    return res.status(401).json({ error: 'Invalid token' });
+  }
+
+  try {
+    const { data, error } = await supabase
+      .from('users')
+      .select('nickname')
+      .eq('id', userId)
+      .single();
+
+    if (error) {
+      console.error('Error fetching nickname:', error);
+      return res.status(500).json({ error: 'Error fetching nickname' });
+    }
+
+    if (!data) {
+      return res.status(404).json({ error: 'Nickname not found' });
+    }
+
+    res.json({ nickname: data.nickname });
+  } catch (error) {
+    console.error('Error fetching nickname:', error);
+    res.status(500).json({ error: 'Error fetching nickname' });
+  }
+});
+
+app.post('/api/update-nickname', async (req, res) => {
+  const token = req.headers.authorization?.split(' ')[1];
+  const { nickname } = req.body;
+
+  if (!token) {
+    return res.status(401).json({ error: 'No token provided' });
+  }
+
+  const userId = await getUserIdFromToken(token);
+
+  if (!userId) {
+    return res.status(401).json({ error: 'Invalid token' });
+  }
+
+  try {
+    const { data, error } = await supabase
+      .from('users')
+      .update({ nickname: nickname })
+      .eq('id', userId);
+
+    if (error) {
+      console.error('Error updating nickname:', error);
+      return res.status(500).json({ error: 'Error updating nickname' });
+    }
+
+    res.json({ message: 'Nickname updated successfully' });
+  } catch (error) {
+    console.error('Error updating nickname:', error);
+    res.status(500).json({ error: 'Error updating nickname' });
   }
 });
 

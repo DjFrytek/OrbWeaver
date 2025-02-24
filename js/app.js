@@ -227,7 +227,7 @@ function displayReplays(replays) {
   const ul = document.createElement('ul');
   replays.forEach(replay => {
     const li = document.createElement('li');
-    li.textContent = `${(replay.finishTime / 1000).toFixed(2)}s | ${replay.users.nickname}`;
+    li.textContent = `${(replay.finishTime / 1000).toFixed(2)}s | ${replay.users.nickname}  `;
 
     const button = document.createElement('button');
     button.textContent = 'Watch Replay';
