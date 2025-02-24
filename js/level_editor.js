@@ -16,6 +16,13 @@ let lastSelectedObstacle = null;
 function setup() {
     createCanvas(800, 800);
 
+    let strengthSlider = document.getElementById('strength');
+    strengthSlider.addEventListener('input', function() {
+        if (lastSelectedObstacle) {
+            lastSelectedObstacle.force = parseFloat(strengthSlider.value);
+        }
+    });
+
     let levelWidthInput = document.getElementById('levelWidth');
     let levelHeightInput = document.getElementById('levelHeight');
 
