@@ -226,9 +226,7 @@ async function fetchReplays() {
 }
 
 async function displayReplays(replays) {
-  const userReplayInfoDiv = document.getElementById('user-replay-info');
-  const userReplayHeader = userReplayInfoDiv.parentElement.querySelector('h3');
-  userReplayInfoDiv.innerHTML = '';
+  const userReplayInfoDiv = document.getElementById('user-replay-container');
 
   const token = localStorage.getItem('supabase.auth.token');
   
@@ -263,21 +261,18 @@ async function displayReplays(replays) {
           watchReplay(data.replay);
         };
         replayCell.appendChild(button);
-        userReplayHeader.style.display = 'block';
-        userReplayInfoDiv.style.display = 'none';
+        userReplayInfoDiv.style.display = 'block';
       } else {
         const row = userReplayTable.insertRow();
         const cell = row.insertCell();
         cell.textContent = "No replay found for you on this level.";
         cell.colSpan = 4;
-        userReplayHeader.style.display = 'none';
-        userReplayInfoDiv.style.display = 'none';
+
       }
     } catch (error) {
       console.error('Error fetching user ranking:', error);
     }
   } else {
-    userReplayHeader.style.display = 'none';
     userReplayInfoDiv.style.display = 'none';
   }
 
