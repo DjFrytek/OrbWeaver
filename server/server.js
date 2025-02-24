@@ -227,7 +227,8 @@ app.get('/api/get-highscores', async (req, res) => {
       .select('id, levelId, finishTime, replayData, users(nickname)')
       .eq('levelId', levelId)
       .order('finishTime', { ascending: true })
-      .limit(10);
+      .order('created_at', { ascending: true })
+      .limit(20);
 
     if (error) {
       console.error(error);
