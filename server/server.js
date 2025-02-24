@@ -281,7 +281,7 @@ app.get('/api/get-highscores', async (req, res) => {
       .eq('levelId', levelId)
       .order('finishTime', { ascending: true })
       .order('created_at', { ascending: true })
-      .limit(20);
+      .limit(50);
 
     if (error) {
       console.error(error);

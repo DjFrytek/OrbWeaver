@@ -226,22 +226,15 @@ async function fetchReplays() {
 }
 
 async function displayReplays(replays) {
-  const replayListDiv = document.getElementById('replay-list');
-  replayListDiv.innerHTML = '';
   const userReplayInfoDiv = document.getElementById('user-replay-info');
   const userReplayHeader = userReplayInfoDiv.parentElement.querySelector('h3');
   userReplayInfoDiv.innerHTML = '';
-
-  if (replays.length === 0) {
-    replayListDiv.textContent = 'No replays found.';
-    return;
-  }
 
   const token = localStorage.getItem('supabase.auth.token');
   
   if (token) {
     try {
-      const response = await fetch(`/api/get-my-ranking-on-level?levelId=${currentLevel.name}`, {
+      const response = await fetch(`${apiUrl}/api/get-my-ranking-on-level?levelId=${currentLevel.name}`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -269,22 +262,41 @@ async function displayReplays(replays) {
     userReplayInfoDiv.style.display = 'none';
   }
 
-  const ul = document.createElement('ul');
-  replays.forEach((replay, index) => {
-    const li = document.createElement('li');
-    li.textContent = `#${index + 1} | ${(replay.finishTime / 1000).toFixed(2)}s | ${replay.users.nickname}  `;
+  populateReplayTable(replays);
+}
 
+function populateReplayTable(replays) {
+  const replayTable = document.getElementById('replay-table').getElementsByTagName('tbody')[0];
+  replayTable.innerHTML = '';
+
+  if (replays.length === 0) {
+    const row = replayTable.insertRow();
+    const cell = row.insertCell();
+    cell.textContent = 'No replays found.';
+    cell.colSpan = 4;
+    return;
+  }
+
+  replays.forEach((replay, index) => {
+    const row = replayTable.insertRow();
+
+    const rankCell = row.insertCell();
+    rankCell.textContent = "#" + (index + 1);
+
+    const timeCell = row.insertCell();
+    timeCell.textContent = (replay.finishTime / 1000).toFixed(2);
+
+    const nicknameCell = row.insertCell();
+    nicknameCell.textContent = replay.users.nickname;
+
+    const replayCell = row.insertCell();
     const button = document.createElement('button');
     button.textContent = 'Watch Replay';
     button.onclick = function() {
       watchReplay(replay);
     };
-
-    li.appendChild(button);
-    ul.appendChild(li);
+    replayCell.appendChild(button);
   });
-
-  replayListDiv.appendChild(ul);
 }
 
 function isCanvasFocused() {
