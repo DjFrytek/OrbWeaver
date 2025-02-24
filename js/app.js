@@ -1,7 +1,7 @@
 let canvas;
 let physicsEngine;
 let player;
-let level;
+let currentLevel;
 let renderer;
 let zoomPersist = 1;
 
@@ -31,24 +31,24 @@ function draw() {
   if (physicsEngine.update()) {
     
   }
-  renderer.drawAll(player, level.objects);
+  renderer.drawAll(player, currentLevel.objects);
   showFPS();
 }
 
-window.startLevel = function(levelName = level.name) {
-  let sameLevel = levelName == level?.name;
+window.startLevel = function(levelName = currentLevel.name) {
+  let sameLevel = levelName == currentLevel?.name;
   let shouldFetchReplays = !sameLevel;
 
   loadLevel(levelName);
   if(!raceGhost) {
-    player = new Player(level.player.startPosition.x, level.player.startPosition.y, level.player, playbackReplay);
+    player = new Player(currentLevel.player.startPosition.x, currentLevel.player.startPosition.y, currentLevel.player, playbackReplay);
     ghost = undefined;
   } else {
-    player = new Player(level.player.startPosition.x, level.player.startPosition.y, level.player);
-    ghost = new Player(level.player.startPosition.x, level.player.startPosition.y, level.player, playbackReplay, true);
+    player = new Player(currentLevel.player.startPosition.x, currentLevel.player.startPosition.y, currentLevel.player);
+    ghost = new Player(currentLevel.player.startPosition.x, currentLevel.player.startPosition.y, currentLevel.player, playbackReplay, true);
   }
-  renderer = new Renderer(canvas, level, zoomPersist, player, ghost);
-  physicsEngine = new PhysicsEngine(60, level, player, ghost);
+  renderer = new Renderer(canvas, currentLevel, zoomPersist, player, ghost);
+  physicsEngine = new PhysicsEngine(60, currentLevel, player, ghost);
 
   if (canvas && canvas.elt) {
     canvas.elt.classList.remove("blurred");
@@ -61,7 +61,7 @@ window.startLevel = function(levelName = level.name) {
 
 function loadLevel(levelName) {
   console.log("loading: " + levelName);
-  level = JSON.parse(JSON.stringify(getLevelData(levelName)));
+  currentLevel = JSON.parse(JSON.stringify(getLevelData(levelName)));
 }
 
 function showFPS() {
@@ -81,7 +81,7 @@ async function levelFinished(finishTime, isScoreLegit) {
 
   if(isScoreLegit) {
     console.log("LEVEL FINISHED! TIME: " + finishTime);
-    lastReplay = await createReplayObject(level.name, physicsEngine.getFinishTime(), player.inputReplay);
+    lastReplay = await createReplayObject(currentLevel.name, physicsEngine.getFinishTime(), player.inputReplay);
 
     saveReplayToServer(lastReplay);
   }
@@ -205,8 +205,8 @@ function getCurrentDate() {
 }
 
 async function fetchReplays() {
-  console.log("fetching replays for " + level.name);
-  const url = `${apiUrl}/api/get-highscores?levelId=` + level.name;
+  console.log("fetching replays for " + currentLevel.name);
+  const url = `${apiUrl}/api/get-highscores?levelId=` + currentLevel.name;
 
   try {
     const response = await fetch(url);

@@ -127,7 +127,6 @@ app.post('/api/save-score', async (req, res) => {
         res.send('Replay updated successfully');
       } else {
         // If the new time is not faster, do not save the replay
-        console.log('New replay is not faster than existing replay');
         return res.status(200).send('Replay not saved: New replay is not faster than existing replay');
       }
     } else {

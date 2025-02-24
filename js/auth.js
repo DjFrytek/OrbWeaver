@@ -31,6 +31,7 @@ async function signUp() {
 async function signIn() {
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
+  const messageDiv = document.getElementById('auth-message');
 
   try {
     const response = await fetch('/api/signin', {
@@ -42,7 +43,6 @@ async function signIn() {
     });
 
     const data = await response.json();
-    const messageDiv = document.getElementById('auth-message');
     if (data.error) {
       console.error('Sign in error:', data.error);
       messageDiv.textContent = 'Sign in failed: ' + data.error;
@@ -50,12 +50,12 @@ async function signIn() {
       console.log('Sign in success:', data);
       localStorage.setItem('supabase.auth.token', data.session.access_token);
       showLogoutButton();
+      messageDiv.textContent = '';
     }
   } catch (error) {
     console.error('Sign in error:', error);
     messageDiv.textContent = 'Sign in failed: ' + error.message;
   }
-  messageDiv.textContent = '';
 }
 
 async function showLogoutButton() {
