@@ -264,6 +264,10 @@ app.post('/api/update-nickname', async (req, res) => {
     return res.status(401).json({ error: 'Invalid token' });
   }
 
+  if (nickname.length > 16) {
+    return res.status(401).json({ error: 'Nickname too long' });
+  }
+
   try {
     const { data, error } = await supabase
       .from('users')
