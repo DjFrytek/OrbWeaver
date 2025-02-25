@@ -879,12 +879,6 @@ const levelData4 = {
       "r": 174.26416728633572,
       "type": "wall",
       "strength": 0.5
-    },
-    {
-      "x": 1186.9999999999998,
-      "y": 1181.9999999999998,
-      "r": 270.9686328710392,
-      "type": "finish"
     }
   ],
   "player": {
@@ -903,6 +897,7 @@ const levelData4 = {
     "forceCheckpointOrder": false
   }
 }
+
 
 
 
