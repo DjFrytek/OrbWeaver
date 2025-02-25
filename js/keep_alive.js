@@ -14,6 +14,6 @@ function keepAlive() {
 }
 
 // Send keep-alive message every 5 minutes
-setInterval(keepAlive, 30 * 1000);
+setInterval(keepAlive, 5 * 60 * 1000);
 
 console.log('Keep-alive script running...');
