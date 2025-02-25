@@ -320,6 +320,11 @@ async function getUserIdFromToken(token) {
   }
 }
 
+app.post('/dont-fall-sleep', (req, res) => {
+  console.log('I am not sleeping');
+  res.status(200).send('OK');
+});
+
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`);
 });
