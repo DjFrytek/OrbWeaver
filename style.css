@@ -1,250 +1,367 @@
 body {
-    margin: 0;
     font-family: sans-serif;
-    background-color: #1b1b1b;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Prevent scrolling */
+    height: 100vh; /* Ensure full height */
+    background-color: #111; /* Even darker background */
+    color: #fff; /* Light text */
 }
 
 .container {
     display: flex;
-    height: 100vh;
+    height: 100%; /* Use 100% of the body height */
 }
 
-.left-panel,
-.right-panel {
-    width: 20%; /* Adjust as needed */
-    background-color: #202020;
+.left-panel {
+    width: 20%; /* Increased width */
+    background-color: #222; /* Even darker panel background */
     padding: 20px;
-    color: white;
-    position: relative;
-}
-
-.right-panel {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between; /* Wypycha zawartość na górę i dół */
-}
-
-.left-panel h2 {
-    margin-bottom: 15px;
-    font-size: 20px;
-}
-
-.left-panel input {
-    margin-bottom: 10px;
-    padding: 8px;
-    border: 1px solid #444;
-    border-radius: 5px;
-    background-color: #333;
-    color: white;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.left-panel button {
-    background-color: #555;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    margin-top: 5px;
-    width: 100%;
-}
-
-#logoutButton {
-    background-color: #8B0000; /* Dark Red */
-    width: 80%;
-    margin: 0 auto;
-    position: absolute;
-    bottom: 20px;
-    left: 0;
-    right: 0;
-}
-
-.left-panel button:hover {
-    background-color: #777;
 }
 
 .game-area {
     flex-grow: 1;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #181818; /* Even darker game area background */
+}
+
+.right-panel {
+    width: 20%; /* Increased width */
+    background-color: #222; /* Even darker panel background */
+    padding: 20px;
+    position: relative;
 }
 
 #game-canvas {
-    position: relative;
-    width: 90%; /* Adjust as needed */
-    height: 100%; /* Adjust as needed */
-    margin: auto; /* Center horizontally and vertically */
-    margin-top: 5%;
-    margin-bottom: 5%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgb(24, 24, 24);
+    width: 100%;
+    height: 100%;
+    background-color: #000; /* Black canvas background */
 }
 
 canvas {
     z-index: 1;
 }
 
-#overlay {
+#canvas-container {
+    width: 90%;
+    height: 90%;
+    position: relative;
+}
+
+#overlay-container {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0); /* Przezroczysta czarna nakładka */
-    z-index: 2;
-    display: block; 
-    pointer-events: none; /* Nakładka nie blokuje interakcji z canvasem */
+    z-index: 11;
 }
 
-#game-canvas.blurred #overlay {
-    transition: background-color 0.5s ease-in; /* Płynne przyciemnienie */
-    background-color: rgba(0, 0, 0, 0.7); /* Przezroczysta czarna nakładka */
+.hidden {
+    display: none;
+}
+
+.visible {
+    display: block;
+}
+
+#login-view {
+    padding: 20px;
+}
+
+#login-container {
+    display: flex;
+    flex-direction: column;
+}
+
+#login-container input {
+    margin-bottom: 5px; /* Reduced margin */
+    padding: 5px;
+}
+
+#login-container button {
+    margin-bottom: 10px;
+    padding: 8px 12px; /* Increased padding */
+    background-color: #444; /* Brighter background */
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+#login-container button:hover {
+    background-color: #555; /* Darker background on hover */
+}
+
+#login-container input {
+    background-color: #333;
+    color: #fff;
+    border: 1px solid #555;
+    border-radius: 5px; /* Rounded corners */
+    padding: 8px; /* Increased padding */
+}
+
+#login-view h2 {
+    color: #ddd;
+    margin-bottom: 15px; /* Added margin */
+}
+
+#login-view {
+    border: 1px solid #555; /* Added border */
+    border-radius: 10px; /* Rounded corners */
+    padding: 25px; /* Increased padding */
+}
+
+#profile-view {
+    padding: 20px;
+    border: 1px solid #555;
+    border-radius: 10px;
+    height: calc(100% - 40px); /* Take up the entire left panel */
+    position: relative; /* For absolute positioning of logout button */
+}
+
+#logoutButton {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    right: 20px; /* Make it wide */
+    margin: 0 20px 20px 20px; /* Add margin */
+    padding: 10px 15px; /* Increased padding */
+    font-size: 1.1em; /* Increased font size */
+    background-color: #800000; /* Red color for logout */
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+#logoutButton:hover {
+    background-color: #A00000; /* Darker red on hover */
+}
+
+.panel-button {
+    margin-bottom: 10px;
+    padding: 8px 12px;
+    background-color: #444;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    width: 100%;
+}
+
+.panel-button:hover {
+    background-color: #555;
+}
+
+#nickname-container {
+    display: flex;
+    flex-direction: column;
+}
+
+#nickname-container input {
+    margin-bottom: 5px;
+    padding: 8px;
+    background-color: #333;
+    color: #fff;
+    border: 1px solid #555;
+    border-radius: 5px;
+}
+
+#nickname-container button {
+    margin-bottom: 10px;
+    padding: 8px 12px;
+    background-color: #444;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+#nickname-container button:hover {
+    background-color: #555;
+}
+
+#profile-view h2 {
+    color: #ddd;
+    margin-bottom: 15px;
+}
+
+#username-display {
+    font-size: 1.2em;
+    margin-bottom: 20px; /* Increased margin */
+}
+
+#profile-settings-view {
+    padding: 20px;
+    border: 1px solid #555;
+    border-radius: 10px;
+}
+
+#game-settings-view {
+    padding: 20px;
+    border: 1px solid #555;
+    border-radius: 10px;
+}
+
+#replay-table-container {
+    height: calc(100% - 350px); /* Adjust 250px based on other elements */
+    overflow-y: scroll;
+    overflow-x: auto;
+}
+
+#user-replay-container {
+    overflow-x: auto;
+}
+
+#replay-table tbody tr:nth-child(odd) {
+    background-color: #333;
+}
+
+#replay-table tbody tr:nth-child(even) {
+    background-color: #222;
+}
+
+#user-replay-table tbody tr:nth-child(odd) {
+    background-color: #333;
+}
+
+#user-replay-table tbody tr:nth-child(even) {
+    background-color: #222;
+}
+
+#replay-table, #user-replay-table {
+  border-collapse: collapse;
+  table-layout: fixed;
+  min-width: 300px;
+  max-width: 400px;
+  white-space: nowrap;
+}
+
+#replay-table th, #user-replay-table th {
+    text-align: left;
+    background-color: #444;
+    padding: 5px;
+}
+
+#replay-table td, #user-replay-table td {
+    padding: 5px;
+}
+
+#replay-table button, #user-replay-table button {
+    background-color: #444;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    padding: 5px 10px;
+}
+
+#replay-table button:hover, #user-replay-table button:hover {
+    background-color: #555;
+}
+
+#dark-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0);
+    z-index: 2; /* Ensure it's above the canvas */
+    pointer-events: none; /* Allow interaction with the canvas */
+    display: block;
+}
+
+#dark-overlay.darkened {
+    background-color: rgba(0, 0, 0, 0.8);
+    transition: background-color 0.5s ease-in;
 }
 
 canvas.blurred {
     filter: blur(5px);
-    transition: filter 0.3s ease-in;
+    transition: filter 0.5s ease-in;
 }
 
-#win-overlay {
+#level-finish-overlay {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    font-size: 5em;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 5vh 5vw;
+    border-radius: 10px;
+    text-align: center;
+    z-index: 12;
+}
+
+#level-finish-overlay h2 {
+    font-size: 4vw;
+    margin-bottom: 1vh;
+}
+
+#level-finish-overlay p {
+    font-size: 2.5vw;
+    margin-bottom: 3vh;
+}
+
+#level-finish-overlay button {
+    background-color: #555;
     color: white;
-    z-index: 3;
+    padding: 1vh 1.5vw;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 2vw;
+    margin: 0.5vh auto;
+    width: 100%;
+    display: none;
+}
+
+#level-finish-overlay button:hover {
+    background-color: #777;
+}
+
+.replayFinished .replayVisible {
+    display: block !important;
+}
+
+.playerFinished .playerVisible {
+    display: block !important;
+}
+
+#level-finish-overlay {
     user-select: none;
 }
 
-#replay-button {
+.level-buttons {
     position: absolute;
-    bottom: 5%;
+    bottom: 20px;
     left: 0;
     width: 100%;
-    text-align: center;
-}
-
-#win-time {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-}
-
-.level-buttons {
-    margin-top: auto; /* Wypycha przyciski na dół */
+    padding: 0 20px;
+    box-sizing: border-box;
 }
 
 .level-buttons button {
     background-color: #444;
     color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-    margin: 5px;
-}
-
-.level-buttons button:hover {
-    background-color: #666;
-}
-
-#replay-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-    height: calc(100vh - 400px); /* Adjust the 400px value as needed */
-    overflow-y: scroll;
-    display: block;
-}
-
-
-#replay-table th,
-#replay-table td {
-    padding: 8px;
-    text-align: left;
-    border-bottom: 1px solid #333;
-    font-size: calc(8px + (14 - 8) * ((20vw - 100px) / (300 - 100)));
-}
-
-#replay-table button {
-    font-size: calc(10px + (12 - 10) * ((20vw - 100px) / (300 - 100)));
-}
-
-#replay-table th {
-    background-color: #333;
-    color: white;
-}
-
-#replay-table tbody tr:nth-child(odd) {
-    background-color: #282828;
-}
-
-#replay-table tbody tr:nth-child(even) {
-    background-color: #202020;
-}
-
-#replay-table button {
-    background-color: #555;
-    color: white;
-    padding: 5px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-}
-
-#replay-table button:hover {
-    background-color: #777;
-}
-
-#user-replay-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-}
-
-#user-replay-table th,
-#user-replay-table td {
-    padding: 8px;
-    text-align: left;
-    border-bottom: 1px solid #333;
-    font-size: calc(8px + (14 - 8) * ((20vw - 100px) / (300 - 100)));
-}
-
-#user-replay-table th {
-    background-color: #333;
-    color: white;
-}
-
-#user-replay-table tbody tr:nth-child(odd) {
-    background-color: #282828;
-}
-
-#user-replay-table tbody tr:nth-child(even) {
-    background-color: #202020;
-}
-
-#user-replay-table button {
-    background-color: #555;
-    color: white;
     padding: 5px 10px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: calc(10px + (12 - 10) * ((20vw - 100px) / (300 - 100)));
+    font-size: 14px;
+    margin: 2px;
+    width: auto;
+    display: inline-block;
 }
 
-#user-replay-table button:hover {
-    background-color: #777;
+.level-buttons button:hover {
+    background-color: #666;
 }
