@@ -67,7 +67,6 @@ async function showLogoutButton() {
   hideElement('login-view');
   showElement('profile-view');
 
-  // Fetch and display nickname
   const token = localStorage.getItem('supabase.auth.token');
   if (token) {
     try {
@@ -80,6 +79,7 @@ async function showLogoutButton() {
       const data = await response.json();
       if (data.nickname) {
         document.getElementById('nickname').value = data.nickname;
+        document.getElementById('username-display').textContent = 'Logged in as: ' + data.nickname;
       }
     } catch (error) {
       console.error('Error fetching nickname:', error);
