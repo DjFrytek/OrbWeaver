@@ -207,7 +207,7 @@ body {
 }
 
 #replay-table-container {
-    height: 200px;
+    height: calc(100% - 350px); /* Adjust 250px based on other elements */
     overflow-y: scroll;
     overflow-x: auto;
 }
