@@ -19,7 +19,7 @@ async function signUp() {
     } else {
       console.log('Sign up success:', data);
       localStorage.setItem('supabase.auth.token', data.session.access_token);
-      showLogoutButton();
+      showProfileView();
       messageDiv.textContent = 'Sign up successful!';
     }
   } catch (error) {
@@ -51,7 +51,7 @@ async function signIn() {
     } else {
       console.log('Sign in success:', data);
       localStorage.setItem('supabase.auth.token', data.session.access_token);
-      showLogoutButton();
+      showProfileView();
       messageDiv.textContent = 'Sign in successful!';
     }
   } catch (error) {
@@ -63,7 +63,7 @@ async function signIn() {
 
 }
 
-async function showLogoutButton() {
+async function showProfileView() {
   hideElement('login-view');
   showElement('profile-view');
   hideElement('profile-settings-view');
@@ -165,7 +165,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Check if token exists on page load
   if (localStorage.getItem('supabase.auth.token')) {
-    showLogoutButton();
+    showProfileView();
   } else {
     showLoginPanel();
   }
