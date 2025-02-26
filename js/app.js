@@ -88,6 +88,9 @@ async function levelFinished(finishTime, isScoreLegit) {
   showElement("level-finish-overlay");
   document.getElementById("level-finish-time").textContent = (finishTime / 1000).toFixed(2);
 
+  document.getElementById("watch-replay-button").onclick = watchLastReplay;
+  document.getElementById("restart-level-button").onclick = window.startLevel;
+
   if(isScoreLegit) {
     console.log("LEVEL FINISHED! TIME: " + finishTime);
     lastReplay = await createReplayObject(currentLevel.name, physicsEngine.getFinishTime(), player.inputReplay);
