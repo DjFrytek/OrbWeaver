@@ -338,6 +338,7 @@ function showDarkOverlay() {
   canvasContainer.classList.add("blurred");
   let darkOverlay = document.getElementById('dark-overlay');
   darkOverlay.classList.add("darkened");
+  canvas.elt.classList.add("blurred");
 }
 
 function hideDarkOverlay() {

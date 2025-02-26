@@ -281,13 +281,13 @@ canvas {
 }
 
 #dark-overlay.darkened {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.8);
     transition: background-color 0.5s ease-in;
 }
 
 canvas.blurred {
     filter: blur(5px);
-    transition: filter 0.3s ease-in;
+    transition: filter 0.5s ease-in;
 }
 
 .level-buttons {
