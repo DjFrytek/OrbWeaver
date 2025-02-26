@@ -292,7 +292,7 @@ canvas.blurred {
 
 #level-finish-overlay {
     position: absolute;
-    top: 50%;
+    top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
     padding: 5vh 5vw;
@@ -319,11 +319,17 @@ canvas.blurred {
     border-radius: 5px;
     cursor: pointer;
     font-size: 2vw;
-    margin: 0.5vh;
+    margin: 0.5vh auto;
+    width: 100%;
+    display: block;
 }
 
 #level-finish-overlay button:hover {
     background-color: #777;
+}
+
+#level-finish-overlay {
+    user-select: none;
 }
 
 .level-buttons {
