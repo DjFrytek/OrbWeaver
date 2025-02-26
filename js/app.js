@@ -25,7 +25,13 @@ function setup() {
 
   window.startLevel("level1");
   resizeCanvasIfNeeded();
-  window.addEventListener('resize', resizeCanvasIfNeeded);
+  
+  let canvasContainer = document.getElementById('canvas-container');
+  const resizeObserver = new ResizeObserver(entries => {
+    resizeCanvasIfNeeded();
+  });
+
+  resizeObserver.observe(canvasContainer);
 }
 
 function draw() {
@@ -58,7 +64,7 @@ window.startLevel = function(levelName = currentLevel.name) {
   if (canvas && canvas.elt) {
     canvas.elt.classList.remove("blurred");
     document.getElementById("game-canvas").classList.remove("blurred");
-    document.getElementById("win-overlay").style.display = "none";
+    //document.getElementById("win-overlay").style.display = "none";
   }
 
   if(shouldFetchReplays) fetchReplays().then(replays => displayReplays(replays));
@@ -81,8 +87,8 @@ function showFPS() {
 async function levelFinished(finishTime, isScoreLegit) {
   canvas.elt.classList.add("blurred");
   document.getElementById("game-canvas").classList.add("blurred");
-  document.getElementById("win-time").innerHTML = "Time: " + (physicsEngine.elapsedTime / 1000).toFixed(2);
-  document.getElementById("win-overlay").style.display = "block";
+  //document.getElementById("win-time").innerHTML = "Time: " + (physicsEngine.elapsedTime / 1000).toFixed(2);
+  //document.getElementById("win-overlay").style.display = "block";
 
   if(isScoreLegit) {
     console.log("LEVEL FINISHED! TIME: " + finishTime);
@@ -322,4 +328,20 @@ function isCanvasFocused() {
 
 function isPlayingReplay() {
   return player.isPlayback;
+}
+
+function showElement(elementId) {
+  let element = document.getElementById(elementId);
+  if (element) {
+    element.classList.remove("hidden");
+    element.classList.add("visible");
+  }
+}
+
+function hideElement(elementId) {
+  let element = document.getElementById(elementId);
+  if (element) {
+    element.classList.remove("visible");
+    element.classList.add("hidden");
+  }
 }

@@ -20,7 +20,7 @@ async function signUp() {
       console.log('Sign up success:', data);
       localStorage.setItem('supabase.auth.token', data.session.access_token);
       showLogoutButton();
-      messageDiv.textContent = '';
+      messageDiv.textContent = 'Sign up successful!';
     }
   } catch (error) {
     console.error('Sign up error:', error);
@@ -52,7 +52,7 @@ async function signIn() {
       console.log('Sign in success:', data);
       localStorage.setItem('supabase.auth.token', data.session.access_token);
       showLogoutButton();
-      messageDiv.textContent = '';
+      messageDiv.textContent = 'Sign in successful!';
     }
   } catch (error) {
     console.error('Sign in error:', error);
@@ -64,9 +64,8 @@ async function signIn() {
 }
 
 async function showLogoutButton() {
-  document.getElementById('login-container').style.display = 'none';
-  document.getElementById('nickname-container').style.display = 'block';
-  document.getElementById('logoutButton').style.display = 'block';
+  hideElement('login-view');
+  showElement('profile-view');
 
   // Fetch and display nickname
   const token = localStorage.getItem('supabase.auth.token');
@@ -113,9 +112,9 @@ async function updateNickname() {
 }
 
 function showLoginPanel() {
-  document.getElementById('login-container').style.display = 'block';
-  document.getElementById('nickname-container').style.display = 'none';
-  document.getElementById('logoutButton').style.display = 'none';
+  showElement('login-view');
+  hideElement('profile-view');
+  document.getElementById('auth-message').textContent = '';
 }
 
 

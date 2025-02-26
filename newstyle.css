@@ -1,0 +1,112 @@
+body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Prevent scrolling */
+    height: 100vh; /* Ensure full height */
+    background-color: #111; /* Even darker background */
+    color: #fff; /* Light text */
+}
+
+.container {
+    display: flex;
+    height: 100%; /* Use 100% of the body height */
+}
+
+.left-panel {
+    width: 20%; /* Increased width */
+    background-color: #222; /* Even darker panel background */
+    padding: 20px;
+}
+
+.game-area {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #333; /* Even darker game area background */
+}
+
+.right-panel {
+    width: 20%; /* Increased width */
+    background-color: #222; /* Even darker panel background */
+    padding: 20px;
+}
+
+#game-canvas {
+    width: 100%;
+    height: 100%;
+    background-color: #000; /* Black canvas background */
+}
+
+#canvas-container {
+    width: 90%;
+    height: 90%;
+    position: relative;
+}
+
+#overlay-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    display: none; /* Hidden by default */
+}
+
+.hidden {
+    display: none;
+}
+
+.visible {
+    display: block;
+}
+
+#login-view {
+    padding: 20px;
+}
+
+#login-container {
+    display: flex;
+    flex-direction: column;
+}
+
+#login-container input {
+    margin-bottom: 5px; /* Reduced margin */
+    padding: 5px;
+}
+
+#login-container button {
+    margin-bottom: 10px;
+    padding: 8px 12px; /* Increased padding */
+    background-color: #444; /* Brighter background */
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+#login-container button:hover {
+    background-color: #555; /* Darker background on hover */
+}
+
+#login-container input {
+    background-color: #333;
+    color: #fff;
+    border: 1px solid #555;
+    border-radius: 5px; /* Rounded corners */
+    padding: 8px; /* Increased padding */
+}
+
+#login-view h2 {
+    color: #ddd;
+    margin-bottom: 15px; /* Added margin */
+}
+
+#login-view {
+    border: 1px solid #555; /* Added border */
+    border-radius: 10px; /* Rounded corners */
+    padding: 25px; /* Increased padding */
+}
