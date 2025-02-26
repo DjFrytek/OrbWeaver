@@ -73,7 +73,7 @@ function setup() {
         }
 
         let json = JSON.stringify(levelData, null, 2);
-        saveJSON(levelData, 'level.json');
+        saveJSON(levelData, document.getElementById('levelName').value + '.json');
     });
 
     let loadInput = document.getElementById('loadInput');

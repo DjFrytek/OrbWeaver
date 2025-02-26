@@ -42,7 +42,7 @@ function draw() {
   showFPS();
 }
 
-window.startLevel = function(levelName = currentLevel.name) {
+window.startLevel = function(levelName = currentLevel.name, loadFromName = true) {
   let sameLevel = levelName == currentLevel?.name;
   if(!sameLevel) {
     playbackReplay = undefined;
@@ -51,7 +51,8 @@ window.startLevel = function(levelName = currentLevel.name) {
   let shouldFetchReplays = !sameLevel || needRefreshReplays;
   needRefreshReplays=false;
 
-  loadLevel(levelName);
+  if(loadFromName) loadLevel(levelName);
+  console.log("current", currentLevel.name);
   if(!raceGhost) {
     player = new Player(currentLevel.player.startPosition.x, currentLevel.player.startPosition.y, currentLevel.player, playbackReplay);
     ghost = undefined;
@@ -381,3 +382,39 @@ function hideElement(elementId) {
   }
 }
 
+async function wybierzPlikJSON() {
+  return new Promise((resolve, reject) => {
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = '.json';
+      input.style.display = 'none';
+
+      input.addEventListener('change', event => {
+          const file = event.target.files[0];
+          if (!file) return reject('Nie wybrano pliku');
+
+          const reader = new FileReader();
+          reader.onload = () => {
+              try {
+                  const jsonData = JSON.parse(reader.result);
+                  resolve(jsonData);
+              } catch (error) {
+                  reject('Błąd parsowania JSON');
+              }
+          };
+          reader.readAsText(file);
+      });
+
+      document.body.appendChild(input);
+      input.click();
+      document.body.removeChild(input);
+  });
+}
+
+function loadLevelFromFile() {
+  wybierzPlikJSON().then(json => {
+    currentLevel = json;
+    console.log('Załadowano poziom:', currentLevel);
+    window.startLevel("nothing", false);
+}).catch(console.error);
+}
