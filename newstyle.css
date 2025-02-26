@@ -24,7 +24,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #333; /* Even darker game area background */
+    background-color: #181818; /* Even darker game area background */
 }
 
 .right-panel {
@@ -209,6 +209,11 @@ body {
 #replay-table-container {
     height: 200px;
     overflow-y: scroll;
+    overflow-x: auto;
+}
+
+#user-replay-container {
+    overflow-x: auto;
 }
 
 #replay-table tbody tr:nth-child(odd) {
@@ -230,9 +235,9 @@ body {
 #replay-table, #user-replay-table {
   border-collapse: collapse;
   table-layout: fixed;
-  width: 100%;
   min-width: 300px;
   max-width: 400px;
+  white-space: nowrap;
 }
 
 #replay-table th, #user-replay-table th {
@@ -243,39 +248,6 @@ body {
 
 #replay-table td, #user-replay-table td {
     padding: 5px;
-}
-
-#replay-table th:nth-child(1),
-#replay-table td:nth-child(1),
-#user-replay-table th:nth-child(1),
-#user-replay-table td:nth-child(1) {
-    width: 10%;
-}
-
-#replay-table th:nth-child(2),
-#replay-table td:nth-child(2),
-#user-replay-table th:nth-child(2),
-#user-replay-table td:nth-child(2) {
-    width: 30%;
-}
-
-#replay-table th:nth-child(3),
-#replay-table td:nth-child(3),
-#user-replay-table th:nth-child(3),
-#user-replay-table td:nth-child(3) {
-    width: 40%;
-}
-
-#replay-table th:nth-child(4),
-#replay-table td:nth-child(4),
-#user-replay-table th:nth-child(4),
-#user-replay-table td:nth-child(4) {
-    width: 20%;
-}
-
-#replay-table th, #user-replay-table th {
-    text-align: left;
-    background-color: #444;
 }
 
 #replay-table button, #user-replay-table button {
