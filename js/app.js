@@ -89,7 +89,7 @@ async function levelFinished(finishTime, isScoreLegit) {
   document.getElementById("level-finish-time").textContent = (finishTime / 1000).toFixed(2);
 
   document.getElementById("watch-replay-button").onclick = watchLastReplay;
-  document.getElementById("restart-level-button").onclick = window.startLevel;
+  document.getElementById("restart-level-button").onclick = () => {window.startLevel()};
 
   if(isScoreLegit) {
     console.log("LEVEL FINISHED! TIME: " + finishTime);
@@ -102,7 +102,7 @@ async function levelFinished(finishTime, isScoreLegit) {
 }
 
 function mouseWheel(event) {
-  if(!isCanvasFocused() || !isMouseInsideCanvas()) return;
+  if(!isMouseInsideCanvas()) return;
   let zoomFactor = 1.1;
   if (event.delta > 0) {
     renderer.desiredZoom /= zoomFactor;
