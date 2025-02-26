@@ -290,6 +290,42 @@ canvas.blurred {
     transition: filter 0.5s ease-in;
 }
 
+#level-finish-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 5vh 5vw;
+    border-radius: 10px;
+    text-align: center;
+    z-index: 12;
+}
+
+#level-finish-overlay h2 {
+    font-size: 4vw;
+    margin-bottom: 1vh;
+}
+
+#level-finish-overlay p {
+    font-size: 2.5vw;
+    margin-bottom: 3vh;
+}
+
+#level-finish-overlay button {
+    background-color: #555;
+    color: white;
+    padding: 1vh 1.5vw;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 2vw;
+    margin: 0.5vh;
+}
+
+#level-finish-overlay button:hover {
+    background-color: #777;
+}
+
 .level-buttons {
     position: absolute;
     bottom: 20px;
