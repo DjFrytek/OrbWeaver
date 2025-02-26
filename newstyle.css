@@ -31,6 +31,7 @@ body {
     width: 20%; /* Increased width */
     background-color: #222; /* Even darker panel background */
     padding: 20px;
+    position: relative;
 }
 
 #game-canvas {
@@ -262,4 +263,30 @@ body {
 
 #replay-table button:hover, #user-replay-table button:hover {
     background-color: #555;
+}
+
+.level-buttons {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    width: 100%;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.level-buttons button {
+    background-color: #444;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    margin: 2px;
+    width: auto;
+    display: inline-block;
+}
+
+.level-buttons button:hover {
+    background-color: #666;
 }
