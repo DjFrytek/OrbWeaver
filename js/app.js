@@ -63,6 +63,7 @@ window.startLevel = function(levelName = currentLevel.name) {
   physicsEngine = new PhysicsEngine(60, currentLevel, player, ghost);
 
   hideDarkOverlay();
+  hideElement("level-finish-overlay");
   canvas.elt.classList.remove("blurred");
 
   if(shouldFetchReplays) fetchReplays().then(replays => displayReplays(replays));
@@ -84,6 +85,8 @@ function showFPS() {
 
 async function levelFinished(finishTime, isScoreLegit) {
   showDarkOverlay();
+  showElement("level-finish-overlay");
+  document.getElementById("level-finish-time").textContent = (finishTime / 1000).toFixed(2);
 
   if(isScoreLegit) {
     console.log("LEVEL FINISHED! TIME: " + finishTime);
@@ -339,6 +342,7 @@ function showDarkOverlay() {
   let darkOverlay = document.getElementById('dark-overlay');
   darkOverlay.classList.add("darkened");
   canvas.elt.classList.add("blurred");
+  showElement("overlay-container");
 }
 
 function hideDarkOverlay() {
@@ -346,6 +350,7 @@ function hideDarkOverlay() {
   canvasContainer.classList.remove("blurred");
   let darkOverlay = document.getElementById('dark-overlay');
   darkOverlay.classList.remove("darkened");
+  hideElement("overlay-container");
 }
 
 function hideElement(elementId) {
