@@ -88,8 +88,10 @@ async function levelFinished(finishTime, isScoreLegit) {
   showElement("level-finish-overlay");
   document.getElementById("level-finish-time").textContent = (finishTime / 1000).toFixed(2);
 
-  document.getElementById("watch-replay-button").onclick = watchLastReplay;
+  document.getElementById("watch-replay-button").onclick = () => {watchLastReplay()};
   document.getElementById("restart-level-button").onclick = () => {window.startLevel()};
+  document.getElementById("watch-replay-again-button").onclick = () => {window.startLevel()};
+  document.getElementById("quit-replay-button").onclick = () => {stopWatchingReplay()};
 
   let finishOverlayEl = document.getElementById("level-finish-overlay");
   console.log(finishOverlayEl);
@@ -137,9 +139,7 @@ function keyPressed() {
 
   if (keyCode === ESCAPE) {
     if(playbackReplay) {
-      playbackReplay = undefined;
-      raceGhost = false;
-      window.startLevel();
+      stopWatchingReplay();
     }
   }
 }
@@ -171,6 +171,7 @@ function resizeCanvasIfNeeded() {
 
 function watchLastReplay() {
   console.log("Watch last replay");
+  raceGhost = false;
   watchReplay(lastReplay);
 }
 
@@ -341,6 +342,12 @@ function isPlayingReplay() {
   return player.isPlayback;
 }
 
+function stopWatchingReplay() {
+  playbackReplay = undefined;
+  raceGhost = false;
+  window.startLevel();
+}
+
 function showElement(elementId) {
   let element = document.getElementById(elementId);
   if (element) {
@@ -373,3 +380,4 @@ function hideElement(elementId) {
     element.classList.add("hidden");
   }
 }
+
