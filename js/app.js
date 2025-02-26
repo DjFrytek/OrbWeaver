@@ -46,6 +46,7 @@ window.startLevel = function(levelName = currentLevel.name) {
   let sameLevel = levelName == currentLevel?.name;
   if(!sameLevel) {
     playbackReplay = undefined;
+    raceGhost = false;
   }
   let shouldFetchReplays = !sameLevel || needRefreshReplays;
   needRefreshReplays=false;

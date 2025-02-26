@@ -1,3 +1,8 @@
+NAPRAWIC
+Wylaczenie replaya niech przelacza sciganie z duchem na false
+Dodac lepsze informacje o wyjsciu z replaya
+Dodac przycisk Play Again po przejsciu levela
+
 Edytor:
 Spacja ma klonowac wlacznie z wartstwa
 
