@@ -70,9 +70,47 @@
         </main>
 
         <aside class="right-panel">
-            <!-- Ranking and Level Info -->
-            <div id="level-info-content">
-                <!-- Content will be dynamically updated here -->
+            <!-- Other Stuff -->
+            <div id="user-replay-container">
+                <h3>Your Replay</h3>
+                <table id="user-replay-table">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Time</th>
+                            <th>Nickname</th>
+                            <th>Replay</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="4"><div id="user-replay-info"></div></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <h3>Ranking</h3>
+            <div id="replay-table-container">
+                <table id="replay-table">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Time</th>
+                            <th>Nickname</th>
+                            <th>Replay</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <div class="level-buttons">
+                <button onclick="window.startLevel('level1')">Level 1</button>
+                <button onclick="window.startLevel('level2')">Level 2</button>
+                <button onclick="window.startLevel('level3')">Level 3</button>
+                <button onclick="window.startLevel('level4')">Level 4</button>
+                <button onclick="window.startLevel('level5')">Level 5</button>
+                <!-- <button onclick="window.startLevel('level6')">Level 6</button> -->
             </div>
         </aside>
     </div>

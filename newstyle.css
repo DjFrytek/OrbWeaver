@@ -205,3 +205,38 @@ body {
     border: 1px solid #555;
     border-radius: 10px;
 }
+
+#replay-table-container {
+    height: 200px;
+    overflow-y: scroll;
+}
+
+#replay-table tbody tr:nth-child(odd) {
+    background-color: #333;
+}
+
+#replay-table tbody tr:nth-child(even) {
+    background-color: #222;
+}
+
+#user-replay-table tbody tr:nth-child(odd) {
+    background-color: #333;
+}
+
+#user-replay-table tbody tr:nth-child(even) {
+    background-color: #222;
+}
+
+#replay-table, #user-replay-table {
+  border-collapse: collapse;
+}
+
+#replay-table th, #replay-table td, #user-replay-table th, #user-replay-table td {
+  border: none;
+  padding: 5px;
+}
+
+#replay-table th, #user-replay-table th {
+    text-align: left;
+    background-color: #444;
+}
