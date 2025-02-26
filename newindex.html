@@ -28,13 +28,28 @@
                     <div id="username-display">
                         <!-- Username will be displayed here -->
                     </div>
-                    <div id="nickname-container">
-                        <label for="nickname">Set Nickname:</label><br>
-                        <input type="text" id="nickname" placeholder="Nickname">
-                        <button id="setNicknameButton">Set Nickname</button><br>
-                    </div>
+                    <button id="profileSettingsButton" class="panel-button">Profile Settings</button><br>
+                    <button id="gameSettingsButton" class="panel-button">Game Settings</button><br>
                 </div>
                 <button id="logoutButton">Logout</button>
+            </div>
+
+            <!-- Profile Settings View (Hidden by default) -->
+            <div id="profile-settings-view" class="hidden">
+                <h2>Profile Settings</h2>
+                <div id="nickname-container">
+                    <label for="nickname">Set Nickname:</label><br>
+                    <input type="text" id="nickname" placeholder="Nickname">
+                    <button id="setNicknameButton">Set Nickname</button><br>
+                </div>
+                <button id="profileSettingsGoBackButton" class="panel-button">Go Back</button>
+            </div>
+
+            <!-- Game Settings View (Hidden by default) -->
+            <div id="game-settings-view" class="hidden">
+                <h2>Game Settings</h2>
+                <!-- Add game settings here -->
+                <button id="gameSettingsGoBackButton" class="panel-button">Go Back</button>
             </div>
 
             <!-- Options View (Example, Hidden by default) -->

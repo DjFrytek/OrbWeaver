@@ -66,6 +66,8 @@ async function signIn() {
 async function showLogoutButton() {
   hideElement('login-view');
   showElement('profile-view');
+  hideElement('profile-settings-view');
+  hideElement('game-settings-view');
 
   const token = localStorage.getItem('supabase.auth.token');
   if (token) {
@@ -115,6 +117,8 @@ async function updateNickname() {
 function showLoginPanel() {
   showElement('login-view');
   hideElement('profile-view');
+  hideElement('profile-settings-view');
+  hideElement('game-settings-view');
   document.getElementById('auth-message').textContent = '';
 }
 
@@ -135,6 +139,28 @@ document.addEventListener('DOMContentLoaded', function() {
     if (event.key === 'Enter') {
       updateNickname();
     }
+  });
+
+  document.getElementById('profileSettingsButton').addEventListener('click', function() {
+    hideElement('profile-view');
+    hideElement('game-settings-view');
+    showElement('profile-settings-view');
+  });
+
+  document.getElementById('gameSettingsButton').addEventListener('click', function() {
+    hideElement('profile-view');
+    hideElement('profile-settings-view');
+    showElement('game-settings-view');
+  });
+
+  document.getElementById('profileSettingsGoBackButton').addEventListener('click', function() {
+    hideElement('profile-settings-view');
+    showElement('profile-view');
+  });
+
+  document.getElementById('gameSettingsGoBackButton').addEventListener('click', function() {
+    hideElement('game-settings-view');
+    showElement('profile-view');
   });
 
   // Check if token exists on page load
