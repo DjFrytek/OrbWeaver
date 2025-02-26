@@ -229,14 +229,65 @@ body {
 
 #replay-table, #user-replay-table {
   border-collapse: collapse;
-}
-
-#replay-table th, #replay-table td, #user-replay-table th, #user-replay-table td {
-  border: none;
-  padding: 5px;
+  table-layout: fixed;
+  width: 100%;
+  min-width: 300px;
+  max-width: 400px;
 }
 
 #replay-table th, #user-replay-table th {
     text-align: left;
     background-color: #444;
+    padding: 5px;
+}
+
+#replay-table td, #user-replay-table td {
+    padding: 5px;
+}
+
+#replay-table th:nth-child(1),
+#replay-table td:nth-child(1),
+#user-replay-table th:nth-child(1),
+#user-replay-table td:nth-child(1) {
+    width: 10%;
+}
+
+#replay-table th:nth-child(2),
+#replay-table td:nth-child(2),
+#user-replay-table th:nth-child(2),
+#user-replay-table td:nth-child(2) {
+    width: 30%;
+}
+
+#replay-table th:nth-child(3),
+#replay-table td:nth-child(3),
+#user-replay-table th:nth-child(3),
+#user-replay-table td:nth-child(3) {
+    width: 40%;
+}
+
+#replay-table th:nth-child(4),
+#replay-table td:nth-child(4),
+#user-replay-table th:nth-child(4),
+#user-replay-table td:nth-child(4) {
+    width: 20%;
+}
+
+#replay-table th, #user-replay-table th {
+    text-align: left;
+    background-color: #444;
+}
+
+#replay-table button, #user-replay-table button {
+    background-color: #444;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    padding: 5px 10px;
+}
+
+#replay-table button:hover, #user-replay-table button:hover {
+    background-color: #555;
 }
