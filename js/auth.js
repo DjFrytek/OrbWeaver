@@ -103,6 +103,7 @@ async function updateNickname() {
       });
       const data = await response.json();
       console.log('Nickname updated:', data);
+      document.getElementById('username-display').textContent = 'Logged in as: ' + nickname;
     } catch (error) {
       console.error('Error updating nickname:', error);
     }
