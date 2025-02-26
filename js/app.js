@@ -91,6 +91,16 @@ async function levelFinished(finishTime, isScoreLegit) {
   document.getElementById("watch-replay-button").onclick = watchLastReplay;
   document.getElementById("restart-level-button").onclick = () => {window.startLevel()};
 
+  let finishOverlayEl = document.getElementById("level-finish-overlay");
+  console.log(finishOverlayEl);
+  if(isPlayingReplay()) {
+    finishOverlayEl.classList.add("replayFinished");
+    finishOverlayEl.classList.remove("playerFinished");
+  } else {
+    finishOverlayEl.classList.add("playerFinished");
+    finishOverlayEl.classList.remove("replayFinished");
+  }
+
   if(isScoreLegit) {
     console.log("LEVEL FINISHED! TIME: " + finishTime);
     lastReplay = await createReplayObject(currentLevel.name, physicsEngine.getFinishTime(), player.inputReplay);

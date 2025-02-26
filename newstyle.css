@@ -321,11 +321,19 @@ canvas.blurred {
     font-size: 2vw;
     margin: 0.5vh auto;
     width: 100%;
-    display: block;
+    display: none;
 }
 
 #level-finish-overlay button:hover {
     background-color: #777;
+}
+
+.replayFinished .replayVisible {
+    display: block !important;
+}
+
+.playerFinished .playerVisible {
+    display: block !important;
 }
 
 #level-finish-overlay {
