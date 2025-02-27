@@ -367,11 +367,67 @@ canvas.blurred {
     box-sizing: border-box;
 }
 
-.level-buttons button {
+.level-buttons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5vw;
+    position: static;
+    width: auto;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.level-buttons a {
+    display: block;
     aspect-ratio: 1;
     width: 100%;
     max-width: none;
     margin: 0;
     padding: 0;
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+    border: 0.2vw solid white;
+}
+
+.level-buttons a img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.5);
+}
+
+.level-buttons a {
+    text-align: center;
+}
+
+.level-buttons a .level-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
     font-size: 2.5vw;
+    text-shadow: -0.1vw -0.1vw 0 black, 0.1vw -0.1vw 0 black, -0.1vw 0.1vw 0 black, 0.1vw 0.1vw 0 black;
+    z-index: 1;
+    white-space: nowrap;
+    font-family: 'Helvetica';
+}
+
+/* Scrollbar Styling */
+#level-selection-overlay::-webkit-scrollbar {
+    width: 0.5vw;
+}
+
+#level-selection-overlay::-webkit-scrollbar-track {
+    background-color: #222;
+}
+
+#level-selection-overlay::-webkit-scrollbar-thumb {
+    background-color: #555;
+    border-radius: 0.25vw;
+}
+
+#level-selection-overlay::-webkit-scrollbar-thumb:hover {
+    background-color: #777;
 }
