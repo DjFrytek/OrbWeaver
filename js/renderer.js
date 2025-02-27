@@ -162,7 +162,7 @@ class Renderer {
     fill(255);
     textSize(32);
     textAlign(CENTER, CENTER);
-    if(isPlayingReplay()) text("PLAYING REPLAY", width/2, 55);
+    if(isPlayingReplay() && physicsEngine.started == false) text("Press the screen to the start replay\nPress ESCAPE to quit the replay", width/2, 100);
     pop();
   }
 
