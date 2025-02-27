@@ -211,7 +211,7 @@ canvas {
 }
 
 #replay-table-container {
-    height: calc(100% - 350px); /* Adjust 250px based on other elements */
+    height: 60%; /* Adjust 250px based on other elements */
     overflow-y: scroll;
     overflow-x: auto;
 }
@@ -352,15 +352,15 @@ canvas.blurred {
 .level-buttons button {
     background-color: #5865F2; /* Discord blurple */
     color: white;
-    padding: 10px 20px; /* Increased padding */
+    padding: 0.5vw 1vw;
     border: none;
-    border-radius: 10px; /* More rounded corners */
+    border-radius: 0.5vw;
     cursor: pointer;
-    font-size: 16px; /* Increased font size */
-    margin: 5px; /* Increased margin */
+    font-size: 0.8vw;
+    margin: 0.25vw;
     width: auto;
     display: inline-block;
-    transition: background-color 0.3s ease; /* Smooth transition */
+    transition: background-color 0.3s ease;
 }
 
 .level-buttons button:hover {
