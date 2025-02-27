@@ -351,7 +351,8 @@ app.get('/api/get-global-ranking', async (req, res) => {
     const { data, error } = await supabase
       .from('player_scores')
       .select('*')
-      .order('total_score', { ascending: false });
+      .order('total_score', { ascending: false })
+      .limit(50);
 
     if (error) {
       console.error(error);

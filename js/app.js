@@ -437,9 +437,17 @@ function showGlobalRanking() {
 
 async function updateMyGlobalRanking() {
     const token = localStorage.getItem('supabase.auth.token');
+    const tableBody = document.querySelector('#my-player-ranking-table tbody');
+    tableBody.innerHTML = '';
 
     if (!token) {
         console.log("Not logged in, cannot fetch user ranking");
+        const row = document.createElement('tr');
+        const cell = document.createElement('td');
+        cell.colSpan = 3;
+        cell.innerHTML = "You have to be logged in<br>to appear in the ranking";
+        row.appendChild(cell);
+        tableBody.appendChild(row);
         return;
     }
 
@@ -455,10 +463,6 @@ async function updateMyGlobalRanking() {
         }
 
         const rankingData = await response.json();
-        console.log(rankingData);
-
-        const tableBody = document.querySelector('#my-player-ranking-table tbody');
-        tableBody.innerHTML = '';
 
         const row = document.createElement('tr');
         const rankCell = document.createElement('td');
@@ -477,6 +481,12 @@ async function updateMyGlobalRanking() {
 
     } catch (error) {
         console.error('Error updating user ranking:', error);
+        const row = document.createElement('tr');
+        const cell = document.createElement('td');
+        cell.colSpan = 3;
+        cell.textContent = "Error fetching ranking data.";
+        row.appendChild(cell);
+        tableBody.appendChild(row);
     }
 }
 
