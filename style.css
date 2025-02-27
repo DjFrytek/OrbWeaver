@@ -471,6 +471,11 @@ canvas.blurred {
 
 #player-ranking-table td {
     padding: 8px;
+    text-align: center;
+}
+
+#player-ranking-table td:nth-child(2) {
+    text-align: left;
 }
 
 #player-ranking-table tbody tr:nth-child(odd) {

@@ -328,7 +328,11 @@ function populateReplayTable(replays) {
 async function updateGlobalRanking() {
     try {
         const response = await fetch(`${apiUrl}/api/get-global-ranking`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
         const rankingData = await response.json();
+        console.log(rankingData);
 
         const tableBody = document.querySelector('#player-ranking-table tbody');
         tableBody.innerHTML = ''; // Clear existing rows
@@ -344,7 +348,7 @@ async function updateGlobalRanking() {
             row.appendChild(nicknameCell);
 
             const scoreCell = document.createElement('td');
-            scoreCell.textContent = player.skillScore;
+            scoreCell.textContent = floor(player["total_score"]);
             row.appendChild(scoreCell);
 
             tableBody.appendChild(row);

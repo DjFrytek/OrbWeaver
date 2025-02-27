@@ -310,6 +310,25 @@ app.get('/api/get-highscores', async (req, res) => {
   }
 });
 
+app.get('/api/get-global-ranking', async (req, res) => {
+  try {
+    const { data, error } = await supabase
+      .from('player_scores')
+      .select('*')
+      .order('total_score', { ascending: false });
+
+    if (error) {
+      console.error(error);
+      return res.status(500).send('Error getting global ranking');
+    }
+
+    res.json(data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error getting global ranking');
+  }
+});
+
 async function getUserIdFromToken(token) {
   try {
     const decoded = jwt.decode(token); // Odczytujemy payload JWT
