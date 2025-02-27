@@ -340,29 +340,38 @@ canvas.blurred {
     user-select: none;
 }
 
-.level-buttons {
+#level-selection-overlay h2 {
+    font-size: 3vw;
+    text-align: center;
+    margin-bottom: 5vw;
+}
+
+#level-selection-overlay {
     position: absolute;
-    bottom: 20px;
+    top: 0;
     left: 0;
-    width: 100%;
-    padding: 0 20px;
+    right: 0;
+    bottom: 0;
+    padding: 3vw;
+    height: auto;
+    overflow-y: auto;
+}
+
+.level-buttons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5vw;
+    position: static;
+    width: auto;
+    padding: 0;
     box-sizing: border-box;
 }
 
 .level-buttons button {
-    background-color: #5865F2; /* Discord blurple */
-    color: white;
-    padding: 0.5vw 1vw;
-    border: none;
-    border-radius: 0.5vw;
-    cursor: pointer;
-    font-size: 0.8vw;
-    margin: 0.25vw;
-    width: auto;
-    display: inline-block;
-    transition: background-color 0.3s ease;
-}
-
-.level-buttons button:hover {
-    background-color: #42459B; /* Darker blurple on hover */
+    aspect-ratio: 1;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    font-size: 2.5vw;
 }

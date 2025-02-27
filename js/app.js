@@ -66,7 +66,8 @@ window.startLevel = function(levelName = currentLevel.name, loadFromName = true)
   physicsEngine = new PhysicsEngine(60, currentLevel, player, ghost);
 
   hideDarkOverlay();
-  hideElement("level-finish-overlay");
+  hideLevelFinishOverlay();
+  hideLevelSelectionOverlay();
   canvas.elt.classList.remove("blurred");
 
   if(shouldFetchReplays) fetchReplays().then(replays => displayReplays(replays));
@@ -79,16 +80,18 @@ function loadLevel(levelName) {
 
 async function levelFinished(finishTime, isScoreLegit) {
   showDarkOverlay();
-  showElement("level-finish-overlay");
+  showLevelFinishOverlay();
+
   document.getElementById("level-finish-time").textContent = (finishTime / 1000).toFixed(2);
 
   document.getElementById("watch-replay-button").onclick = () => {watchLastReplay()};
   document.getElementById("restart-level-button").onclick = () => {window.startLevel()};
   document.getElementById("watch-replay-again-button").onclick = () => {window.startLevel()};
   document.getElementById("quit-replay-button").onclick = () => {stopWatchingReplay()};
+  document.getElementById("go-to-level-selection-button").onclick = () => {showLevelSelectionOverlay()};
 
   let finishOverlayEl = document.getElementById("level-finish-overlay");
-  console.log(finishOverlayEl);
+  
   if(isPlayingReplay()) {
     finishOverlayEl.classList.add("replayFinished");
     finishOverlayEl.classList.remove("playerFinished");
@@ -351,6 +354,14 @@ function hideDarkOverlay() {
   hideElement("overlay-container");
 }
 
+function hideLevelFinishOverlay() {
+  hideElement("level-finish-overlay");
+}
+
+function showLevelFinishOverlay() {
+  showElement("level-finish-overlay");
+}
+
 function hideElement(elementId) {
   let element = document.getElementById(elementId);
   if (element) {
@@ -359,3 +370,13 @@ function hideElement(elementId) {
   }
 }
 
+function showLevelSelectionOverlay() {
+  showDarkOverlay();
+  hideLevelFinishOverlay();
+  showElement("level-selection-overlay");
+  physicsEngine.finished = true;
+}
+
+function hideLevelSelectionOverlay() {
+  hideElement("level-selection-overlay");
+}

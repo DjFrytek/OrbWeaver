@@ -98,8 +98,29 @@
                         <p>Time: <span id="level-finish-time"></span></p>
                         <button id="watch-replay-button" class="playerVisible">Watch Replay</button>
                         <button id="restart-level-button" class="playerVisible">Restart Level</button>
+                        <button id="go-to-level-selection-button" class="playerVisible replayVisible">Level Selection</button>
                         <button id="watch-replay-again-button" class="replayVisible">Watch Again</button>
                         <button id="quit-replay-button" class="replayVisible">Quit replay</button>
+                    </div>
+                    <div id="level-selection-overlay" class="hidden">
+                        <h2>Level Selection</h2>
+                        <div class="level-buttons">
+                            <button onclick="window.startLevel('level1')">Level 1</button>
+                            <button onclick="window.startLevel('level2')">Level 2</button>
+                            <button onclick="window.startLevel('level3')">Level 3</button>
+                            <button onclick="window.startLevel('level4')">Level 4</button>
+                            <button onclick="window.startLevel('level5')">Level 5</button>
+                            <button onclick="window.startLevel('level6')">Level 6</button>
+                            <button onclick="window.startLevel('test')">TEST</button>
+                            <button onclick="window.startLevel('test')">TEST</button>
+                            <button onclick="window.startLevel('test')">TEST</button>
+                            <button onclick="window.startLevel('test')">TEST</button>
+                            <button onclick="window.startLevel('test')">TEST</button>
+                            <button onclick="window.startLevel('test')">TEST</button>
+                            <button onclick="window.startLevel('test')">TEST</button>
+                            <button onclick="window.startLevel('test')">TEST</button>
+                            <button onclick="window.startLevel('test')">TEST</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -139,14 +160,6 @@
                     <tbody>
                     </tbody>
                 </table>
-            </div>
-            <div class="level-buttons">
-                <button onclick="window.startLevel('level1')">Level 1</button>
-                <button onclick="window.startLevel('level2')">Level 2</button>
-                <button onclick="window.startLevel('level3')">Level 3</button>
-                <button onclick="window.startLevel('level4')">Level 4</button>
-                <button onclick="window.startLevel('level5')">Level 5</button>
-                <button onclick="window.startLevel('level6')">Level 6</button>
             </div>
         </aside>
     </div>
