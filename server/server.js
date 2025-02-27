@@ -229,7 +229,7 @@ app.get('/api/get-my-ranking-on-level', async (req, res) => {
       .from('replays')
       .select('*', { count: 'exact' })
       .eq('levelId', levelId)
-      .lt('finishTime', replay.finishTime); // Liczymy ile osób ma lepszy czas
+      .or(`finishTime.lt.${replay.finishTime},and(finishTime.eq.${replay.finishTime},created_at.lt.${replay.created_at})`);
 
     if (rankError) {
       console.error("Ranking error:", rankError);
