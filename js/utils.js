@@ -66,3 +66,8 @@ function showFPS() {
     text("Zoom: " + renderer.zoom.toFixed(2), 10, 40);
     pop();
 }
+
+function disableRightClick() {
+    let canvas = document.getElementById("defaultCanvas0");
+    canvas.addEventListener("contextmenu", event => event.preventDefault());
+}

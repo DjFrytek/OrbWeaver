@@ -32,6 +32,8 @@ function setup() {
   });
 
   resizeObserver.observe(canvasContainer);
+
+  disableRightClick();
 }
 
 function draw() {
