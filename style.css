@@ -60,7 +60,7 @@ canvas {
 }
 
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 .visible {
@@ -210,14 +210,24 @@ canvas {
     border-radius: 10px;
 }
 
+#level-rankings-container {
+    height: 100%;
+}
+
 #replay-table-container {
-    height: 60%; /* Adjust 250px based on other elements */
-    overflow-y: scroll;
+    height: 100%;
     overflow-x: auto;
 }
 
-#user-replay-container {
-    overflow-x: auto;
+#replay-table-scrollable {
+    height: 60%; /* Adjust 250px based on other elements */
+    overflow-y: scroll;
+}
+
+#level-rankings-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 #replay-table tbody tr:nth-child(odd) {

@@ -70,6 +70,7 @@ window.startLevel = function(levelName = currentLevel.name, loadFromName = true)
   hideDarkOverlay();
   hideLevelFinishOverlay();
   hideLevelSelectionOverlay();
+  showLevelRankings();
   canvas.elt.classList.remove("blurred");
 
   if(shouldFetchReplays) fetchReplays().then(replays => displayReplays(replays));
@@ -377,6 +378,7 @@ function hideElement(elementId) {
 function showLevelSelectionOverlay() {
   showDarkOverlay();
   hideLevelFinishOverlay();
+  hideLevelRankings();
   showElement("level-selection-overlay");
   physicsEngine.finished = true;
 }
@@ -384,3 +386,12 @@ function showLevelSelectionOverlay() {
 function hideLevelSelectionOverlay() {
   hideElement("level-selection-overlay");
 }
+
+function hideLevelRankings() {
+  hideElement("level-rankings-container");
+}
+
+function showLevelRankings() {
+  showElement("level-rankings-container");
+}
+
