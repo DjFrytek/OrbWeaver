@@ -18,8 +18,6 @@ app.use(express.static(path.join(__dirname, '..')));
 const supabaseKey = process.env.SUPABASE_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-setInterval(updateRanking, 2 * 60 * 1000);
-
 
 app.post('/api/signup', async (req, res) => {
   const { email, password } = req.body;
@@ -330,8 +328,3 @@ app.post('/dont-fall-sleep', (req, res) => {
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`);
 });
-
-async function updateRanking() {
-  await supabase.rpc('refresh_ranking');
-  console.log("Ranking odświeżony!");
-}
