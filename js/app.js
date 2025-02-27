@@ -71,6 +71,7 @@ window.startLevel = function(levelName = currentLevel.name, loadFromName = true)
   hideLevelFinishOverlay();
   hideLevelSelectionOverlay();
   showLevelRankings();
+  hideGlobalRanking();
   canvas.elt.classList.remove("blurred");
 
   if(shouldFetchReplays) fetchReplays().then(replays => displayReplays(replays));
@@ -380,6 +381,7 @@ function showLevelSelectionOverlay() {
   hideLevelFinishOverlay();
   hideLevelRankings();
   showElement("level-selection-overlay");
+  showGlobalRanking();
   physicsEngine.finished = true;
 }
 
@@ -395,3 +397,10 @@ function showLevelRankings() {
   showElement("level-rankings-container");
 }
 
+function showGlobalRanking() {
+  showElement("player-ranking-container");
+}
+
+function hideGlobalRanking() {
+  hideElement("player-ranking-container");
+}
