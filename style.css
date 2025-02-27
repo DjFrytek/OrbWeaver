@@ -388,17 +388,22 @@ canvas.blurred {
     overflow: hidden;
     text-decoration: none;
     border: 0.2vw solid white;
+    text-align: center;
+    user-select: none;
 }
 
 .level-buttons a img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    filter: brightness(0.5);
+    filter: brightness(0.4);
+    user-select: none;
+    pointer-events: none;
+    transition: filter 0.2s ease-in-out;
 }
 
-.level-buttons a {
-    text-align: center;
+.level-buttons a:hover img {
+    filter: brightness(0.8);
 }
 
 .level-buttons a .level-text {
@@ -412,6 +417,7 @@ canvas.blurred {
     z-index: 1;
     white-space: nowrap;
     font-family: 'Helvetica';
+    user-select: none;
 }
 
 /* Scrollbar Styling */

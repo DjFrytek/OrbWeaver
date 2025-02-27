@@ -33,6 +33,8 @@ function setup() {
 
   resizeObserver.observe(canvasContainer);
 
+  showLevelSelectionOverlay();
+
   disableRightClick();
 }
 
@@ -137,6 +139,8 @@ function keyPressed() {
   if (keyCode === ESCAPE) {
     if(playbackReplay) {
       stopWatchingReplay();
+    } else {
+      showLevelSelectionOverlay();
     }
   }
 }
