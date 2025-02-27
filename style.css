@@ -214,6 +214,10 @@ canvas {
     height: 100%;
 }
 
+#player-ranking-container {
+    height: 80%;
+}
+
 #replay-table-container {
     height: 100%;
     overflow-x: auto;
@@ -448,16 +452,19 @@ canvas.blurred {
     background-color: #777;
 }
 
+
 #player-ranking-table {
-  border-collapse: collapse;
-  table-layout: fixed;
-  min-width: 300px;
-  max-width: 400px;
-  white-space: nowrap;
+    border-collapse: collapse;
+    table-layout: fixed;
+    min-width: 300px;
+    max-width: 400px;
+    white-space: nowrap;
+    margin: 10px;
+    border: 1px solid #555;
 }
 
 #player-ranking-table th {
-    text-align: left;
+    text-align: center;
     background-color: #444;
     padding: 5px;
 }
@@ -466,24 +473,20 @@ canvas.blurred {
     padding: 8px;
 }
 
-#player-ranking-table button {
-    background-color: #444;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    padding: 5px 10px;
-}
-
-#player-ranking-table button:hover {
-    background-color: #555;
-}
-
 #player-ranking-table tbody tr:nth-child(odd) {
     background-color: #333;
 }
 
 #player-ranking-table tbody tr:nth-child(even) {
     background-color: #222;
+}
+
+#player-ranking-table tbody tr:hover {
+    background-color: #444;
+    transition: background-color 0.2s ease-in-out;
+}
+
+#player-ranking-scrollable {
+    height: 100%;
+    overflow-y: scroll;
 }

@@ -322,7 +322,36 @@ function populateReplayTable(replays) {
       watchReplay(replay);
     };
     replayCell.appendChild(button);
-  });
+    });
+}
+
+async function updateGlobalRanking() {
+    try {
+        const response = await fetch(`${apiUrl}/api/get-global-ranking`);
+        const rankingData = await response.json();
+
+        const tableBody = document.querySelector('#player-ranking-table tbody');
+        tableBody.innerHTML = ''; // Clear existing rows
+
+        rankingData.forEach((player, index) => {
+            const row = document.createElement('tr');
+            const rankCell = document.createElement('td');
+            rankCell.textContent = "#" + (index + 1);
+            row.appendChild(rankCell);
+
+            const nicknameCell = document.createElement('td');
+            nicknameCell.textContent = player.nickname;
+            row.appendChild(nicknameCell);
+
+            const scoreCell = document.createElement('td');
+            scoreCell.textContent = player.skillScore;
+            row.appendChild(scoreCell);
+
+            tableBody.appendChild(row);
+        });
+    } catch (error) {
+        console.error('Error updating global ranking:', error);
+    }
 }
 
 function isPlayingReplay() {
@@ -398,6 +427,7 @@ function showLevelRankings() {
 }
 
 function showGlobalRanking() {
+  updateGlobalRanking();
   showElement("player-ranking-container");
 }
 
