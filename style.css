@@ -350,18 +350,19 @@ canvas.blurred {
 }
 
 .level-buttons button {
-    background-color: #444;
+    background-color: #5865F2; /* Discord blurple */
     color: white;
-    padding: 5px 10px;
+    padding: 10px 20px; /* Increased padding */
     border: none;
-    border-radius: 5px;
+    border-radius: 10px; /* More rounded corners */
     cursor: pointer;
-    font-size: 14px;
-    margin: 2px;
+    font-size: 16px; /* Increased font size */
+    margin: 5px; /* Increased margin */
     width: auto;
     display: inline-block;
+    transition: background-color 0.3s ease; /* Smooth transition */
 }
 
 .level-buttons button:hover {
-    background-color: #666;
+    background-color: #42459B; /* Darker blurple on hover */
 }
