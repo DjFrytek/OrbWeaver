@@ -1,6 +1,5 @@
 NAPRAWIC
 Dodac lepsze informacje o wyjsciu z replaya
-Dodac przycisk Play Again po przejsciu levela
 
 Edytor:
 Spacja ma klonowac wlacznie z wartstwa
@@ -10,8 +9,6 @@ Poradnik
 Menu poziomow
 Medale
 Efekty dzwiekowe
-Personal rekord
 Custom kolorki
 Particle za graczem
-Level editor
 Indexowanie moze

@@ -15,6 +15,7 @@ class Renderer {
       playerTrail: color(0, 242, 255),
       ghostTrail: color(0, 242, 255),
       bg: color(50, 50, 50),
+      replayBg: color(45, 70, 82),
       deathwall: color(250),
       finish: color(0, 255, 0, 100),
       checkpoint: color(183, 0, 255, 100),
@@ -30,7 +31,7 @@ class Renderer {
     push();
     translate(canvas.width / 2 - player.pos.x * this.zoom, canvas.height / 2 - player.pos.y * this.zoom);
     scale(this.zoom);
-    background(this.colors.bg);
+    background(this.player.isPlayback ? this.colors.replayBg : this.colors.bg);
 
     this.drawLevel(this.level);
     this.drawLevelBounds(this.level);
@@ -99,6 +100,8 @@ class Renderer {
       a = map(distToPlayer, 0, 50, 0, 255);
       c = this.colors.ghostBall;
       c = color(c.levels[0], c.levels[1], c.levels[2], a);
+    } else if(player.isPlayback) {
+      c = this.colors.ghostBall;
     }
 
     if (player.isColliding) {
