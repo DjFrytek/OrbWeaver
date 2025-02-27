@@ -332,7 +332,6 @@ async function updateGlobalRanking() {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         const rankingData = await response.json();
-        console.log(rankingData);
 
         const tableBody = document.querySelector('#player-ranking-table tbody');
         tableBody.innerHTML = ''; // Clear existing rows
@@ -432,7 +431,53 @@ function showLevelRankings() {
 
 function showGlobalRanking() {
   updateGlobalRanking();
+  updateMyGlobalRanking();
   showElement("player-ranking-container");
+}
+
+async function updateMyGlobalRanking() {
+    const token = localStorage.getItem('supabase.auth.token');
+
+    if (!token) {
+        console.log("Not logged in, cannot fetch user ranking");
+        return;
+    }
+
+    try {
+        const response = await fetch(`${apiUrl}/api/get-my-global-ranking`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const rankingData = await response.json();
+        console.log(rankingData);
+
+        const tableBody = document.querySelector('#my-player-ranking-table tbody');
+        tableBody.innerHTML = '';
+
+        const row = document.createElement('tr');
+        const rankCell = document.createElement('td');
+        rankCell.textContent = "#" + rankingData.rank;
+        row.appendChild(rankCell);
+
+        const nicknameCell = document.createElement('td');
+        nicknameCell.textContent = rankingData.nickname;
+        row.appendChild(nicknameCell);
+
+        const scoreCell = document.createElement('td');
+        scoreCell.textContent = floor(rankingData["total_score"]);
+        row.appendChild(scoreCell);
+
+        tableBody.appendChild(row);
+
+    } catch (error) {
+        console.error('Error updating user ranking:', error);
+    }
 }
 
 function hideGlobalRanking() {

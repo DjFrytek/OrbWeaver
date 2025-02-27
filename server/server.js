@@ -310,6 +310,42 @@ app.get('/api/get-highscores', async (req, res) => {
   }
 });
 
+app.get('/api/get-my-global-ranking', async (req, res) => {
+  const token = req.headers.authorization?.split(' ')[1];
+
+  if (!token) {
+    return res.status(401).json({ error: 'No token provided' });
+  }
+
+  const userId = await getUserIdFromToken(token);
+
+  if (!userId) {
+    return res.status(401).json({ error: 'Invalid token' });
+  }
+
+  try {
+    const { data, error } = await supabase
+      .from('player_scores')
+      .select('*')
+      .eq('playerId', userId)
+      .single();
+
+    if (error) {
+      console.error('Error getting user global ranking:', error);
+      return res.status(500).json({ error: 'Error getting user global ranking' });
+    }
+
+    if (!data) {
+      return res.status(404).json({ error: 'User global ranking not found' });
+    }
+
+    res.json(data);
+  } catch (error) {
+    console.error('Error getting user global ranking:', error);
+    res.status(500).json({ error: 'Error getting user global ranking' });
+  }
+});
+
 app.get('/api/get-global-ranking', async (req, res) => {
   try {
     const { data, error } = await supabase
