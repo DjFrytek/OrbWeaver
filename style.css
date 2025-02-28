@@ -360,6 +360,7 @@ canvas.blurred {
     font-size: 3vw;
     text-align: center;
     margin-bottom: 5vw;
+    user-select: none;
 }
 
 #level-selection-overlay {
