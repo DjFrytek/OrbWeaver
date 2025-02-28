@@ -1896,7 +1896,7 @@ const levelData6 = {
 }
 
 const levelData7 = {
-  "name": "level7 ",
+  "name": "level7",
   "objects": [
     {
       "x": 160,
