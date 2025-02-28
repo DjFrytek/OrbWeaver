@@ -1,12 +1,8 @@
-NAPRAWIC
-Dodac lepsze informacje o wyjsciu z replaya
-
 Edytor:
 Spacja ma klonowac wlacznie z wartstwa
 
-Menu pauzy
+
 Poradnik
-Menu poziomow
 Medale
 Efekty dzwiekowe
 Custom kolorki
