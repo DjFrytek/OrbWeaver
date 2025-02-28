@@ -162,7 +162,7 @@ class Renderer {
     fill(255);
     textSize(32);
     textAlign(CENTER, CENTER);
-    if(isPlayingReplay() && physicsEngine.started == false) text("Click the screen to the start replay\nPress ESCAPE to quit the replay", width/2, 100);
+    if(isPlayingReplay() && physicsEngine.started == false) text("CLICK the screen to the start replay\nPress ESCAPE to quit the replay\nPress G to race the replay ghost", width/2, 100);
     pop();
   }
 
