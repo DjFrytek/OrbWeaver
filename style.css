@@ -437,8 +437,21 @@ canvas.blurred {
     user-select: none;
 }
 
+.level-buttons a .level-time {
+    position: absolute;
+    bottom: 0.5vw; /* Position at the bottom */
+    left: 50%;
+    transform: translateX(-50%); /* Center horizontally */
+    color: white;
+    font-size: 1.5vw; /* Adjust size as needed */
+    text-shadow: -0.1vw -0.1vw 0 black, 0.1vw -0.1vw 0 black, -0.1vw 0.1vw 0 black, 0.1vw 0.1vw 0 black; /* Keep text shadow for readability */
+    z-index: 2; /* Ensure it's above the image and level-text */
+    white-space: nowrap;
+    user-select: none;
+}
+
 /* Scrollbar Styling */
-#level-selection-overlay::-webkit-scrollbar {
+ #level-selection-overlay::-webkit-scrollbar {
     width: 0.5vw;
 }
 

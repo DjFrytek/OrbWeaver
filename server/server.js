@@ -366,6 +366,37 @@ app.get('/api/get-global-ranking', async (req, res) => {
   }
 });
 
+app.get('/api/get-my-levels-times', async (req, res) => {
+  const token = req.headers.authorization?.split(' ')[1];
+
+  if (!token) {
+    return res.status(401).json({ error: 'No token provided' });
+  }
+
+  const userId = await getUserIdFromToken(token);
+
+  if (!userId) {
+    return res.status(401).json({ error: 'Invalid token' });
+  }
+
+  try {
+    const { data, error } = await supabase
+      .from('replays')
+      .select('*')
+      .eq('playerId', userId);
+
+    if (error) {
+      console.error('Error fetching user replays:', error);
+      return res.status(500).json({ error: 'Error fetching user replays' });
+    }
+
+    res.json(data);
+  } catch (error) {
+    console.error('Error fetching user replays:', error);
+    res.status(500).json({ error: 'Error fetching user replays' });
+  }
+});
+
 async function getUserIdFromToken(token) {
   try {
     const decoded = jwt.decode(token); // Odczytujemy payload JWT

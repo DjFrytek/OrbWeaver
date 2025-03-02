@@ -414,6 +414,7 @@ function showLevelSelectionOverlay() {
   hideLevelRankings();
   showElement("level-selection-overlay");
   showGlobalRanking();
+  loadLevelSelectionTimes();
   physicsEngine.finished = true;
 }
 
@@ -492,4 +493,34 @@ async function updateMyGlobalRanking() {
 
 function hideGlobalRanking() {
   hideElement("player-ranking-container");
+}
+
+async function loadLevelSelectionTimes() {
+  const token = localStorage.getItem('supabase.auth.token');
+
+
+  if(!token) return;
+
+
+  const response = await fetch(`${apiUrl}/api/get-my-levels-times`, {
+    headers: {
+        'Authorization': `Bearer ${token}`
+    }
+  });
+
+  const levelTimes = await response.json();
+
+  levelTimes.forEach(levelTime => {
+    const levelId = levelTime.levelId;
+    const finishTime = levelTime.finishTime;
+    const levelTimeDiv = document.getElementById(`${levelId}-time`);
+
+    if (levelTimeDiv) {
+      if (finishTime) {
+        levelTimeDiv.textContent = (finishTime / 1000).toFixed(2) + "s";
+      } else {
+        levelTimeDiv.textContent = "No time";
+      }
+    }
+  });
 }
