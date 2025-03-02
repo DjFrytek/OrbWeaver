@@ -77,10 +77,10 @@ function getMedalIndexForTime(levelId, time) {
         return -1; // No level data or medals defined
     }
 
-    const formattedTime = (time / 1000).toFixed(2); // Format time to X.XXs
+    const formattedTime = parseFloat((time / 1000).toFixed(2)); // Format time to X.XXs
 
     for (let i = 0; i < levelData.medals.length; i++) {
-        const medalTime = levelData.medals[i].toFixed(2); // Format medal time for comparison
+        const medalTime = parseFloat(levelData.medals[i].toFixed(2)); // Format medal time for comparison
         if (formattedTime <= medalTime) {
             return i; // Medal index found
         }
