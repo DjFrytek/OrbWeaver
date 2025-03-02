@@ -20,7 +20,8 @@ function fetchLevel(levelName) {
   if(levelName == "level6") return levelData6;
   if(levelName == "level7") return levelData7;
   
-  return levelData1;
+  console.log("No such levelName");
+  return null;
 }
 
 const levelData1 = {
@@ -78,7 +79,8 @@ const levelData1 = {
   },
   settings: {
     forceCheckpointOrder: false,
-  }
+  },
+  medals: [2.05, 2.15, 2.40, 3.00]
 };
 
 
@@ -137,7 +139,8 @@ const levelData2 = {
   },
   settings: {
     forceCheckpointOrder: false,
-  }
+  },
+  medals: [4.20, 5.00, 6.00, 8.00]
 };
 
 const levelData3 = {
@@ -658,7 +661,11 @@ const levelData3 = {
       "width": 800,
       "height": 600
     }
-  }
+  },
+  "settings": {
+    "forceCheckpointOrder": false
+  },
+  medals: [8.70, 9.00, 10.50, 12.50]
 }
 
 const levelData4 = {
@@ -897,7 +904,8 @@ const levelData4 = {
   },
   "settings": {
     "forceCheckpointOrder": false
-  }
+  },
+  medals: [14.10, 15.00, 16.20, 18.00]
 }
 
 
@@ -1536,7 +1544,8 @@ const levelData5 = {
   },
   "settings": {
     "forceCheckpointOrder": false
-  }
+  },
+  medals: [12.00, 13.00, 14.00, 15.80]
 }
 
 const levelData6 = {
@@ -1892,7 +1901,8 @@ const levelData6 = {
   },
   "settings": {
     "forceCheckpointOrder": false
-  }
+  },
+  medals: [4.85, 5.00, 5.25, 6.00]
 }
 
 const levelData7 = {
@@ -2227,5 +2237,6 @@ const levelData7 = {
   },
   "settings": {
     "forceCheckpointOrder": false
-  }
+  },
+  medals: [2.50, 2.60, 2.80, 3.10]
 }

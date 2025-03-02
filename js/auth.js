@@ -59,7 +59,7 @@ async function signIn() {
     messageDiv.textContent = 'Sign in failed: ' + error.message;
   }
 
-  window.startLevel();
+  showLevelSelectionOverlay();
 
 }
 
@@ -127,7 +127,8 @@ function logout() {
   needRefreshReplays = true;
   localStorage.removeItem('supabase.auth.token');
   showLoginPanel();
-  window.startLevel();
+
+  showLevelSelectionOverlay();
 }
 
 document.addEventListener('DOMContentLoaded', function() {

@@ -1,4 +1,3 @@
-
 function loadLevelFromFile() {
     wybierzPlikJSON().then(json => {
         currentLevel = json;
@@ -70,4 +69,22 @@ function showFPS() {
 function disableRightClick() {
     let canvas = document.getElementById("defaultCanvas0");
     canvas.addEventListener("contextmenu", event => event.preventDefault());
+}
+
+function getMedalIndexForTime(levelId, time) {
+    const levelData = getLevelData(levelId);
+    if (!levelData || !levelData.medals) {
+        return -1; // No level data or medals defined
+    }
+
+    const formattedTime = (time / 1000).toFixed(2); // Format time to X.XXs
+
+    for (let i = 0; i < levelData.medals.length; i++) {
+        const medalTime = levelData.medals[i].toFixed(2); // Format medal time for comparison
+        if (formattedTime <= medalTime) {
+            return i; // Medal index found
+        }
+    }
+
+    return -1; // No medal reached
 }

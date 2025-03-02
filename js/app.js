@@ -499,7 +499,19 @@ async function loadLevelSelectionTimes() {
   const token = localStorage.getItem('supabase.auth.token');
 
 
-  if(!token) return;
+  if(!token) {
+    // Clear level times and medal icons
+    const levelTimeDivs = document.getElementsByClassName('level-time');
+    const medalIconDivs = document.getElementsByClassName('medal-icon');
+
+    for (let i = 0; i < levelTimeDivs.length; i++) {
+      levelTimeDivs[i].textContent = "";
+    }
+    for (let i = 0; i < medalIconDivs.length; i++) {
+      medalIconDivs[i].innerHTML = '';
+    }
+    return;
+  }
 
 
   const response = await fetch(`${apiUrl}/api/get-my-levels-times`, {
@@ -518,6 +530,20 @@ async function loadLevelSelectionTimes() {
     if (levelTimeDiv) {
       if (finishTime) {
         levelTimeDiv.textContent = (finishTime / 1000).toFixed(2) + "s";
+
+        const medalIndex = getMedalIndexForTime(levelId, finishTime);
+        const medalIconDiv = document.getElementById(`${levelId}-medal`);
+
+        if (medalIconDiv) {
+          medalIconDiv.innerHTML = ''; // Clear previous icon
+          if (medalIndex >= 0) {
+            const medalImages = ['diamond_medal.png' ,'gold_medal.png', 'silver_medal.png', 'bronze_medal.png'];
+            const medalImage = document.createElement('img');
+            medalImage.src = `images/${medalImages[medalIndex]}`; // Assuming medal icons are in 'images/' directory
+            medalImage.alt = `${medalImages[medalIndex].split('_')[0]} medal`;
+            medalIconDiv.appendChild(medalImage);
+          }
+        }
       } else {
         levelTimeDiv.textContent = "No time";
       }
