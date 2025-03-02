@@ -22,7 +22,9 @@ const apiUrl = window.location.hostname === 'localhost' ? 'http://localhost:3001
 
 function preload() {
   sounds["levelFinish"] = loadSound("sounds/levelFinish.mp3");
+  sounds["levelFinish"].setVolume(0.2);
   sounds["levelStart"] = loadSound("sounds/levelStart.mp3");
+  sounds["levelStart"].setVolume(0.2);;
 }
 
 function setup() {

@@ -27,19 +27,21 @@ class PhysicsEngine {
 
     if(currentTime < this.nextFrameMillis) return false;
 
-    this.nextFrameMillis += this.deltaTime;
-    if(currentTime - this.nextFrameMillis > this.deltaTime*4) this.nextFrameMillis = currentTime;
+    while(currentTime > this.nextFrameMillis) {
+      this.nextFrameMillis += this.deltaTime;
+      if(currentTime - this.nextFrameMillis > this.deltaTime*4) this.nextFrameMillis = currentTime;
 
 
-    if (this.started) {
-      this.elapsedTime = this.updateCount * this.deltaTime;
-      this.updateCount++;
+      if (this.started) {
+        this.elapsedTime = this.updateCount * this.deltaTime;
+        this.updateCount++;
+      }
+      this.updatePlayer(this.player);
+      if(this.ghostPlayer) {
+        this.updatePlayer(this.ghostPlayer, true);
+      }
+
     }
-    this.updatePlayer(this.player);
-    if(this.ghostPlayer) {
-      this.updatePlayer(this.ghostPlayer, true);
-    }
-
     return true;
   }
 
