@@ -599,5 +599,15 @@ canvas.blurred {
 #level-finish-medals span {
     font-size: 2vw; /* Increased font size */
     margin-left: 10px; /* Spacing between medal and time */
-    vertical-align: middle; /* Vertically align text */
+    display: inline-flex; /* Enable flexbox for vertical alignment */
+    align-items: center; /* Vertically center text */
+    height: 3vw; /* Same height as image */
+}
+
+#level-finish-medals img {
+    max-width: 3vw; /* Adjust size as needed */
+    max-height: 3vw; /* Adjust size as needed */
+    width: auto;
+    height: 3vw; /* Set fixed height for images */
+    vertical-align: middle; /* Vertically align images */
 }
