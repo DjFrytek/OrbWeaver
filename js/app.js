@@ -74,6 +74,9 @@ window.startLevel = function(levelName = currentLevel.name, loadFromName = true)
   hideGlobalRanking();
   canvas.elt.classList.remove("blurred");
 
+  //Stops current medal flickering
+  document.getElementById("current-medal").querySelector('img').src = "images/empty.png";
+
   if(shouldFetchReplays) fetchReplays().then(replays => displayReplays(replays));
 }
 
@@ -83,6 +86,8 @@ function loadLevel(levelName) {
 }
 
 async function levelFinished(finishTime, isScoreLegit) {
+  loadLevelMedals(currentLevel.name, finishTime);
+
   showDarkOverlay();
   showLevelFinishOverlay();
 
@@ -111,8 +116,6 @@ async function levelFinished(finishTime, isScoreLegit) {
     saveReplayToServer(lastReplay);
   }
   else console.log("REPLAY FINISHED! TIME: " + finishTime);
-
-  loadLevelMedals(currentLevel.name, finishTime);
 }
 
 function loadLevelMedals(currentLevelName, finishTime) {
