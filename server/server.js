@@ -1,4 +1,5 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const cors = require('cors');
 const { createClient } = require('@supabase/supabase-js');
 const path = require('path');
@@ -11,7 +12,7 @@ const jwt = require('jsonwebtoken');
 const supabaseUrl = process.env.SUPABASE_URL;
 
 app.use(cors());
-app.use(express.json());
+app.use(express.json({limit: "10mb", extended: true}));
 
 // Serve static files from the root directory
 app.use(express.static(path.join(__dirname, '..')));
