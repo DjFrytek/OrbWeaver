@@ -308,9 +308,11 @@ canvas.blurred {
 
 #level-finish-overlay {
     position: absolute;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 0;
+    right: 0;
+    bottom: auto; /* Changed from 0 to auto */
+    transform: translateY(-50%);
     padding: 5vh 5vw;
     border-radius: 10px;
     text-align: center;
@@ -336,7 +338,7 @@ canvas.blurred {
     cursor: pointer;
     font-size: 2vw;
     margin: 0.5vh auto;
-    width: 100%;
+    width: 20vw;
     display: none;
 }
 
@@ -563,4 +565,39 @@ canvas.blurred {
 #player-ranking-scrollable {
     height: 100%;
     overflow-y: scroll;
+}
+
+#level-finish-medals {
+    position: absolute;
+    top: 5vh;
+    left: 0;
+    width: auto; /* Adjust as needed */
+    height: 100%; /* Adjust as needed */
+    display: flex;
+    flex-direction: column; /* Arrange medals vertically */
+    align-items: flex-start; /* Align items to the start horizontally */
+    justify-content: center; /* Vertically center medals */
+    padding: 20px; /* Add padding */
+    gap: 10px; /* Add gap between medals */
+    margin-top: 20px; /* Move medals down a bit */
+}
+
+#level-finish-medals img {
+    max-width: 3vw; /* Adjust size as needed */
+    max-height: 3vw; /* Adjust size as needed */
+    width: auto;
+    height: auto;
+    vertical-align: middle; /* Vertically align images */
+}
+
+#level-finish-medals div {
+    display: flex;
+    align-items: flex-start; /* Vertically align items in div */
+    margin-bottom: 5px; /* Add some spacing between medal rows */
+}
+
+#level-finish-medals span {
+    font-size: 2vw; /* Increased font size */
+    margin-left: 10px; /* Spacing between medal and time */
+    vertical-align: middle; /* Vertically align text */
 }

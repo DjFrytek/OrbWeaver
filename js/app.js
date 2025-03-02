@@ -112,20 +112,20 @@ async function levelFinished(finishTime, isScoreLegit) {
   }
   else console.log("REPLAY FINISHED! TIME: " + finishTime);
 
+  loadLevelMedals();
 }
 
-function mouseWheel(event) {
-  if(!isMouseInsideCanvas()) return;
-  let zoomFactor = 1.1;
-  if (event.delta > 0) {
-    renderer.desiredZoom /= zoomFactor;
-  } else {
-    renderer.desiredZoom *= zoomFactor;
+function loadLevelMedals() {
+  if (!currentLevel || !currentLevel.medals) {
+    console.warn("Medal times not properly loaded for this level.");
+    return;
   }
-  renderer.desiredZoom = constrain(renderer.desiredZoom, 0.2, 5);
-  if(abs(renderer.desiredZoom-1) < 0.04) renderer.desiredZoom = 1;
 
-  zoomPersist = renderer.desiredZoom;
+  const medalTimes = currentLevel.medals;
+  document.getElementById("diamond-medal-time").textContent = medalTimes[0] ? (medalTimes[0]).toFixed(2) + "s" : "-";
+  document.getElementById("gold-medal-time").textContent = medalTimes[1] ? (medalTimes[1]).toFixed(2) + "s" : "-";
+  document.getElementById("silver-medal-time").textContent = medalTimes[2] ? (medalTimes[2]).toFixed(2) + "s" : "-";
+  document.getElementById("bronze-medal-time").textContent = medalTimes[3] ? (medalTimes[3]).toFixed(2) + "s" : "-";
 }
 
 function keyPressed() {
