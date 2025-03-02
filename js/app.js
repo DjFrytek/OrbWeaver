@@ -112,10 +112,10 @@ async function levelFinished(finishTime, isScoreLegit) {
   }
   else console.log("REPLAY FINISHED! TIME: " + finishTime);
 
-  loadLevelMedals();
+  loadLevelMedals(currentLevel.name, finishTime);
 }
 
-function loadLevelMedals() {
+function loadLevelMedals(currentLevelName, finishTime) {
   if (!currentLevel || !currentLevel.medals) {
     console.warn("Medal times not properly loaded for this level.");
     return;
@@ -126,6 +126,33 @@ function loadLevelMedals() {
   document.getElementById("gold-medal-time").textContent = medalTimes[1] ? (medalTimes[1]).toFixed(2) + "s" : "-";
   document.getElementById("silver-medal-time").textContent = medalTimes[2] ? (medalTimes[2]).toFixed(2) + "s" : "-";
   document.getElementById("bronze-medal-time").textContent = medalTimes[3] ? (medalTimes[3]).toFixed(2) + "s" : "-";
+
+  const currentMedal = getMedalIndexForTime(currentLevelName, finishTime);
+
+  let medalImageSrc = "images/empty.png"; // Default to empty medal
+  const medalImages = ['diamond_medal.png', 'gold_medal.png', 'silver_medal.png', 'bronze_medal.png'];
+
+  if (currentMedal >= 0 && currentMedal < medalImages.length) {
+    medalImageSrc = `images/${medalImages[currentMedal]}`;
+  } else {
+    medalImageSrc = "images/empty.png"; // Use empty.png for no medal
+  }
+
+  document.getElementById("current-medal").querySelector('img').src = medalImageSrc;
+}
+
+function mouseWheel(event) {
+  if(!isMouseInsideCanvas()) return;
+  let zoomFactor = 1.1;
+  if (event.delta > 0) {
+    renderer.desiredZoom /= zoomFactor;
+  } else {
+    renderer.desiredZoom *= zoomFactor;
+  }
+  renderer.desiredZoom = constrain(renderer.desiredZoom, 0.2, 5);
+  if(abs(renderer.desiredZoom-1) < 0.04) renderer.desiredZoom = 1;
+
+  zoomPersist = renderer.desiredZoom;
 }
 
 function keyPressed() {

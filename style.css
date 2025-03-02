@@ -308,7 +308,7 @@ canvas.blurred {
 
 #level-finish-overlay {
     position: absolute;
-    top: 50%;
+    top: 40%;
     left: 0;
     right: 0;
     bottom: auto; /* Changed from 0 to auto */
@@ -569,7 +569,7 @@ canvas.blurred {
 
 #level-finish-medals {
     position: absolute;
-    top: 5vh;
+    top: 10vh;
     left: 0;
     width: auto; /* Adjust as needed */
     height: 100%; /* Adjust as needed */
@@ -580,6 +580,13 @@ canvas.blurred {
     padding: 20px; /* Add padding */
     gap: 10px; /* Add gap between medals */
     margin-top: 20px; /* Move medals down a bit */
+}
+
+#current-medal img {
+    max-width: 8vw; /* Adjust size as needed */
+    max-height: 8vw; /* Adjust size as needed */
+    width: auto;
+    vertical-align: middle; /* Vertically align images */
 }
 
 #level-finish-medals img {
