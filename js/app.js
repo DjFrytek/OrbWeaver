@@ -16,7 +16,14 @@ let ghost;
 let canvasWasClickedLast = false;
 let needRefreshReplays = false;
 
+let sounds = {};
+
 const apiUrl = window.location.hostname === 'localhost' ? 'http://localhost:3001' : 'https://orbweaver.onrender.com';
+
+function preload() {
+  sounds["levelFinish"] = loadSound("sounds/levelFinish.mp3");
+  sounds["levelStart"] = loadSound("sounds/levelStart.mp3");
+}
 
 function setup() {
   canvas = createCanvas(600, 600);
@@ -76,6 +83,7 @@ window.startLevel = function(levelName = currentLevel.name, loadFromName = true)
 
   //Stops current medal flickering
   document.getElementById("current-medal").querySelector('img').src = "images/empty.png";
+  playSound("levelStart");
 
   if(shouldFetchReplays) fetchReplays().then(replays => displayReplays(replays));
 }
@@ -116,6 +124,8 @@ async function levelFinished(finishTime, isScoreLegit) {
     saveReplayToServer(lastReplay);
   }
   else console.log("REPLAY FINISHED! TIME: " + finishTime);
+
+  playSound("levelFinish");
 }
 
 function loadLevelMedals(currentLevelName, finishTime) {
@@ -579,4 +589,8 @@ async function loadLevelSelectionTimes() {
       }
     }
   });
+}
+
+function playSound(name) {
+  sounds[name].play();
 }
