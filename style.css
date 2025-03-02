@@ -366,13 +366,14 @@ canvas.blurred {
 }
 
 #level-selection-overlay {
-    position: absolute;
+    box-sizing: border-box;
+    position: relative;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     padding: 3vw;
-    height: auto;
+    height: 100%;
     overflow-y: auto;
 }
 
@@ -386,15 +387,6 @@ canvas.blurred {
     box-sizing: border-box;
 }
 
-.level-buttons {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 5vw;
-    position: static;
-    width: auto;
-    padding: 0;
-    box-sizing: border-box;
-}
 
 .level-buttons a {
     display: block;
@@ -617,4 +609,21 @@ canvas.blurred {
     width: auto;
     height: 3vw; /* Set fixed height for images */
     vertical-align: middle; /* Vertically align images */
+}
+
+#scroll-indicator {
+    position: sticky;
+    z-index: 20;
+    top: calc(100% - 2.5vw); /* Sticks 2.5vw above container's bottom */
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 5vw; /* Fixed width to match the image size */
+    height: 0px;
+}
+
+#scroll-indicator img {
+    display: block;
+    width: 100%;
+    height: 5vw; /* or auto if you want to preserve aspect ratio */
 }

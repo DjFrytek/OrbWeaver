@@ -88,3 +88,27 @@ function getMedalIndexForTime(levelId, time) {
 
     return -1; // No medal reached
 }
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const container = document.getElementById('level-selection-overlay');
+    const indicator = document.getElementById('scroll-indicator');
+  
+    function checkScroll() {
+      // Calculate how far we've scrolled + visible height vs total scrollable height
+      if (container.scrollTop + container.clientHeight >= container.scrollHeight) {
+        // If scrolled to bottom, hide the indicator
+        indicator.style.opacity = '0';
+      } else {
+        // Otherwise, show the indicator
+        indicator.style.opacity = '1';
+      }
+    }
+  
+    // Listen for scroll events on the container
+    container.addEventListener('scroll', checkScroll);
+  
+    // Run once on load to set the initial state
+    checkScroll();
+    indicator.style.opacity = '1';
+  });
