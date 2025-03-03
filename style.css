@@ -620,6 +620,7 @@ canvas.blurred {
     margin: 0 auto;
     width: 5vw; /* Fixed width to match the image size */
     height: 0px;
+    pointer-events: none;
 }
 
 #scroll-indicator img {
