@@ -158,6 +158,7 @@ function loadLevelMedals(currentLevelName, finishTime) {
 
 function mouseWheel(event) {
   if(!isMouseInsideCanvas()) return;
+  if(!physicsEngine.started) return;
   let zoomFactor = 1.1;
   if (event.delta > 0) {
     renderer.desiredZoom /= zoomFactor;
