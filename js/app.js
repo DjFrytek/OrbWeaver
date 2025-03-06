@@ -12,6 +12,7 @@ let lastReplay;
 let playbackReplay; //Input data to play
 let raceGhost = false;
 let ghost;
+let playbackReplayName = "none";
 
 let canvasWasClickedLast = false;
 let needRefreshReplays = false;
@@ -211,11 +212,12 @@ function mouseReleased() {
 function watchLastReplay() {
   console.log("Watch last replay");
   raceGhost = false;
-  watchReplay(lastReplay);
+  watchReplay(lastReplay, "Last Replay");
 }
 
-function watchReplay(replayObject) {
+function watchReplay(replayObject, playerName = "unknown") {
   playbackReplay = replayObject.replayData;
+  playbackReplayName = playerName;
   window.startLevel(replayObject.levelId);
 }
 
@@ -314,7 +316,7 @@ async function displayReplays(replays) {
         const button = document.createElement('button');
         button.textContent = 'Watch Replay';
         button.onclick = function() {
-          watchReplay(data.replay);
+          watchReplay(data.replay, data.replay.users.nickname);
         };
         replayCell.appendChild(button);
         userReplayInfoDiv.style.display = 'block';
@@ -363,7 +365,7 @@ function populateReplayTable(replays) {
     const button = document.createElement('button');
     button.innerHTML = 'Watch<br>Replay';
     button.onclick = function() {
-      watchReplay(replay);
+      watchReplay(replay, replay.users.nickname);
     };
     replayCell.appendChild(button);
     });

@@ -1,3 +1,4 @@
+REPLAYE NIE LADOWANE OD RAZU
 Duszek spowolniony fioletowy
 
 Edytor:
@@ -5,8 +6,6 @@ Spacja ma klonowac wlacznie z wartstwa
 
 
 Poradnik
-Medale
-Efekty dzwiekowe
 Custom kolorki
 Particle za graczem
 Indexowanie moze
