@@ -293,7 +293,7 @@ app.get('/api/get-highscores', async (req, res) => {
   try {
     const { data, error } = await supabase
       .from('replays')
-      .select('id, levelId, finishTime, replayData, users(nickname)')
+      .select('id, levelId, finishTime, users(nickname)')
       .eq('levelId', levelId)
       .order('finishTime', { ascending: true })
       .order('created_at', { ascending: true })
@@ -395,6 +395,37 @@ app.get('/api/get-my-levels-times', async (req, res) => {
   } catch (error) {
     console.error('Error fetching user replays:', error);
     res.status(500).json({ error: 'Error fetching user replays' });
+  }
+});
+
+app.get('/api/get-replay', async (req, res) => {
+  const { replayId } = req.query;
+  console.log("Pobieram replay id " + replayId);
+
+  if (!replayId) {
+    return res.status(400).json({ error: 'Replay ID is required' });
+  }
+
+  try {
+    const { data, error } = await supabase
+      .from('replays')
+      .select('*, users(nickname)')
+      .eq('id', replayId)
+      .single();
+
+    if (error) {
+      console.error('Error fetching replay by ID:', error);
+      return res.status(500).json({ error: 'Error fetching replay' });
+    }
+
+    if (!data) {
+      return res.status(404).json({ error: 'Replay not found' });
+    }
+
+    res.json(data);
+  } catch (error) {
+    console.error('Error fetching replay by ID:', error);
+    res.status(500).json({ error: 'Error fetching replay' });
   }
 });
 

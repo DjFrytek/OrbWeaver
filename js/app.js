@@ -157,6 +157,22 @@ function loadLevelMedals(currentLevelName, finishTime) {
   document.getElementById("current-medal").querySelector('img').src = medalImageSrc;
 }
 
+async function getReplayById(replayId) {
+  const url = `${apiUrl}/api/get-replay?replayId=${replayId}`;
+
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Failed to fetch replay by ID:', error);
+    return null;
+  }
+}
+
 function mouseWheel(event) {
   
   if(!isMouseInsideCanvas()) return;
@@ -365,7 +381,9 @@ function populateReplayTable(replays) {
     const button = document.createElement('button');
     button.innerHTML = 'Watch<br>Replay';
     button.onclick = function() {
-      watchReplay(replay, replay.users.nickname);
+      getReplayById(replay.id).then((r) => {
+        watchReplay(r, replay.users.nickname);});
+      
     };
     replayCell.appendChild(button);
     });
