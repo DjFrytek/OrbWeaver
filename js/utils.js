@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
     function checkScroll() {
       // Calculate how far we've scrolled + visible height vs total scrollable height
-      if (container.scrollTop + container.clientHeight >= container.scrollHeight) {
+      if (container.scrollTop + container.clientHeight >= container.scrollHeight-10) {
         // If scrolled to bottom, hide the indicator
         indicator.style.opacity = '0';
       } else {
