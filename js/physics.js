@@ -101,7 +101,7 @@ class PhysicsEngine {
             }
           }
         } else if(obj.type == "checkpoint") {
-          if(isPhysical && !this.level.settings.forceCheckpointOrder || nextCheckpoint == obj) obj.collected = true;
+          if(isPhysical && (!this.level.settings.forceCheckpointOrder || nextCheckpoint == obj)) obj.collected = true;
 
         }
       }
