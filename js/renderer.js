@@ -12,6 +12,8 @@ class Renderer {
       steeringLine: color(3, 211, 252),
       playerBall: color(0, 255, 0),
       ghostBall: color(26, 216, 237),
+      playerBallInWall: color(255, 0, 0),
+      ghostBallInWall: color(163, 0, 155),
       playerTrail: color(0, 242, 255),
       ghostTrail: color(0, 242, 255),
       bg: color(50, 50, 50),
@@ -105,7 +107,8 @@ class Renderer {
     }
 
     if (player.isColliding) {
-      fill(255, 0, 0, a);
+      c = player.isGhost ? this.colors.ghostBallInWall : this.colors.playerBallInWall;
+      fill(c.levels[0], c.levels[1], c.levels[2], a);
     } else {
       fill(c);
     }
