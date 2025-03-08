@@ -89,6 +89,10 @@ function getMedalIndexForTime(levelId, time) {
     return -1; // No medal reached
 }
 
+function getMedalTimes(levelId) {
+    const levelData = getLevelData(levelId);
+    return [...levelData.medals];
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById('level-selection-overlay');

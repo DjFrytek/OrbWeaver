@@ -255,6 +255,11 @@ async function saveReplayToServer(replayObject) {
     return;
   }
 
+  const bodyData = { 
+    ...replayObject, 
+    medalTimes: getMedalTimes(replayObject.levelId)
+  };
+
   try {
     const response = await fetch(url, {
       method: 'POST',
@@ -262,7 +267,7 @@ async function saveReplayToServer(replayObject) {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
       },
-      body: JSON.stringify(replayObject)
+      body: JSON.stringify(bodyData)
     });
 
     if (!response.ok) {

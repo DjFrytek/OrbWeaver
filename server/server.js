@@ -11,6 +11,8 @@ const jwt = require('jsonwebtoken');
 
 const supabaseUrl = process.env.SUPABASE_URL;
 
+const { Worker } = require('worker_threads');
+
 app.use(cors());
 app.use(express.json({limit: "10mb", extended: true}));
 
@@ -82,7 +84,7 @@ app.post('/api/signin', async (req, res) => {
 });
 
 app.post('/api/save-score', async (req, res) => {
-  const { levelId, finishTime, token, replayData } = req.body;
+  const { levelId, finishTime, token, replayData, medalTimes} = req.body;
 
   if (!token) {
     console.log("brak tokena");
@@ -109,53 +111,71 @@ app.post('/api/save-score', async (req, res) => {
       return res.status(500).send('Error saving replay');
     }
 
-    if (existingReplays && existingReplays.length > 0) {
-      const existingReplay = existingReplays[0];
-      // If a replay exists, check if the new time is faster
-      if (finishTime < existingReplay.finishTime) {
-        // Delete the existing replay
-        const { data: deleteData, error: deleteError } = await supabase
-          .from('replays')
-          .delete()
-          .eq('id', existingReplay.id);
 
-        if (deleteError) {
-          console.error('Error deleting replay:', deleteError);
-          return res.status(500).send('Error saving replay');
-        }
+    const worker = new Worker('./validateReplay.js', {
+      workerData: { levelId, finishTime, token, replayData, medalTimes}, // Pass data to the worker
+    });
 
-        // Insert the new replay
-        const { data, error } = await supabase
-          .from('replays')
-          .insert([
-            { levelId: levelId, finishTime: finishTime, replayData: replayData, playerId: userId },
-          ]);
-
-        if (error) {
-          console.error('Error saving replay:', error);
-          return res.status(500).send('Error saving replay');
-        }
-
-        res.status(201).send('Replay saved successfully');
+    worker.on('message', async (result) => {
+      if(result) {
+        if (existingReplays && existingReplays.length > 0) {
+          const existingReplay = existingReplays[0];
+          // If a replay exists, check if the new time is faster
+          if (finishTime < existingReplay.finishTime) {
+            // Delete the existing replay
+            const { data: deleteData, error: deleteError } = await supabase
+              .from('replays')
+              .delete()
+              .eq('id', existingReplay.id);
+    
+            if (deleteError) {
+              console.error('Error deleting replay:', deleteError);
+              return res.status(500).send('Error saving replay');
+            }
+    
+            // Insert the new replay
+            const { data, error } = await supabase
+              .from('replays')
+              .insert([
+                { levelId: levelId, finishTime: finishTime, replayData: replayData, playerId: userId },
+              ]);
+    
+            if (error) {
+              console.error('Error saving replay:', error);
+              return res.status(500).send('Error saving replay');
+            }
+    
+            res.status(201).send('Replay saved successfully');
+          } else {
+            // If the new time is not faster, do not save the replay
+            return res.status(200).send('Replay not saved: New replay is not faster than existing replay');
+          }
+        } else {
+          // If no replay exists, insert the new replay
+          const { data, error } = await supabase
+            .from('replays')
+            .insert([
+              { levelId: levelId, finishTime: finishTime, replayData: replayData, playerId: userId },
+            ]);
+    
+          if (error) {
+            console.error('Error saving replay:', error);
+            return res.status(500).send('Error saving replay');
+          }
+    
+          res.status(201).send('Replay saved successfully');
+        }    
       } else {
-        // If the new time is not faster, do not save the replay
-        return res.status(200).send('Replay not saved: New replay is not faster than existing replay');
-      }
-    } else {
-      // If no replay exists, insert the new replay
-      const { data, error } = await supabase
-        .from('replays')
+        console.log("CHEATED REPLAY");
+        const { data, error } = await supabase
+        .from('replays_cheatflag')
         .insert([
           { levelId: levelId, finishTime: finishTime, replayData: replayData, playerId: userId },
         ]);
-
-      if (error) {
-        console.error('Error saving replay:', error);
-        return res.status(500).send('Error saving replay');
       }
+    });
 
-      res.status(201).send('Replay saved successfully');
-    }
+    
   } catch (error) {
     console.error('Error saving replay:', error);
     res.status(500).send('Error saving replay');
