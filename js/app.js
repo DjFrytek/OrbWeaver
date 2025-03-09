@@ -374,7 +374,7 @@ async function displayReplays(replays) {
           watchReplay(data.replay, data.replay.users.nickname);
         };
         replayCell.appendChild(button);
-        userReplayInfoDiv.style.display = 'block';
+        userReplayInfoDiv.style.display = 'contents';
       } else {
         const row = userReplayTable.insertRow();
         const cell = row.insertCell();
@@ -414,7 +414,9 @@ function populateMyReplayArchiveTable(records) {
     const row = archiveTable.insertRow();
 
     const rankCell = row.insertCell();
-    rankCell.textContent = "-";
+    const date = new Date(record.created_at);
+    const formattedDate = `${date.getDate().toString().padStart(2, '0')}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getFullYear()}`;
+    rankCell.textContent = formattedDate;
 
     const timeCell = row.insertCell();
     timeCell.textContent = (record.finishTime / 1000).toFixed(2);

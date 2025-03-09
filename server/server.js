@@ -289,7 +289,7 @@ app.get('/api/get-my-ranking-archive-on-level', async (req, res) => {
     // 1. Pobierz replay gracza dla danego levelu
     const { data: replay, error: replayError } = await supabase
       .from('replays_archive')
-      .select('id, levelId, finishTime, users(nickname)')
+      .select('id, levelId, finishTime, created_at, users(nickname)')
       .eq('levelId', levelId)
       .eq('playerId', userId)
       .order('finishTime', { ascending: true });

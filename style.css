@@ -628,3 +628,9 @@ canvas.blurred {
     width: 100%;
     height: 5vw; /* or auto if you want to preserve aspect ratio */
 }
+
+#user-replay-table-container {
+    overflow-x: auto;
+    max-height: 60%;
+    min-height: 150px;
+}
