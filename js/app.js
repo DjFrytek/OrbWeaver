@@ -335,7 +335,7 @@ async function displayReplays(replays) {
 
         const replayCell = row.insertCell();
         const button = document.createElement('button');
-        button.textContent = 'Watch Replay';
+        button.innerHTML = 'Watch<br>Replay';
         button.onclick = function() {
           watchReplay(data.replay, data.replay.users.nickname);
         };
