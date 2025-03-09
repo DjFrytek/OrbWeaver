@@ -224,7 +224,7 @@ canvas {
 }
 
 #replay-table-scrollable {
-    height: 60%; /* Adjust 250px based on other elements */
+    height: 80%;
     overflow-y: scroll;
 }
 
@@ -631,6 +631,10 @@ canvas.blurred {
 
 #user-replay-table-container {
     overflow-y: auto;
-    max-height: 60%;
+    max-height: 80%;
     min-height: 150px;
+}
+
+#user-replay-container {
+    max-height: 60%;
 }

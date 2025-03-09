@@ -374,7 +374,7 @@ async function displayReplays(replays) {
           watchReplay(data.replay, data.replay.users.nickname);
         };
         replayCell.appendChild(button);
-        userReplayInfoDiv.style.display = 'contents';
+        userReplayInfoDiv.style.display = 'block';
       } else {
         const row = userReplayTable.insertRow();
         const cell = row.insertCell();
