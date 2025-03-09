@@ -109,6 +109,11 @@ class PhysicsEngine {
     return collision;
   }
 
+  stopLevel() {
+    this.finished = true;
+    player.freeze();
+  }
+
   isCheckpointsCollected() {
     let objects = this.level.objects;
     for(let obj of objects) {

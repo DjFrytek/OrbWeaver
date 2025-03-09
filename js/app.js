@@ -96,11 +96,14 @@ function loadLevel(levelName) {
   currentLevel = JSON.parse(JSON.stringify(getLevelData(levelName)));
 }
 
-async function levelFinished(finishTime, isScoreLegit) {
-  loadLevelMedals(currentLevel.name, finishTime);
+async function levelFinished(finishTime, isScoreLegit, { showMedal = true } = {}) {
+  loadLevelMedals(currentLevel.name, finishTime, { showMedal });
 
   showDarkOverlay();
   showLevelFinishOverlay();
+
+  document.getElementById("level-finish-time-container").style.visibility = showMedal ? 'visible' : "hidden";
+  document.getElementById("level-complete-text").style.visibility = showMedal ? 'visible' : "hidden";
 
   document.getElementById("level-finish-time").textContent = (finishTime / 1000).toFixed(2);
 
@@ -131,19 +134,20 @@ async function levelFinished(finishTime, isScoreLegit) {
   playSound("levelFinish");
 }
 
-function loadLevelMedals(currentLevelName, finishTime) {
+function loadLevelMedals(currentLevelName, finishTime, { showMedal = false } = {}) {
   if (!currentLevel || !currentLevel.medals) {
     console.warn("Medal times not properly loaded for this level.");
     return;
   }
 
   const medalTimes = currentLevel.medals;
-  document.getElementById("diamond-medal-time").textContent = medalTimes[0] ? (medalTimes[0]).toFixed(2) + "s" : "-";
-  document.getElementById("gold-medal-time").textContent = medalTimes[1] ? (medalTimes[1]).toFixed(2) + "s" : "-";
-  document.getElementById("silver-medal-time").textContent = medalTimes[2] ? (medalTimes[2]).toFixed(2) + "s" : "-";
-  document.getElementById("bronze-medal-time").textContent = medalTimes[3] ? (medalTimes[3]).toFixed(2) + "s" : "-";
+  document.getElementById("diamond-medal-time").textContent = medalTimes[0] ? `${medalTimes[0].toFixed(2)}s` : "-";
+  document.getElementById("gold-medal-time").textContent = medalTimes[1] ? `${medalTimes[1].toFixed(2)}s` : "-";
+  document.getElementById("silver-medal-time").textContent = medalTimes[2] ? `${medalTimes[2].toFixed(2)}s` : "-";
+  document.getElementById("bronze-medal-time").textContent = medalTimes[3] ? `${medalTimes[3].toFixed(2)}s` : "-";
 
-  const currentMedal = getMedalIndexForTime(currentLevelName, finishTime);
+  let currentMedal = getMedalIndexForTime(currentLevelName, finishTime);
+  if (!showMedal) currentMedal = -1;
 
   let medalImageSrc = "images/empty.png"; // Default to empty medal
   const medalImages = ['diamond_medal.png', 'gold_medal.png', 'silver_medal.png', 'bronze_medal.png'];
@@ -203,7 +207,12 @@ function keyPressed() {
     if(playbackReplay) {
       stopWatchingReplay();
     } else {
-      showLevelSelectionOverlay();
+      if(physicsEngine.finished) {
+        showLevelSelectionOverlay();
+      } else {
+        physicsEngine.stopLevel();
+        levelFinished(100000000, false, {showMedal: false});
+      }
     }
   }
 }
