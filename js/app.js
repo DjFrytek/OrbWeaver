@@ -177,6 +177,22 @@ async function getReplayById(replayId) {
   }
 }
 
+async function getReplayFromArchiveById(replayId) {
+  const url = `${apiUrl}/api/get-replay-from-archive?replayId=${replayId}`;
+
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Failed to fetch replay by ID:', error);
+    return null;
+  }
+}
+
 function mouseWheel(event) {
   
   if(!isMouseInsideCanvas()) return;
@@ -320,6 +336,15 @@ async function displayReplays(replays) {
   
   if (token) {
     try {
+      const responseArchive = await fetch(`${apiUrl}/api/get-my-ranking-archive-on-level?levelId=${currentLevel.name}`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      const dataArchive = await responseArchive.json();
+      populateMyReplayArchiveTable(dataArchive);
+
       const response = await fetch(`${apiUrl}/api/get-my-ranking-on-level?levelId=${currentLevel.name}`, {
         method: 'GET',
         headers: {
@@ -365,6 +390,48 @@ async function displayReplays(replays) {
   }
 
   populateReplayTable(replays);
+}
+
+function populateMyReplayArchiveTable(records) {
+  const visibilityButton = document.getElementById("my-player-archive-visibility-button");
+  const archiveTable = document.getElementById("my-player-archive-ranking-table");
+  
+  // Initial state
+  visibilityButton.innerHTML = "Show old replays";
+  archiveTable.style.display = "none"; // Hide initially
+  
+  visibilityButton.onclick = () => {
+    const isHidden = archiveTable.style.display === "none";
+  
+    archiveTable.style.display = isHidden ? "table-row-group" : "none"; // Make archive rows visible/invisible
+    visibilityButton.innerHTML = isHidden ? "Hide old replays" : "Show old replays";
+  };
+  archiveTable.innerHTML = "";
+
+  records = records.replay;
+
+  for(let record of records) {
+    const row = archiveTable.insertRow();
+
+    const rankCell = row.insertCell();
+    rankCell.textContent = "-";
+
+    const timeCell = row.insertCell();
+    timeCell.textContent = (record.finishTime / 1000).toFixed(2);
+
+    const nicknameCell = row.insertCell();
+    nicknameCell.textContent = record.users.nickname;
+
+    const replayCell = row.insertCell();
+    const button = document.createElement('button');
+    button.innerHTML = 'Watch<br>Replay';
+    button.onclick = function() {
+      getReplayFromArchiveById(record.id).then((r) => {
+        watchReplay(r, record.users.nickname);});
+      
+    };
+    replayCell.appendChild(button);
+  }
 }
 
 function populateReplayTable(replays) {
