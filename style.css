@@ -630,7 +630,7 @@ canvas.blurred {
 }
 
 #user-replay-table-container {
-    overflow-x: auto;
+    overflow-y: auto;
     max-height: 60%;
     min-height: 150px;
 }
