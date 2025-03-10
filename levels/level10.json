@@ -1,0 +1,186 @@
+{
+  "name": "level10",
+  "objects": [
+    {
+      "x": 5,
+      "y": 415,
+      "r": 450.1110973970759,
+      "type": "wall",
+      "strength": 0.2
+    },
+    {
+      "x": 495,
+      "y": 420,
+      "r": 450,
+      "type": "wall",
+      "strength": 0.2
+    },
+    {
+      "x": 5,
+      "y": 415,
+      "r": 410.1219330881976,
+      "type": "wall",
+      "strength": 0.9
+    },
+    {
+      "x": 495,
+      "y": 420,
+      "r": 410,
+      "type": "wall",
+      "strength": 0.9
+    },
+    {
+      "x": 250,
+      "y": 420,
+      "r": 100,
+      "type": "deathwall",
+      "strength": 1
+    },
+    {
+      "x": 250,
+      "y": 420,
+      "r": 50.99019513592785,
+      "type": "wall",
+      "strength": 0
+    },
+    {
+      "x": 250,
+      "y": 230,
+      "r": 390,
+      "type": "wall",
+      "strength": 0
+    },
+    {
+      "x": 250,
+      "y": 620,
+      "r": 390,
+      "type": "wall",
+      "strength": 0
+    },
+    {
+      "x": 250,
+      "y": 620,
+      "r": 339.55853692699293,
+      "type": "wall",
+      "strength": 0.35
+    },
+    {
+      "x": 250,
+      "y": 230,
+      "r": 331.2099032335839,
+      "type": "wall",
+      "strength": 0.35
+    },
+    {
+      "x": 250,
+      "y": 230,
+      "r": 282.842712474619,
+      "type": "wall",
+      "strength": 0.9
+    },
+    {
+      "x": 250,
+      "y": 620,
+      "r": 290.17236257093816,
+      "type": "wall",
+      "strength": 0.9
+    },
+    {
+      "x": 250,
+      "y": 50,
+      "r": 110,
+      "type": "finish"
+    },
+    {
+      "x": 90,
+      "y": 880,
+      "r": 200,
+      "type": "wall",
+      "strength": 0.35
+    },
+    {
+      "x": 250,
+      "y": 1175,
+      "r": 87.76942646629415,
+      "type": "checkpoint"
+    },
+    {
+      "x": 410,
+      "y": 880,
+      "r": 200,
+      "type": "wall",
+      "strength": 0.35
+    },
+    {
+      "x": 250,
+      "y": 1055,
+      "r": 230,
+      "type": "wall",
+      "strength": 0.35
+    },
+    {
+      "x": 250,
+      "y": 1055,
+      "r": 190,
+      "type": "wall",
+      "strength": 0.9
+    },
+    {
+      "x": 90,
+      "y": 880,
+      "r": 150,
+      "type": "wall",
+      "strength": 0.9
+    },
+    {
+      "x": 410,
+      "y": 880,
+      "r": 150,
+      "type": "wall",
+      "strength": 0.9
+    },
+    {
+      "x": 495,
+      "y": 1195,
+      "r": 169.7056274847714,
+      "type": "wall",
+      "strength": 0.35
+    },
+    {
+      "x": 5,
+      "y": 1195,
+      "r": 169.7056274847714,
+      "type": "wall",
+      "strength": 0.35
+    },
+    {
+      "x": 5,
+      "y": 1195,
+      "r": 130,
+      "type": "wall",
+      "strength": 0.9
+    },
+    {
+      "x": 495,
+      "y": 1195,
+      "r": 134.5362404707371,
+      "type": "wall",
+      "strength": 0.9
+    }
+  ],
+  "player": {
+    "drag": 0.96,
+    "steeringForce": 0.2,
+    "startPosition": {
+      "x": 250,
+      "y": 50
+    },
+    "bounds": {
+      "width": 500,
+      "height": 1200
+    }
+  },
+  "settings": {
+    "forceCheckpointOrder": false
+  }
+}
