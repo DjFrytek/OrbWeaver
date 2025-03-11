@@ -3383,5 +3383,5 @@ const levelData11 = {
   "settings": {
     "forceCheckpointOrder": false
   },
-  medals: [1.00, 2.00, 3.00, 4.00]
+  medals: [16.50, 17.30, 19.00, 21.00]
 }
