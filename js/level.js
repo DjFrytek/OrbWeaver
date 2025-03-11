@@ -22,6 +22,7 @@ function fetchLevel(levelName) {
   if(levelName == "level8") return levelData8;
   if(levelName == "level9") return levelData9;
   if(levelName == "level10") return levelData10;
+  if(levelName == "level11") return levelData11;
   
   console.log("No such levelName");
   return null;
@@ -2995,4 +2996,392 @@ const levelData10 = {
     "forceCheckpointOrder": false
   },
   medals: [12.20, 12.80, 13.40, 14.40]
+}
+
+const levelData11 = {
+  "name": "level11",
+  "objects": [
+    {
+      "x": 500,
+      "y": 500,
+      "r": 560,
+      "type": "wall",
+      "strength": 0.2
+    },
+    {
+      "x": 500,
+      "y": 1000,
+      "r": 320,
+      "type": "wall",
+      "strength": 0.2
+    },
+    {
+      "x": 500,
+      "y": 920,
+      "r": 160,
+      "type": "wall",
+      "strength": 0.95
+    },
+    {
+      "x": 500,
+      "y": 1000,
+      "r": 282.842712474619,
+      "type": "wall",
+      "strength": 0.9
+    },
+    {
+      "x": 500,
+      "y": 920,
+      "r": 144.22205101855957,
+      "type": "wall",
+      "strength": 0
+    },
+    {
+      "x": 500,
+      "y": 840,
+      "r": 56.568542494923804,
+      "type": "wall",
+      "strength": 0
+    },
+    {
+      "x": 500,
+      "y": 960,
+      "r": 80,
+      "type": "checkpoint"
+    },
+    {
+      "x": 500,
+      "y": 920,
+      "r": 80,
+      "type": "wall",
+      "strength": 0.35
+    },
+    {
+      "x": 1000,
+      "y": 500,
+      "r": 320,
+      "type": "wall",
+      "strength": 0.2
+    },
+    {
+      "x": 500,
+      "y": 0,
+      "r": 320,
+      "type": "wall",
+      "strength": 0.2
+    },
+    {
+      "x": 0,
+      "y": 500,
+      "r": 320,
+      "type": "wall",
+      "strength": 0.2
+    },
+    {
+      "x": 1000,
+      "y": 500,
+      "r": 282.842712474619,
+      "type": "wall",
+      "strength": 0.9
+    },
+    {
+      "x": 500,
+      "y": 0,
+      "r": 282.842712474619,
+      "type": "wall",
+      "strength": 0.9
+    },
+    {
+      "x": 0,
+      "y": 500,
+      "r": 282.842712474619,
+      "type": "wall",
+      "strength": 0.9
+    },
+    {
+      "x": 80,
+      "y": 500,
+      "r": 160,
+      "type": "wall",
+      "strength": 0.9
+    },
+    {
+      "x": 500,
+      "y": 80,
+      "r": 160,
+      "type": "wall",
+      "strength": 0.9
+    },
+    {
+      "x": 920,
+      "y": 500,
+      "r": 160,
+      "type": "wall",
+      "strength": 0.9
+    },
+    {
+      "x": 80,
+      "y": 500,
+      "r": 144.22205101855957,
+      "type": "wall",
+      "strength": 0
+    },
+    {
+      "x": 920,
+      "y": 500,
+      "r": 144.22205101855957,
+      "type": "wall",
+      "strength": 0
+    },
+    {
+      "x": 500,
+      "y": 80,
+      "r": 144.22205101855957,
+      "type": "wall",
+      "strength": 0
+    },
+    {
+      "x": 840,
+      "y": 500,
+      "r": 56.568542494923804,
+      "type": "wall",
+      "strength": 0
+    },
+    {
+      "x": 960,
+      "y": 500,
+      "r": 80,
+      "type": "checkpoint"
+    },
+    {
+      "x": 500,
+      "y": 160,
+      "r": 56.568542494923804,
+      "type": "wall",
+      "strength": 0
+    },
+    {
+      "x": 160,
+      "y": 500,
+      "r": 56.568542494923804,
+      "type": "wall",
+      "strength": 0
+    },
+    {
+      "x": 40,
+      "y": 500,
+      "r": 80,
+      "type": "checkpoint"
+    },
+    {
+      "x": 500,
+      "y": 40,
+      "r": 80,
+      "type": "checkpoint"
+    },
+    {
+      "x": 920,
+      "y": 500,
+      "r": 80,
+      "type": "wall",
+      "strength": 0.35
+    },
+    {
+      "x": 500,
+      "y": 80,
+      "r": 80,
+      "type": "wall",
+      "strength": 0.35
+    },
+    {
+      "x": 80,
+      "y": 500,
+      "r": 80,
+      "type": "wall",
+      "strength": 0.35
+    },
+    {
+      "x": 500,
+      "y": 500,
+      "r": 480,
+      "type": "wall",
+      "strength": 0.8
+    },
+    {
+      "x": 500,
+      "y": 500,
+      "r": 320,
+      "type": "wall",
+      "strength": 0
+    },
+    {
+      "x": 0,
+      "y": 1000,
+      "r": 282.842712474619,
+      "type": "wall",
+      "strength": 0.1
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "r": 282.842712474619,
+      "type": "wall",
+      "strength": 0.1
+    },
+    {
+      "x": 1000,
+      "y": 0,
+      "r": 282.842712474619,
+      "type": "wall",
+      "strength": 0.1
+    },
+    {
+      "x": 1000,
+      "y": 1000,
+      "r": 282.842712474619,
+      "type": "wall",
+      "strength": 0.1
+    },
+    {
+      "x": 300,
+      "y": 200,
+      "r": 80,
+      "type": "wall",
+      "strength": 0.65
+    },
+    {
+      "x": 200,
+      "y": 300,
+      "r": 80,
+      "type": "wall",
+      "strength": 0.65
+    },
+    {
+      "x": 300,
+      "y": 800,
+      "r": 80,
+      "type": "wall",
+      "strength": 0.65
+    },
+    {
+      "x": 200,
+      "y": 700,
+      "r": 80,
+      "type": "wall",
+      "strength": 0.65
+    },
+    {
+      "x": 800,
+      "y": 700,
+      "r": 80,
+      "type": "wall",
+      "strength": 0.65
+    },
+    {
+      "x": 700,
+      "y": 800,
+      "r": 80,
+      "type": "wall",
+      "strength": 0.65
+    },
+    {
+      "x": 800,
+      "y": 300,
+      "r": 80,
+      "type": "wall",
+      "strength": 0.65
+    },
+    {
+      "x": 700,
+      "y": 200,
+      "r": 80,
+      "type": "wall",
+      "strength": 0.65
+    },
+    {
+      "x": 700,
+      "y": 700,
+      "r": 80,
+      "type": "wall",
+      "strength": 0.65
+    },
+    {
+      "x": 300,
+      "y": 700,
+      "r": 80,
+      "type": "wall",
+      "strength": 0.65
+    },
+    {
+      "x": 700,
+      "y": 300,
+      "r": 80,
+      "type": "wall",
+      "strength": 0.65
+    },
+    {
+      "x": 300,
+      "y": 300,
+      "r": 80,
+      "type": "wall",
+      "strength": 0.65
+    },
+    {
+      "x": 40,
+      "y": 960,
+      "r": 113.13708498984761,
+      "type": "finish"
+    },
+    {
+      "x": 100,
+      "y": 900,
+      "r": 56.568542494923804,
+      "type": "wall",
+      "strength": 0
+    },
+    {
+      "x": 80,
+      "y": 500,
+      "r": 56.568542494923804,
+      "type": "wall",
+      "strength": 0.9
+    },
+    {
+      "x": 500,
+      "y": 80,
+      "r": 56.568542494923804,
+      "type": "wall",
+      "strength": 0.95
+    },
+    {
+      "x": 920,
+      "y": 500,
+      "r": 56.568542494923804,
+      "type": "wall",
+      "strength": 0.9
+    },
+    {
+      "x": 500,
+      "y": 920,
+      "r": 56.568542494923804,
+      "type": "wall",
+      "strength": 0.9
+    }
+  ],
+  "player": {
+    "drag": 0.96,
+    "steeringForce": 0.2,
+    "startPosition": {
+      "x": 110,
+      "y": 890
+    },
+    "bounds": {
+      "width": 1000,
+      "height": 1000
+    }
+  },
+  "settings": {
+    "forceCheckpointOrder": false
+  },
+  medals: [1.00, 2.00, 3.00, 4.00]
 }
