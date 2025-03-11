@@ -1,0 +1,26 @@
+{
+  "name": "placeholder",
+  "objects": [
+    {
+      "x": 269.5,
+      "y": 237,
+      "r": 111.46299834474219,
+      "type": "finish"
+    }
+  ],
+  "player": {
+    "drag": 0.96,
+    "steeringForce": 0.2,
+    "startPosition": {
+      "x": 100,
+      "y": 100
+    },
+    "bounds": {
+      "width": 800,
+      "height": 600
+    }
+  },
+  "settings": {
+    "forceCheckpointOrder": false
+  }
+}

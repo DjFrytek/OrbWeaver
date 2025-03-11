@@ -273,6 +273,12 @@ async function createReplayObject(levelName, finishTime, inputReplay) {
 }
 
 async function saveReplayToServer(replayObject) {
+  const replaysMap = fetchLevel(replayObject.levelId);
+  if(replaysMap == null) {
+    console.log("Cant save replay for nonexistent level");
+    return;
+  }
+
   const url = apiUrl + '/api/save-score';
   const token = replayObject.token;
   if(!token) {
