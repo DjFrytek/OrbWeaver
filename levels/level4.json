@@ -234,5 +234,11 @@
   },
   "settings": {
     "forceCheckpointOrder": false
-  }
+  },
+  "medals": [
+    14.1,
+    15,
+    16.2,
+    18
+  ]
 }

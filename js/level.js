@@ -85,7 +85,7 @@ const levelData1 = {
     forceCheckpointOrder: false,
   },
   medals: [2.05, 2.15, 2.40, 3.00]
-};
+}
 
 
 const levelData2 = {
@@ -145,7 +145,7 @@ const levelData2 = {
     forceCheckpointOrder: false,
   },
   medals: [4.20, 5.00, 6.00, 8.00]
-};
+}
 
 const levelData3 = {
   "name": "level3",

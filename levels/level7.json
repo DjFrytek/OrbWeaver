@@ -1,5 +1,5 @@
 {
-  "name": "level7 ",
+  "name": "level7",
   "objects": [
     {
       "x": 160,
@@ -330,5 +330,11 @@
   },
   "settings": {
     "forceCheckpointOrder": false
-  }
+  },
+  "medals": [
+    2.5,
+    2.6,
+    2.8,
+    3.1
+  ]
 }

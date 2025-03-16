@@ -2,11 +2,11 @@
   "name": "level3",
   "objects": [
     {
-      "x": 525,
-      "y": 260,
-      "r": 126.09847915927038,
+      "x": 397.5,
+      "y": 289,
+      "r": 162.19741058352318,
       "type": "wall",
-      "strength": 0.5
+      "strength": 0.82
     },
     {
       "x": 397.5,
@@ -497,6 +497,12 @@
       "r": 20,
       "type": "deathwall",
       "strength": 1
+    },
+    {
+      "x": 427,
+      "y": 200,
+      "r": 80,
+      "type": "finish"
     }
   ],
   "player": {
@@ -513,5 +519,11 @@
   },
   "settings": {
     "forceCheckpointOrder": false
-  }
+  },
+  "medals": [
+    8.7,
+    9,
+    10.5,
+    12.5
+  ]
 }
