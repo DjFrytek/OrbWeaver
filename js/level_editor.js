@@ -43,6 +43,11 @@ function setup() {
             let startX = parseFloat(document.getElementById('startX').value);
             let startY = parseFloat(document.getElementById('startY').value);
             let forceCheckpointOrder = document.getElementById('forceCheckpointOrder').checked;
+            let diamondTime = parseFloat(document.getElementById('diamondTime').value);
+            let goldTime = parseFloat(document.getElementById('goldTime').value);
+            let silverTime = parseFloat(document.getElementById('silverTime').value);
+            let bronzeTime = parseFloat(document.getElementById('bronzeTime').value);
+
             let levelData = {
                 name: levelName,
                 objects: [],
@@ -54,7 +59,8 @@ function setup() {
                 },
                 settings: {
                     forceCheckpointOrder: forceCheckpointOrder
-                }
+                },
+                medals: [diamondTime, goldTime, silverTime, bronzeTime]
         };
 
         for (let obstacle of obstacles) {
@@ -107,11 +113,17 @@ function setup() {
                     if (levelData.settings) {
                         document.getElementById('forceCheckpointOrder').checked = levelData.settings.forceCheckpointOrder;
                     }
+                    if (levelData.medals) {
+                        document.getElementById('diamondTime').value = levelData.medals[0];
+                        document.getElementById('goldTime').value = levelData.medals[1];
+                        document.getElementById('silverTime').value = levelData.medals[2];
+                        document.getElementById('bronzeTime').value = levelData.medals[3];
+                    }
                 } catch (error) {
                     console.error("Error parsing JSON:", error);
                     alert("Failed to load level: Invalid JSON format.");
                 }
-            }
+            };
             reader.readAsText(file);
         }
     });
@@ -135,6 +147,15 @@ function setup() {
 }
 
 function keyPressed() {
+    if (document.activeElement.tagName === 'INPUT') {
+        return;
+    }
+
+    if(mouseX < 0) return;
+    if(mouseX > width) return;
+    if(mouseY < 0) return;
+    if(mouseY > height) return;
+
     if (keyCode === 32) { // Spacebar
         if (selectedObstacle) {
             //COPY

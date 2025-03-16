@@ -1,0 +1,110 @@
+{
+  "name": "placeholderasd",
+  "objects": [
+    {
+      "x": 391,
+      "y": 217.5,
+      "r": 20,
+      "type": "wall",
+      "strength": 0.2
+    },
+    {
+      "x": 401,
+      "y": 212.5,
+      "r": 20,
+      "type": "wall",
+      "strength": 0.35
+    },
+    {
+      "x": 571,
+      "y": 184.5,
+      "r": 20,
+      "type": "wall",
+      "strength": 0.8
+    },
+    {
+      "x": 583,
+      "y": 183.5,
+      "r": 20,
+      "type": "wall",
+      "strength": 0.65
+    },
+    {
+      "x": 516,
+      "y": 167.5,
+      "r": 20,
+      "type": "wall",
+      "strength": 0.9
+    },
+    {
+      "x": 315,
+      "y": 232.5,
+      "r": 20,
+      "type": "wall",
+      "strength": 0.35
+    },
+    {
+      "x": 322,
+      "y": 229.5,
+      "r": 20,
+      "type": "wall",
+      "strength": 0.65
+    },
+    {
+      "x": 381,
+      "y": 217.5,
+      "r": 20,
+      "type": "wall",
+      "strength": 0.8
+    },
+    {
+      "x": 456,
+      "y": 224.5,
+      "r": 20,
+      "type": "wall",
+      "strength": 0.9
+    },
+    {
+      "x": 344,
+      "y": 348.5,
+      "r": 20,
+      "type": "wall",
+      "strength": 0.1
+    },
+    {
+      "x": 216,
+      "y": 383.5,
+      "r": 20,
+      "type": "wall",
+      "strength": 0.2
+    },
+    {
+      "x": 198,
+      "y": 388.5,
+      "r": 20,
+      "type": "wall",
+      "strength": 0.35
+    }
+  ],
+  "player": {
+    "drag": 0.96,
+    "steeringForce": 0.2,
+    "startPosition": {
+      "x": 100,
+      "y": 100
+    },
+    "bounds": {
+      "width": 800,
+      "height": 600
+    }
+  },
+  "settings": {
+    "forceCheckpointOrder": false
+  },
+  "medals": [
+    1.05,
+    2.02,
+    3.03,
+    4.04
+  ]
+}
