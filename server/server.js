@@ -112,45 +112,64 @@ app.post('/api/save-score', async (req, res) => {
     }
 
 
-    const worker = new Worker('./validateReplay.js', {
-      workerData: { levelId, finishTime, token, replayData, medalTimes}, // Pass data to the worker
-    });
 
-    worker.on('message', async (result) => {
-      if(result) {
-        if (existingReplays && existingReplays.length > 0) {
-          const existingReplay = existingReplays[0];
-          // If a replay exists, check if the new time is faster
-          if (finishTime < existingReplay.finishTime) {
+    if (existingReplays && existingReplays.length > 0) {
+      const existingReplay = existingReplays[0];
+      // If a replay exists, check if the new time is faster
+      if (finishTime < existingReplay.finishTime) {
+        const worker = new Worker('./validateReplay.js', {
+          workerData: { levelId, finishTime, token, replayData, medalTimes}, // Pass data to the worker
+        });
+    
+        worker.on('message', async (result) => {
+          if(result) {
             // Delete the existing replay
             const { data: deleteData, error: deleteError } = await supabase
               .from('replays')
               .delete()
               .eq('id', existingReplay.id);
-    
+
             if (deleteError) {
               console.error('Error deleting replay:', deleteError);
               return res.status(500).send('Error saving replay');
             }
-    
+
             // Insert the new replay
             const { data, error } = await supabase
               .from('replays')
               .insert([
                 { levelId: levelId, finishTime: finishTime, replayData: replayData, playerId: userId },
               ]);
-    
+
             if (error) {
               console.error('Error saving replay:', error);
               return res.status(500).send('Error saving replay');
             }
-    
+
             res.status(201).send('Replay saved successfully');
           } else {
-            // If the new time is not faster, do not save the replay
-            return res.status(200).send('Replay not saved: New replay is not faster than existing replay');
+            console.log("CHEATED REPLAY");
+            const { data, error } = await supabase
+            .from('replays_cheatflag')
+            .insert([
+              { levelId: levelId, finishTime: finishTime, replayData: replayData, playerId: userId },
+            ]);
           }
-        } else {
+        });
+      } else {
+        // If the new time is not faster, do not save the replay
+        return res.status(200).send('Replay not saved: New replay is not faster than existing replay');
+      }
+    } else {
+
+      const worker = new Worker('./validateReplay.js', {
+        workerData: { levelId, finishTime, token, replayData, medalTimes}, // Pass data to the worker
+      });
+  
+      worker.on('message', async (result) => {
+        if(result) {
+
+
           // If no replay exists, insert the new replay
           const { data, error } = await supabase
             .from('replays')
@@ -164,17 +183,17 @@ app.post('/api/save-score', async (req, res) => {
           }
     
           res.status(201).send('Replay saved successfully');
-        }    
-      } else {
-        console.log("CHEATED REPLAY");
-        const { data, error } = await supabase
-        .from('replays_cheatflag')
-        .insert([
-          { levelId: levelId, finishTime: finishTime, replayData: replayData, playerId: userId },
-        ]);
-      }
-    });
 
+        } else {
+          console.log("CHEATED REPLAY");
+          const { data, error } = await supabase
+          .from('replays_cheatflag')
+          .insert([
+            { levelId: levelId, finishTime: finishTime, replayData: replayData, playerId: userId },
+          ]);
+        }
+      });
+    }    
     
   } catch (error) {
     console.error('Error saving replay:', error);
