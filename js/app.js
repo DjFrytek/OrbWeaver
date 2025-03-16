@@ -284,7 +284,7 @@ async function createReplayObject(levelName, finishTime, inputReplay) {
 }
 
 async function saveReplayToServer(replayObject) {
-  const replaysMap = fetchLevel(replayObject.levelId);
+  const replaysMap = getLevelData(replayObject.levelId);
   if(replaysMap == null) {
     console.log("Cant save replay for nonexistent level");
     return;
