@@ -5,6 +5,8 @@ let currentLevel;
 let renderer;
 let zoomPersist = 1;
 
+let currentLevelFromFile;
+
 let mouseHeldInsideCanvas = false;
 
 let lastReplay;
@@ -212,7 +214,12 @@ function mouseWheel(event) {
 function keyPressed() {
   if(!isCanvasFocused()) return;
   if (key === 'r' || key === 'R') {
-    window.startLevel();
+    if(currentLevelFromFile) {
+      currentLevel = {...currentLevelFromFile}
+      window.startLevel("nothing", false);
+    } else {
+      window.startLevel();
+    }
   }
 
   if (key === 'g' || key === 'G') {
@@ -562,6 +569,7 @@ function hideElement(elementId) {
 }
 
 function showLevelSelectionOverlay() {
+  currentLevelFromFile = undefined;
   showDarkOverlay();
   hideLevelFinishOverlay();
   hideLevelRankings();

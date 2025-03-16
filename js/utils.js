@@ -1,6 +1,7 @@
 function loadLevelFromFile() {
     wybierzPlikJSON().then(json => {
         currentLevel = json;
+        currentLevelFromFile = {...currentLevel};
         console.log('Załadowano poziom:', currentLevel);
         window.startLevel("nothing", false);
     }).catch(console.error);
