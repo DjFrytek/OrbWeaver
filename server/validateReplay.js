@@ -9,4 +9,3 @@ const formattedFinishTime = parseFloat((replay.finishTime / 1000).toFixed(2));
 
 // Send the result back to the main thread
 parentPort.postMessage(formattedFinishTime > humanlyFastTime);
-process.exit();
