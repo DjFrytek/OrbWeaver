@@ -2,8 +2,10 @@ let cachedLevels = {};
 
 function getLevelData(levelName) {
   if (cachedLevels[levelName]) {
+    console.log("returning cached: ", levelName);
     return { ...cachedLevels[levelName] }; // Return cached level
   } else {
+    console.log("fetching from server: ", levelName);
     const fetchedLevel = fetchLevel(levelName);
     cachedLevels[levelName] = fetchedLevel;
     return fetchedLevel;

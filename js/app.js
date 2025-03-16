@@ -68,7 +68,7 @@ window.startLevel = function(levelName = currentLevel.name, loadFromName = true)
   needRefreshReplays=false;
 
   if(loadFromName) loadLevel(levelName);
-  console.log("current", currentLevel.name);
+  //console.log("current", currentLevel.name);
   if(!raceGhost) {
     player = new Player(currentLevel.player.startPosition.x, currentLevel.player.startPosition.y, currentLevel.player, playbackReplay);
     ghost = undefined;
@@ -328,7 +328,7 @@ async function saveReplayToServer(replayObject) {
 }
 
 async function fetchReplays() {
-  console.log("fetching replays for " + currentLevel.name);
+  //console.log("fetching replays for " + currentLevel.name);
   const url = `${apiUrl}/api/get-highscores?levelId=` + currentLevel.name;
 
   try {
