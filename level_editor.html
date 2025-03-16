@@ -4,37 +4,129 @@
     <title>Level Editor</title>
     <script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.js"></script>
     <style>
-body { margin: 0; background-color: #131313; color: white; }
-        canvas { display: block; margin: 0 auto; }
+body {
+    margin: 0;
+    background-color: #131313;
+    color: white;
+    font-family: sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+.editor-container {
+    background-color: #222;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.input-group {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: flex-start;
+}
+label {
+    width: 180px;
+    text-align: right;
+    margin-right: 10px;
+}
+input[type="number"],
+input[type="text"],
+input[type="range"],
+input[type="file"] {
+    background-color: #333;
+    color: white;
+    border: 1px solid #555;
+    padding: 8px;
+    border-radius: 5px;
+}
+input[type="range"] {
+    width: 200px;
+}
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+button:hover {
+    background-color: #0056b3;
+}
+canvas { display: block; margin: 0 auto; }
+
+.instructions-container {
+    background-color: #222;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    color: white;
+    width: 300px;
+    height: fit-content;
+}
     </style>
 </head>
 <body>
-    <div>
-        <label for="levelWidth">Level Width:</label>
-        <input type="number" id="levelWidth" value="800">
-        <label for="levelHeight">Level Height:</label>
-        <input type="number" id="levelHeight" value="600">
-    </div>
-    <div>
-        <label for="strength">Strength:</label>
-        <input type="range" id="strength" min="0" max="1" step="0.01" value="0.5">
-        <input type="number" id="strengthValue" min="0" max="1" step="0.01" value="0.5">
-    </div>
-    <div>
-        <label for="levelName">Level Name:</label>
-        <input type="text" id="levelName" value="placeholder">
-    </div>
-    <div>
-        <label for="startX">Start X:</label>
-        <input type="number" id="startX" value="100">
-        <label for="startY">Start Y:</label>
-        <input type="number" id="startY" value="100">
-    </div>
-    <button id="saveButton">Save</button>
-    <input type="file" id="loadInput" accept=".json">
-    <div>
-        <label for="forceCheckpointOrder">Force Checkpoint Order:</label>
-        <input type="checkbox" id="forceCheckpointOrder">
+    <div style="display: flex; justify-content: center; align-items: flex-start; gap: 20px;">
+        <div class="editor-container">
+            <div class="input-group">
+                <label for="levelWidth">Level Width:</label>
+                <input type="number" id="levelWidth" value="800" style="width: 100px;">
+            </div>
+            <div class="input-group">
+                <label for="levelHeight">Level Height:</label>
+                <input type="number" id="levelHeight" value="600" style="width: 100px;">
+            </div>
+            <div class="input-group">
+                <label for="levelName">Level Name:</label>
+                <input type="text" id="levelName" value="placeholder" style="width: 200px;">
+            </div>
+            <div class="input-group">
+                <label for="startX">Player Start X:</label>
+                <input type="number" id="startX" value="100" style="width: 100px;">
+            </div>
+            <div class="input-group">
+                <label for="startY">Player Start Y:</label>
+                <input type="number" id="startY" value="100" style="width: 100px;">
+            </div>
+            <div class="input-group">
+                <label for="forceCheckpointOrder">Force Checkpoint Order:</label>
+                <input type="checkbox" id="forceCheckpointOrder">
+            </div>
+            <br><br>
+            <div class="input-group">
+                <label for="strength">Slow Strength for selected object:</label>
+                <input type="range" id="strength" min="0" max="1" step="0.01" value="0.5" style="width: 150px;">
+                <input type="number" id="strengthValue" min="0" max="1" step="0.01" value="0.5" style="width: 60px;">
+            </div>
+            <br><br>
+            <div class="input-group">
+                <button id="saveButton">Save Level</button>
+            </div>
+            <div class="input-group">
+                <input type="file" id="loadInput" accept=".json">
+            </div>
+        </div>
+        <main></main>
+        <div class="instructions-container">
+            <h2>Instructions</h2>
+            <ul>
+                <li>Use WSAD to move the camera</li>
+                <li>Use scroll to zoom camera</li>
+                <li>Use numbers 0-9 and space to spawn obstacles</li>
+                <li>Control their strength with a slider or number key</li>
+                <li>F to spawn Finishline, C to spawn checkpoint</li>
+                <li>Grab nodes to move and change size of obstacles</li>
+                <li>Press DELETE while holding a node to delete the obstacle</li>
+                <li>Hold SHIFT to snap nodes to grid</li>
+            </ul>
+        </div>
     </div>
     <script src="js/level_editor.js"></script>
 </body>
