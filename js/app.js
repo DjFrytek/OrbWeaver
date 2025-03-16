@@ -129,7 +129,11 @@ async function levelFinished(finishTime, isScoreLegit, { showMedal = true } = {}
     console.log("LEVEL FINISHED! TIME: " + finishTime);
     lastReplay = await createReplayObject(currentLevel.name, physicsEngine.getFinishTime(), player.inputReplay);
 
-    saveReplayToServer(lastReplay);
+    if(currentLevelFromFile) {
+      console.log("Level loaded from file, not saving replay");
+    } else {
+      saveReplayToServer(lastReplay);
+    }
   }
   else console.log("REPLAY FINISHED! TIME: " + finishTime);
 
