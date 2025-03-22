@@ -71,37 +71,44 @@ canvas {
     padding: 20px;
 }
 
-#login-container {
+#login-container, #register-container {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #555;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    background-color: #222;
+}
+
+#login-container, #register-container {
     display: flex;
     flex-direction: column;
 }
 
-#login-container input {
-    margin-bottom: 5px; /* Reduced margin */
+#login-container input, #register-container input {
+    margin-bottom: 5px;
     padding: 5px;
-}
-
-#login-container button {
-    margin-bottom: 10px;
-    padding: 8px 12px; /* Increased padding */
-    background-color: #444; /* Brighter background */
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px; /* Rounded corners */
-    transition: background-color 0.3s ease; /* Smooth transition */
-}
-
-#login-container button:hover {
-    background-color: #555; /* Darker background on hover */
-}
-
-#login-container input {
     background-color: #333;
     color: #fff;
     border: 1px solid #555;
-    border-radius: 5px; /* Rounded corners */
-    padding: 8px; /* Increased padding */
+    border-radius: 5px;
+    padding: 8px;
+}
+
+#login-container button, #register-container button {
+    margin-bottom: 10px;
+    padding: 8px 12px;
+    background-color: #444;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+#login-container button:hover, #register-container button:hover {
+    background-color: #555;
 }
 
 #login-view h2 {

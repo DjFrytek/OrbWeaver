@@ -1,6 +1,6 @@
 async function signUp() {
-  const email = document.getElementById('email').value;
-  const password = document.getElementById('password').value;
+  const email = document.getElementById('register-email').value;
+  const password = document.getElementById('register-password').value;
 
   try {
     const response = await fetch('/api/signup', {
@@ -31,8 +31,8 @@ async function signUp() {
 async function signIn() {
   needRefreshReplays = true;
 
-  const email = document.getElementById('email').value;
-  const password = document.getElementById('password').value;
+  const email = document.getElementById('login-email').value;
+  const password = document.getElementById('login-password').value;
   const messageDiv = document.getElementById('auth-message');
 
   try {
