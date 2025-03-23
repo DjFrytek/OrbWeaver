@@ -1,3 +1,4 @@
+czyscic inputy po logowaniu rejestracji
 dzwiek checkpointa
 
 Edytor:

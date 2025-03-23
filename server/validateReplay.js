@@ -30,7 +30,7 @@ fs.readFile(levelFilePath, 'utf8', (err, data) => {
     // Parse the level data from JSON
     const levelData = JSON.parse(data);
     
-    let legit = true;
+    let finishedLevel = true;
 
     // Here you can do something with the levelData, such as further processing
     // (for example, using the Victor library or comparing data)
@@ -43,25 +43,25 @@ fs.readFile(levelFilePath, 'utf8', (err, data) => {
       physicsEngine.update();
       if(physicsEngine.elapsedTime > replay.finishTime + 1000) {
         console.log("Validation time passed");
-        legit = false;
+        finishedLevel = false;
         break;
       }
     }
     if(player.dead) {
       console.log("player died");
-      legit = false;
+      finishedLevel = false;
     }
     
     if(parseFloat((validatedTime / 1000).toFixed(2)) != parseFloat((replay.finishTime / 1000).toFixed(2))) {
       console.log("Times dont match");
       console.log("supposed time: ", replay.finishTime, " validated time: ", validatedTime);
-      legit = false;
+      finishedLevel = validatedTime;
     }
-    if(!legit) console.log("cheated replay ", replay.levelId, replay.finishTime);
+    if(!finishedLevel) console.log("cheated replay ", replay.levelId, replay.finishTime);
 
 
     // Send the result back to the main thread
-    parentPort.postMessage(legit);
+    parentPort.postMessage(Math.floor(finishedLevel));
 });
 
 

@@ -138,7 +138,7 @@ app.post('/api/save-score', async (req, res) => {
             const { data, error } = await supabase
               .from('replays')
               .insert([
-                { levelId: levelId, finishTime: finishTime, replayData: replayData, playerId: userId },
+                { levelId: levelId, finishTime: result, replayData: replayData, playerId: userId },
               ]);
 
             if (error) {
@@ -174,7 +174,7 @@ app.post('/api/save-score', async (req, res) => {
           const { data, error } = await supabase
             .from('replays')
             .insert([
-              { levelId: levelId, finishTime: finishTime, replayData: replayData, playerId: userId },
+              { levelId: levelId, finishTime: result, replayData: replayData, playerId: userId },
             ]);
     
           if (error) {
