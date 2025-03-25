@@ -169,7 +169,6 @@ app.post('/api/save-score', async (req, res) => {
       worker.on('message', async (result) => {
         if(result) {
 
-
           // If no replay exists, insert the new replay
           const { data, error } = await supabase
             .from('replays')

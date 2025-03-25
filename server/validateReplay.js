@@ -61,7 +61,8 @@ fs.readFile(levelFilePath, 'utf8', (err, data) => {
 
 
     // Send the result back to the main thread
-    parentPort.postMessage(Math.floor(finishedLevel));
+    let x = Math.floor(validatedTime);
+    parentPort.postMessage(x);
 });
 
 
